@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    $basetexture "models/hl_resurgence/hlze/hgrunt/goggle_chrome"
+	$alphatest 1
+}
