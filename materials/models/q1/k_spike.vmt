@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/q1/k_spike"
+	$selfillum 1
+}
