@@ -17,7 +17,7 @@ ENT.HasBloodPool = false
 --ENT.RangeAttackAngleRadius = 60
 -- Flinching --
 ENT.CanFlinch = 1
-ENT.FlinchChance = 1
+ENT.FlinchChance = 2
 -- Death --
 ENT.GibOnDeathDamagesTable = {"All"}
 --ENT.HasDeathAnimation = true
