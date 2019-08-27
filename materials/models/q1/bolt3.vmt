@@ -1,4 +1,4 @@
-"vertexlitgeneric"
+"unlitgeneric"
 {
 	"$basetexture" "models/q1/bolt2"
 	$selfillum 1

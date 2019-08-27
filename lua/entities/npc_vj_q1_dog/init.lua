@@ -28,7 +28,7 @@ ENT.SoundTbl_Pain = {"q1/dog/dpain1.wav"}
 ENT.SoundTbl_Death = {"q1/dog/ddeath.wav"}
 
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(25, 13, 20), Vector(-2, -13, -26))
+	self:SetCollisionBounds(Vector(30, 22, 45), Vector(-32, -22, 0))
 end
 
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
