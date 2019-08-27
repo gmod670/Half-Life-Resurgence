@@ -32,7 +32,7 @@ function ENT:CustomOnInitialize()
 end
 
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
-	if self:Health() < -35 then
+	if self:Health() <= -35 then
 		self.HasDeathSounds = false
 			if self.HasGibDeathParticles == true then
 				local bloodeffect = EffectData()
