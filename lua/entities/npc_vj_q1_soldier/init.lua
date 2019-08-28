@@ -1,58 +1,99 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2015 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.VJ_NPC_Class = {"CLASS_QUAKE1"}
-ENT.Model = "models/quake1/soldier_fixx.mdl"
-ENT.HasDeathRagdoll = false
-ENT.HasDeathAnimation = true
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.StartHealth = 30
-ENT.DeathAnimationTime = 4
-ENT.BloodColor = "Red"
-ENT.BloodDecalUseGMod = true
-ENT.CanFlinch = 1
-ENT.MeleeAttackDamage = 16
-ENT.MeleeAttackDistance = 300
-ENT.MeleeAttackDamageDistance = 350
-ENT.FlinchChance = 1
-ENT.FlinchAnimation_UseSchedule = false
-ENT.ScheduleTbl_Flinch = {SCHED_BIG_FLINCH}
-ENT.LeapToMeleeDistance = 100
-ENT.LeapAttackDamageDistance = 100
-ENT.HasExtraMeleeAttackSounds = true
-ENT.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1}
-ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-ENT.SoundTbl_Alert = { "q1/soldier/sight1.wav" }
-ENT.SoundTbl_MeleeAttackMiss = { "q1/soldier/sattck1.wav" }
-ENT.SoundTbl_MeleeAttackExtra = { "q1/soldier/sattck1.wav" }
-ENT.SoundTbl_Idle = { "q1/soldier/idle.wav" }
-ENT.SoundTbl_Pain = { "q1/soldier/pain1.wav", "q1/soldier/pain2.wav" }
-ENT.SoundTbl_Death = { "q1/soldier/death1.wav" }
+ENT.Model = "models/quake1/soldier.mdl"
 ENT.HullType = HULL_HUMAN
+ENT.StartHealth = GetConVarNumber("vj_q1_grunt_h")
+ENT.HasMeleeAttack = true 
+ENT.GibOnDeathDamagesTable = {"All"}
+ENT.CanFlinch = 1
+ENT.FlinchChance = 1
+ENT.Weapon_NoSpawnMenu = true
+ENT.DisableWeaponFiringGesture = true
+ENT.MoveRandomlyWhenShooting = false
+ENT.AnimTbl_Flinch = {"vjseq_pain","vjseq_painb","vjseq_painc"}
+ENT.HasFootStepSound = false
+ENT.SoundTbl_Alert = {"q1/soldier/sight1.wav"}
+ENT.SoundTbl_Idle = {"q1/soldier/idle.wav"}
+ENT.SoundTbl_Pain = {"q1/soldier/pain1.wav","q1/soldier/pain2.wav"}
+ENT.SoundTbl_Death = {"q1/soldier/death1.wav"}
 
+ENT.GeneralSoundPitch1 = 100
+ENT.Backpack_SpawnEnt = true
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetModelScale( 1.35, 0.1 ) 
+	--self:SetCollisionBounds(Vector(30, 22, 45), Vector(-32, -22, 0))
+	self:Give("weapon_vj_q1_soldiershotgun")
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "boom" then
+		local wep = self:GetActiveWeapon()
+		if IsValid(wep) then
+			wep:NPCShoot_Primary(ShootPos,ShootDir)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	if self:Health() <= -35 then
+		self.Backpack_SpawnEnt = false
+		self.HasDeathSounds = false
+			if self.HasGibDeathParticles == true then
+				local bloodeffect = EffectData()
+				bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+				bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
+				bloodeffect:SetScale(120)
+				util.Effect("VJ_Blood1",bloodeffect)
+			
+				local bloodspray = EffectData()
+				bloodspray:SetOrigin(self:GetPos())
+				bloodspray:SetScale(8)
+				bloodspray:SetFlags(3)
+				bloodspray:SetColor(0)
+				util.Effect("bloodspray",bloodspray)
+				util.Effect("bloodspray",bloodspray)
+			end
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib3.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,20))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib2.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,30))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_guard.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+		return true -- Return to true if it gibbed!
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+	local name = argent:GetName()
+	PrintMessage( HUD_PRINTCONSOLE, " " )
+	PrintMessage( HUD_PRINTCONSOLE, ""..name.." was shot by a Grunt" )
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+	VJ_EmitSound(self,"q1/player/udeath.wav",90,math.random(100,100))
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+	self:SetBodygroup(0,1)
+	if self.Backpack_SpawnEnt == true then
+		self.Backpack = ents.Create("q1_backpack")
+		self.Backpack:SetPos(self:GetPos() + self:GetUp()*30)
+		self.Backpack:SetAngles(self:GetAngles())
+		self.Backpack:Spawn()
+		self.Backpack:Activate()
+		self.Backpack.AmmoType = "Q1Shells"
+		self.Backpack.Amount = 5
+	end
+end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2015 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

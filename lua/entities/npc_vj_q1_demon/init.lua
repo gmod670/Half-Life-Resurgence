@@ -46,7 +46,7 @@ ENT.HasFootStepSound = true
 ENT.FootStepSoundLevel = 75
 ENT.GeneralSoundPitch1 = 100
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20,20,35),Vector(-20,-20,-26))
 	self.SoundTbl_Alert = {"q1/demon/sight2.wav"}
@@ -56,12 +56,11 @@ function ENT:CustomOnInitialize()
 	self.SoundTbl_LeapAttackJump = {"q1/demon/djump.wav"}
 	self.SoundTbl_LeapAttackDamage = {"q1/demon/dhit.wav"}
 	self.SoundTbl_MeleeAttackExtra = {"q1/demon/dhit.wav"}
-	--ENT.SoundTbl_MeleeAttack = {"q1/demon/dhit.wav"}
 	self.SoundTbl_Pain = {"q1/demon/dpain1.wav"}
 	self.SoundTbl_Death = {"q1/demon/ddeath.wav"}
 	self.SoundTbl_FootStep = {"q1/demon/foot.wav","q1/demon/foot2.wav"}
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "melee" then
 		self:MeleeAttackCode()
@@ -70,7 +69,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 	end
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	if self:Health() <= -80 then
 		self.HasDeathSounds = false
@@ -94,7 +93,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,30))})
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_demon.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,25))})
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib2.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,25))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib3.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib3.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,5))})
 		return true -- Return to true if it gibbed!
 	end
 end
@@ -103,13 +102,12 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"q1/player/udeath.wav",90,math.random(100,100))
 	return false
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	local name = argent:GetName()
 	PrintMessage( HUD_PRINTCONSOLE, " " )
 	PrintMessage( HUD_PRINTCONSOLE, "'"..name.."' was eviscerated by a Fiend" )
 end
-
 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

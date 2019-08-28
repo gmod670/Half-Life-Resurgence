@@ -7,7 +7,7 @@
 ------------------ Addon Information ------------------
 local PublicAddonName = "Quake SNPCs"
 local AddonName = "Quake SNPCs"
-local AddonType = "SNPCs"
+local AddonType = "SNPC"
 local AutorunFile = "autorun/vj_as_autorun.lua"
 -------------------------------------------------------
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
@@ -18,6 +18,7 @@ if VJExists == true then
 	
 	VJ.AddNPC("Fiend","npc_vj_q1_demon",vCat)
 	VJ.AddNPC("Rottweiler","npc_vj_q1_dog",vCat)
+	VJ.AddNPC("Grunt","npc_vj_q1_soldier",vCat)
 	--VJ.AddNPC("Enforcer","npc_vj_q1_enforcer",vCat)
 	--VJ.AddNPC("Death Knight","npc_vj_q1_hknight",vCat)
 	--VJ.AddNPC("Ogre","npc_vj_q1_ogre",vCat)
@@ -26,7 +27,6 @@ if VJExists == true then
 	--VJ.AddNPC("Shub-Niggurath","npc_vj_q1_oldone",vCat)
 	--VJ.AddNPC("Vore","npc_vj_q1_shalrath",vCat)
 	--VJ.AddNPC("Shambler","npc_vj_q1_shambler",vCat)
-	--VJ.AddNPC("Grunt","npc_vj_q1_soldier",vCat)
 	--VJ.AddNPC("Spawn","npc_vj_q1_tarbaby",vCat)
 	--VJ.AddNPC("Scrag","npc_vj_q1_wizard",vCat)
 	--VJ.AddNPC("Zombie","npc_vj_q1_zombie",vCat)
@@ -58,7 +58,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_q1_dog_dmg",24)
 	VJ.AddConVar("vj_q1_dog_leap_dmg",15)
 	VJ.AddConVar("vj_q1_grunt_h",30)
-	VJ.AddConVar("vj_q1_grunt_dmg",16)
+	--VJ.AddConVar("vj_q1_grunt_dmg",16)
 	VJ.AddConVar("vj_q1_zombie_h",60)
 	VJ.AddConVar("vj_q1_zombie_dmg",10)
 	VJ.AddConVar("vj_q1_ogre_h",200)

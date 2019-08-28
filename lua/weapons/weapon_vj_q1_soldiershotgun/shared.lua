@@ -1,60 +1,63 @@
 if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "A Dummy Weapon"
-SWEP.Author 					= "DrVrej"
+SWEP.PrintName					= "Grunt's Shotgun"
+SWEP.Author 					= "oteek"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "VJ Base Dummies"
+SWEP.Category					= "VJ Base"
+	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
+SWEP.NPC_CustomSpread	 		= 0.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
+SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_ExtraFireSound			= {"vj_hlr/hl1_weapon/shotgun/scock1.wav"} -- Plays an extra sound after it fires (Example: Bolt action sound)
+SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.ViewModel					= "" -- The view model (First person)
-SWEP.WorldModel					= "" -- The world model (Third person, when a NPC is holding it, on ground, etc.)
-SWEP.HoldType 					= "" -- List of holdtypes are in the GMod wiki
-SWEP.Spawnable					= true
+SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.WorldModel					= "models/quake1/soldier_gun.mdl"
+SWEP.HoldType 					= "shotgun"
+SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
+	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
+SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_CustomPositionAngle = Vector(0,180,90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0,-15,0)
+SWEP.WorldModel_CustomPositionBone = "RHand1" -- The bone it will use as the main point
+	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.Primary.Damage				= 4 -- Damage
+SWEP.Primary.NumberOfShots		= 4 -- How many shots per attack?
+SWEP.Primary.ClipSize			= 10 -- Max amount of bullets per clip
+SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Sound				= {"q1/soldier/sattck1.wav"}
+SWEP.Primary.DistantSound		= {"q1/soldier/sattck1_dis.wav"}
+SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_ShotgunShell1"
 
--- Remember to add rest of the weapon by decompiling VJ Base.
+-- Custom
+SWEP.HLR_ValidModels = {"models/quake1/soldier.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:PrimaryAttackEffects()
--- Put the effects, shell spawning, realistic flash, etc.
--- EXAMPLES:
- -- Full list of effects are in VJ Base, when you decompile it, go to lua/effects/
- -- There is also the effects that come with GMod, they are placed in the GMod wiki.
-	local vjeffectmuz = EffectData()
-	vjeffectmuz:SetOrigin(self.Owner:GetShootPos())
-	vjeffectmuz:SetEntity(self.Weapon)
-	vjeffectmuz:SetStart(self.Owner:GetShootPos())
-	vjeffectmuz:SetNormal(self.Owner:GetAimVector())
-	vjeffectmuz:SetAttachment(1)
-	vjeffectmuz:SetMagnitude(0)
-	util.Effect("VJ_Weapon_RifleMuzzle1",vjeffectmuz)
-	
-	if GetConVarNumber("vj_wep_nobulletshells") == 0 then
-	if !self.Owner:IsPlayer() then
-	local vjeffect = EffectData()
-	vjeffect:SetEntity(self.Weapon)
-	vjeffect:SetOrigin(self.Owner:GetShootPos())
-	vjeffect:SetNormal(self.Owner:GetAimVector())
-	vjeffect:SetAttachment(1)
-	util.Effect("VJ_Weapon_RifleShell1",vjeffect) end
+function SWEP:CustomOnInitialize()
+	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
+		if IsValid(self) && IsValid(self.Owner) then
+			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
+				if IsValid(self.Owner:GetCreator()) then
+					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+				end
+				self:Remove()
+			else
+				self.NPC_NextPrimaryFire = false
+			end
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnDrawWorldModel() -- This is client only!
+	if IsValid(self.Owner) then
+		self.WorldModel_Invisible = true
+		return false
+	else
+		self.WorldModel_Invisible = false
+		return true -- return false to not draw the world model
 	end
-
-	if (SERVER) then
-	if GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
-	local FireLight1 = ents.Create("light_dynamic")
-	FireLight1:SetKeyValue("brightness", "2")
-	if self.Owner:IsPlayer() then
-	FireLight1:SetKeyValue("distance", "200") else FireLight1:SetKeyValue("distance", "150") end
-	FireLight1:SetLocalPos(self.Owner:GetShootPos() +self:GetForward()*40 + self:GetUp()*-40)
-	FireLight1:SetLocalAngles(self:GetAngles())
-	FireLight1:Fire("Color", "255 150 60")
-	FireLight1:SetParent(self)
-	FireLight1:Spawn()
-	FireLight1:Activate()
-	FireLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(FireLight1)
-	timer.Simple(0.07,function() if self:IsValid() then FireLight1:Remove() end end)
-	end
- end
 end
