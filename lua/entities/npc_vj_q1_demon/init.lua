@@ -104,9 +104,11 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
-	local name = argent:GetName()
-	PrintMessage( HUD_PRINTCONSOLE, " " )
-	PrintMessage( HUD_PRINTCONSOLE, "'"..name.."' was eviscerated by a Fiend" )
+	if IsValid(argent) then
+		local name = argent:GetName()
+		PrintMessage( HUD_PRINTCONSOLE, " " )
+		PrintMessage( HUD_PRINTCONSOLE, "'"..name.."' was eviscerated by a Fiend" )
+	end
 end
 
 /*-----------------------------------------------
