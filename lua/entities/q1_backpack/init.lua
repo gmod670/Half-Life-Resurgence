@@ -3,7 +3,7 @@ include('shared.lua')
 
 ENT.AmmoType = "SMG1"
 ENT.Amount = 1
-ENT.IsBeingRemoved = false
+--ENT.IsBeingRemoved = false
 
 function ENT:Initialize()
 	self:SetModel("models/quake1/backpack.mdl")

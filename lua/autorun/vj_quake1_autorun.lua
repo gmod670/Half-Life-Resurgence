@@ -19,7 +19,7 @@ if VJExists == true then
 	VJ.AddNPC("Fiend","npc_vj_q1_demon",vCat)
 	VJ.AddNPC("Rottweiler","npc_vj_q1_dog",vCat)
 	VJ.AddNPC("Grunt","npc_vj_q1_soldier",vCat)
-	--VJ.AddNPC("Enforcer","npc_vj_q1_enforcer",vCat)
+	VJ.AddNPC("Enforcer","npc_vj_q1_enforcer",vCat)
 	--VJ.AddNPC("Death Knight","npc_vj_q1_hknight",vCat)
 	--VJ.AddNPC("Ogre","npc_vj_q1_ogre",vCat)
 	--VJ.AddNPC("Ogre Marksman","npc_vj_q1_ogrem",vCat)
@@ -41,13 +41,14 @@ if VJExists == true then
 		
 	-- Precache Models --
 	util.PrecacheModel("models/quake1/demon.mdl")
+	util.PrecacheModel("models/quake1/dog.mdl")
 	util.PrecacheModel("models/quake1/knight.mdl")
 	util.PrecacheModel("models/quake1/ogre_chainsaw.mdl")
 	util.PrecacheModel("models/quake1/ogre_fix.mdl")
 	util.PrecacheModel("models/quake1/ogre_killed.mdl")
 	util.PrecacheModel("models/quake1/shambler_anim.mdl")
 	util.PrecacheModel("models/quake1/shambler_killed.mdl")
-	util.PrecacheModel("models/quake1/soldier_fixx.mdl")
+	util.PrecacheModel("models/quake1/soldier.mdl")
 	util.PrecacheModel("models/quake1/dog.mdl")
 	
 	-- ConVars --
@@ -58,7 +59,8 @@ if VJExists == true then
 	VJ.AddConVar("vj_q1_dog_dmg",24)
 	VJ.AddConVar("vj_q1_dog_leap_dmg",15)
 	VJ.AddConVar("vj_q1_grunt_h",30)
-	--VJ.AddConVar("vj_q1_grunt_dmg",16)
+	VJ.AddConVar("vj_q1_enforcer_h",80)
+	VJ.AddConVar("vj_q1_enforcer_laser_dmg",15)
 	VJ.AddConVar("vj_q1_zombie_h",60)
 	VJ.AddConVar("vj_q1_zombie_dmg",10)
 	VJ.AddConVar("vj_q1_ogre_h",200)

@@ -5,58 +5,23 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.VJ_NPC_Class = {"CLASS_QUAKE1"}
-ENT.Model = "models/quake1/demon.mdl"
-ENT.HasDeathRagdoll = false
-ENT.HasDeathAnimation = true
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.StartHealth = 300
-ENT.DeathAnimationTime = 5
-ENT.LeapAttackDamage = 40
-ENT.LeapAttackVelocityForward = 3000
-ENT.LeapAttackVelocityUp = 220
-ENT.BloodColor = "Red"
-ENT.BloodDecalUseGMod = true
-ENT.CanFlinch = 1
-ENT.MeleeAttackDamage = 15
-ENT.FlinchChance = 1
-ENT.FlinchAnimation_UseSchedule = true
-ENT.ScheduleTbl_Flinch = {SCHED_BIG_FLINCH}
-ENT.LeapToMeleeDistance = 100
-ENT.LeapAttackDamageDistance = 100
-ENT.HasExtraMeleeAttackSounds = true
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-ENT.AnimTbl_LeapAttack = {ACT_LEAP}
-ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-ENT.HasLeapAttack = true
-ENT.SoundTbl_Alert = { "q1/demon/sight2.wav" }
-ENT.SoundTbl_MeleeAttack = { "q1/demon/sight2.wav" }
-ENT.SoundTbl_MeleeAttackMiss = { "q1/demon/sight2.wav" }
-ENT.SoundTbl_Idle = { "q1/demon/idle1.wav" }
-ENT.SoundTbl_LeapAttackJump = { "q1/demon/djump.wav" }
-ENT.SoundTbl_LeapAttackDamage = { "q1/demon/dhit2.wav" }
-ENT.SoundTbl_MeleeAttackExtra = { "q1/demon/dhit2.wav" }
---ENT.SoundTbl_MeleeAttack = { "q1/demon/dhit2.wav" }
-ENT.SoundTbl_Pain = { "q1/demon/dpain1.wav" }
-ENT.SoundTbl_Death = { "q1/demon/ddeath.wav" }
-ENT.HullType = HULL_HUMAN
-
+ENT.Model = "models/quake1/enforcer.mdl"
+ENT.StartHealth = GetConVarNumber("vj_q1_enforcer_h")
+ENT.AnimTbl_Flinch = {"vjseq_paina","vjseq_painb","vjseq_painc","vjseq_paind"}
+ENT.IsEnforcer = true
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
+	--self:SetCollisionBounds(Vector(30, 22, 45), Vector(-32, -22, 0))
+	self:Give("weapon_vj_q1_enforcerblaster")
+	self.SoundTbl_Alert = {"q1/enforcer/sight1.wav","q1/enforcer/sight2.wav","q1/enforcer/sight3.wav","q1/enforcer/sight4.wav"}
+	self.SoundTbl_Idle = {"q1/enforcer/idle1.wav"}
+	self.SoundTbl_Pain = {"q1/enforcer/pain1.wav","q1/enforcer/pain2.wav"}
+	self.SoundTbl_Death = {"q1/enforcer/death1.wav"}
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	self.Weapon_ShotsSinceLastReload = 0
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2015 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

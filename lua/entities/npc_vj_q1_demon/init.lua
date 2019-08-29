@@ -48,7 +48,7 @@ ENT.GeneralSoundPitch1 = 100
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20,20,35),Vector(-20,-20,-26))
+	self:SetCollisionBounds(Vector(30,20,45),Vector(-20,-20,0))
 	self.SoundTbl_Alert = {"q1/demon/sight2.wav"}
 	self.SoundTbl_MeleeAttack = {"q1/demon/dhit2.wav"}
 	self.SoundTbl_MeleeAttackMiss = {"npc/zombie/claw_miss1.wav","npc/zombie/claw_miss2.wav"}

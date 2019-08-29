@@ -9,7 +9,9 @@ ENT.VJ_NPC_Class = {"CLASS_QUAKE1"}
 ENT.Model = "models/quake1/soldier.mdl"
 ENT.HullType = HULL_HUMAN
 ENT.StartHealth = GetConVarNumber("vj_q1_grunt_h")
-ENT.SightDistance = 1000
+ENT.BloodColor = "Red"
+ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Red"}
+ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.GibOnDeathDamagesTable = {"All"}
 ENT.CanFlinch = 1
@@ -17,19 +19,22 @@ ENT.FlinchChance = 1
 ENT.Weapon_NoSpawnMenu = true
 ENT.DisableWeaponFiringGesture = true
 ENT.MoveRandomlyWhenShooting = false
+ENT.HasLostWeaponSightAnimation = true
+ENT.HasItemDropsOnDeath = false
 ENT.AnimTbl_Flinch = {"vjseq_pain","vjseq_painb","vjseq_painc"}
 ENT.HasFootStepSound = false
-ENT.SoundTbl_Alert = {"q1/soldier/sight1.wav"}
-ENT.SoundTbl_Idle = {"q1/soldier/idle.wav"}
-ENT.SoundTbl_Pain = {"q1/soldier/pain1.wav","q1/soldier/pain2.wav"}
-ENT.SoundTbl_Death = {"q1/soldier/death1.wav"}
-
 ENT.GeneralSoundPitch1 = 100
+-- Custom
 ENT.Backpack_SpawnEnt = true
+ENT.IsEnforcer = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	--self:SetCollisionBounds(Vector(30, 22, 45), Vector(-32, -22, 0))
 	self:Give("weapon_vj_q1_soldiershotgun")
+	self.SoundTbl_Alert = {"q1/soldier/sight1.wav"}
+	self.SoundTbl_Idle = {"q1/soldier/idle.wav"}
+	self.SoundTbl_Pain = {"q1/soldier/pain1.wav","q1/soldier/pain2.wav"}
+	self.SoundTbl_Death = {"q1/soldier/death1.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -65,15 +70,25 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
 		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_guard.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+		if self.IsEnforcer == false then
+			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_guard.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+		else
+			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_mega.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+		end
 		return true -- Return to true if it gibbed!
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
-	local name = argent:GetName()
-	PrintMessage( HUD_PRINTCONSOLE, " " )
-	PrintMessage( HUD_PRINTCONSOLE, ""..name.." was shot by a Grunt" )
+	if IsValid(argent) then
+		local name = argent:GetName()
+		PrintMessage( HUD_PRINTCONSOLE, " " )
+		if self.IsEnforcer == false then
+			PrintMessage( HUD_PRINTCONSOLE, ""..name.." was shot by a Grunt" )
+		else
+			PrintMessage( HUD_PRINTCONSOLE, ""..name.." was blasted by a Enforcer" )
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
@@ -89,8 +104,12 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self.Backpack:SetAngles(self:GetAngles())
 		self.Backpack:Spawn()
 		self.Backpack:Activate()
-		self.Backpack.AmmoType = "Q1Shells"
 		self.Backpack.Amount = 5
+		if self.IsEnforcer == false then
+			self.Backpack.AmmoType = "Q1Shells"
+		else
+			self.Backpack.AmmoType = "Q1Cells"
+		end
 	end
 end
 /*-----------------------------------------------
