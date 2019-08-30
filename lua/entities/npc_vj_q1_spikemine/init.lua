@@ -16,7 +16,8 @@ ENT.Aerial_FlyingSpeed_Alerted = 300
 ENT.SoundTbl_Breath = {"q1/spikemine/spikmine.wav"}
 ENT.CallForHelp = false
 ENT.HasBreathSound = false
-ENT.BreathSoundLevel = 80
+ENT.BreathSoundLevel = 65
+ENT.DisableWandering = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(30, 22, 20), Vector(-32, -22, -20))
@@ -26,7 +27,7 @@ function ENT:CustomOnInitialize()
 		end
 	end)
 	self:SetTrigger(true)
-	self:UseTriggerBounds(true,35)
+	self:UseTriggerBounds(true,25)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
