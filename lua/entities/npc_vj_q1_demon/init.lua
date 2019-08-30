@@ -37,7 +37,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.MeleeAttackDamage = 15
 -- Animation Tables
-ENT.AnimTbl_LeapAttack = {ACT_LEAP}
+ENT.AnimTbl_LeapAttack = {"vjseq_leap"}
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 ENT.AnimTbl_Flinch = {"vjseq_pain"}
 -- Sound --

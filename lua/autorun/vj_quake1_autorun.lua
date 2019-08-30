@@ -8,7 +8,7 @@
 local PublicAddonName = "Quake SNPCs"
 local AddonName = "Quake SNPCs"
 local AddonType = "SNPC"
-local AutorunFile = "autorun/vj_as_autorun.lua"
+local AutorunFile = "autorun/vj_quake1_autorun.lua"
 -------------------------------------------------------
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
@@ -22,7 +22,7 @@ if VJExists == true then
 	VJ.AddNPC("Enforcer","npc_vj_q1_enforcer",vCat)
 	VJ.AddNPC("Spike Mine","npc_vj_q1_spikemine",vCat)
 	--VJ.AddNPC("Death Knight","npc_vj_q1_hknight",vCat)
-	--VJ.AddNPC("Ogre","npc_vj_q1_ogre",vCat)
+	VJ.AddNPC("Ogre","npc_vj_q1_ogre",vCat)
 	--VJ.AddNPC("Ogre Marksman","npc_vj_q1_ogrem",vCat)
 	--VJ.AddNPC("Knight","npc_vj_q1_knight",vCat)
 	--VJ.AddNPC("Shub-Niggurath","npc_vj_q1_oldone",vCat)

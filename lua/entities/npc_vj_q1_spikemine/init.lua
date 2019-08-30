@@ -12,7 +12,7 @@ ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.BloodColor = "Red"
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Red"}
 ENT.Aerial_FlyingSpeed_Calm = 80
-ENT.Aerial_FlyingSpeed_Alerted = 300
+ENT.Aerial_FlyingSpeed_Alerted = 350
 ENT.SoundTbl_Breath = {"q1/spikemine/spikmine.wav"}
 ENT.CallForHelp = false
 ENT.HasBreathSound = false
@@ -27,7 +27,7 @@ function ENT:CustomOnInitialize()
 		end
 	end)
 	self:SetTrigger(true)
-	self:UseTriggerBounds(true,25)
+	self:UseTriggerBounds(true,35)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -39,11 +39,11 @@ function ENT:CustomOnThink_AIEnabled()
 			self.Aerial_FlyingSpeed_Alerted = 800
 			self.HasBreathSound = true
 		else
-			self.Aerial_FlyingSpeed_Alerted = 300
+			self.Aerial_FlyingSpeed_Alerted = 350
 			self.HasBreathSound = true
 		end
 	else
-		self.Aerial_FlyingSpeed_Alerted = 300
+		self.Aerial_FlyingSpeed_Alerted = 350
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -76,6 +76,14 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:DeleteOnRemove(self.ExplosionLight1)
 	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 	util.BlastDamage(self,self,self:GetPos(),150,200) 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+	if IsValid(argent) then
+		local name = argent:GetName()
+		PrintMessage( HUD_PRINTCONSOLE, " " )
+		PrintMessage( HUD_PRINTCONSOLE, "'"..name.."' was blasted by a spike mine" )
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2015 by DrVrej, All rights reserved. ***
