@@ -53,7 +53,7 @@ end
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if (CLIENT) then return end
 	local laser = ents.Create("obj_vj_q1_enforcerproj")
-	laser:SetPos(self.Owner:GetBonePosition(self.Owner:LookupBone(self.WorldModel_CustomPositionBone)))
+	laser:SetPos(self.Owner:GetAttachment(self.Owner:LookupAttachment("0")).Pos)
 	laser:SetAngles(self.Owner:GetAngles())
 	laser:SetOwner(self.Owner)
 	laser:Activate()

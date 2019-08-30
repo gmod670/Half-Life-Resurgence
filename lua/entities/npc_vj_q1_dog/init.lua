@@ -26,11 +26,11 @@ ENT.SoundTbl_MeleeAttackExtra = {"q1/demon/dhit2.wav"}
 --ENT.SoundTbl_MeleeAttack = { "q1/dog/dhit2.wav" }
 ENT.SoundTbl_Pain = {"q1/dog/dpain1.wav"}
 ENT.SoundTbl_Death = {"q1/dog/ddeath.wav"}
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(30, 22, 45), Vector(-32, -22, 0))
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	if self:Health() <= -35 then
 		self.HasDeathSounds = false
@@ -60,7 +60,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		return true -- Return to true if it gibbed!
 	end
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	if IsValid(argent) then
 		local name = argent:GetName()
@@ -68,7 +68,7 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 		PrintMessage( HUD_PRINTCONSOLE, ""..name.." was mauled by a Rottweiler" )
 	end
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
