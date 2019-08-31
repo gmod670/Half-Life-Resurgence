@@ -10,14 +10,13 @@ ENT.MoveCollideType = nil -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, 
 ENT.CollisionGroupType = nil -- Collision type, recommended to keep it as it is
 ENT.SolidType = SOLID_VPHYSICS -- Solid type, recommended to keep it as it is
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
-ENT.CollideCodeWithoutRemoving = true
-ENT.DoesDirectDamage = false
+ENT.DoesDirectDamage = true
 ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
 ENT.RadiusDamageRadius = 250 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
 ENT.RadiusDamage = 40 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = false -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_BLAST -- Damage type
---ENT.DirectDamageType = DMG_BLAST
+ENT.DirectDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
 ENT.OnCollideSoundPitch1 = 100
 ENT.DecalTbl_DeathDecals = {"Scorch"}
@@ -29,6 +28,7 @@ ENT.TimeSinceSpawn = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
+	phys:SetMass(5)
 	phys:EnableGravity(true)
 	phys:SetBuoyancyRatio(0)
 end
@@ -60,23 +60,20 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 	if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
 		self:OnCollideSoundCode()
 	end
-	--if ( entity:IsValid() and entity:IsPlayer() or entity:IsNPC() ) then
- 	--	self:DeathEffects()
-	--end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
---[[
-function ENT:StartTouch( ent )
-	if ( ent:IsValid() or ent:IsPlayer() or ent:IsNPC() ) then
+function ENT:Touch(ent)
+	if ent:IsValid() or ent:IsPlayer() or ent:IsNPC() then
  		self:DeathEffects()
+		self:Remove()
 	end
 end
---]]
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects()
 	local effectdata = EffectData()
 	effectdata:SetOrigin(self:GetPos())
-	//effectdata:SetScale( 500 )
 	util.Effect("q1_exp", effectdata)
+	self:EmitSound("weapons/q1/r_exp3.wav", 100, 100)
 
 	self.ExplosionLight1 = ents.Create("light_dynamic")
 	self.ExplosionLight1:SetKeyValue("brightness", "4")
@@ -84,7 +81,6 @@ function ENT:DeathEffects()
 	self.ExplosionLight1:SetLocalPos(self:GetPos())
 	self.ExplosionLight1:SetLocalAngles( self:GetAngles() )
 	self.ExplosionLight1:Fire("Color", "255 150 0")
-	self:EmitSound("weapons/q1/r_exp3.wav", 100, 100)
 	self.ExplosionLight1:SetParent(self)
 	self.ExplosionLight1:Spawn()
 	self.ExplosionLight1:Activate()

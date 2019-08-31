@@ -34,7 +34,7 @@ function ENT:CustomOnThink_AIEnabled()
 	local controlled = self.VJ_IsBeingControlled
 	if IsValid(self:GetEnemy()) && !controlled then
 		local dist = self:VJ_GetNearestPointToEntityDistance(self:GetEnemy())
-		if !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60))) && dist > 50 then
+		if !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60))) && dist > 5 then
 			// Rush the player if not looking
 			self.Aerial_FlyingSpeed_Alerted = 800
 			self.HasBreathSound = true
