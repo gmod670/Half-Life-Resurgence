@@ -15,18 +15,18 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 
-	local vCat = "Half-Life Resurgence"
+	local vCat = "Half-Life Resurgence: HLZE"
 
-	VJ.AddNPC("Human Grunt (HLZE)","npc_vj_hlrze_hgrunt",vCat)
-	VJ.AddNPC("Barney (HLZE)","npc_vj_hlrze_barney",vCat)
-	VJ.AddNPC("Scientist (HLZE)","npc_vj_hlrze_scientist",vCat)
-	VJ.AddNPC("Zombie (HLZE)","npc_vj_hlrze_zombie",vCat)
-	VJ.AddNPC("Zombie Barney (HLZE)","npc_vj_hlrze_zbarney",vCat)
-	VJ.AddNPC("Zombie Soldier (HLZE)","npc_vj_hlrze_zsoldier",vCat)
-	VJ.AddNPC("Zombie Male Assasin (HLZE)","npc_vj_hlrze_zmassassin",vCat)
-	VJ.AddNPC("Zombie Female Assassin (HLZE)","npc_vj_hlrze_zfassassin",vCat)
-	VJ.AddNPC("Zombie Crasher (HLZE)","npc_vj_hlrze_zcrasher",vCat)
-	VJ.AddNPC("Headcrab (HLZE)","npc_vj_hlrze_headcrab",vCat)
+	VJ.AddNPC("Human Grunt","npc_vj_hlrze_hgrunt",vCat)
+	VJ.AddNPC("Barney","npc_vj_hlrze_barney",vCat)
+	VJ.AddNPC("Scientist","npc_vj_hlrze_scientist",vCat)
+	VJ.AddNPC("Zombie","npc_vj_hlrze_zombie",vCat)
+	VJ.AddNPC("Zombie Barney","npc_vj_hlrze_zbarney",vCat)
+	VJ.AddNPC("Zombie Soldier","npc_vj_hlrze_zsoldier",vCat)
+	VJ.AddNPC("Zombie Male Assasin","npc_vj_hlrze_zmassassin",vCat)
+	VJ.AddNPC("Zombie Female Assassin","npc_vj_hlrze_zfassassin",vCat)
+	VJ.AddNPC("Zombie Crasher","npc_vj_hlrze_zcrasher",vCat)
+	VJ.AddNPC("Headcrab","npc_vj_hlrze_headcrab",vCat)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
