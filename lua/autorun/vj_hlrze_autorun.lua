@@ -21,7 +21,7 @@ if VJExists == true then
 	VJ.AddNPC("Barney","npc_vj_hlrze_barney",vCat)
 	VJ.AddNPC("Scientist","npc_vj_hlrze_scientist",vCat)
 	VJ.AddNPC("Zombie","npc_vj_hlrze_zombie",vCat)
-	VJ.AddNPC("Zombie Barney","npc_vj_hlrze_zbarney",vCat)
+	VJ.AddNPC("Zombie Barney","npc_vj_hlrze_zombie_barney",vCat)
 	VJ.AddNPC("Zombie Soldier","npc_vj_hlrze_zsoldier",vCat)
 	VJ.AddNPC("Zombie Male Assasin","npc_vj_hlrze_zmassassin",vCat)
 	VJ.AddNPC("Zombie Female Assassin","npc_vj_hlrze_zfassassin",vCat)
