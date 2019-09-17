@@ -10,7 +10,7 @@ ENT.Model = "models/quake1/soldier.mdl"
 ENT.HullType = HULL_HUMAN
 ENT.StartHealth = GetConVarNumber("vj_q1_grunt_h")
 ENT.BloodColor = "Red"
-ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Red"}
+ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.GibOnDeathDamagesTable = {"All"}
@@ -65,15 +65,15 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 				util.Effect("bloodspray",bloodspray)
 				util.Effect("bloodspray",bloodspray)
 			end
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib3.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,20))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib2.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,30))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib3.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,20))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib2.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,30))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/gib1.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,10))})
 		if self.IsEnforcer == false then
-			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_guard.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_guard.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
 		else
-			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_mega.mdl",{BloodType="Red",BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+			self:CreateGibEntity("obj_vj_gib","models/quake1/gibs/h_mega.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
 		end
 		return true -- Return to true if it gibbed!
 	end
