@@ -1,6 +1,0 @@
-"vertexlitgeneric"
-{
-	// original shader: basetimeslightmap
-	"$basetexture" "models/hl_resurgence/hl1/bradley/brdly2_btile1"
-	"$surfaceprop" "metal"
-}
