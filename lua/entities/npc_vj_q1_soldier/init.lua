@@ -16,6 +16,9 @@ ENT.HasMeleeAttack = false
 ENT.GibOnDeathDamagesTable = {"All"}
 ENT.CanFlinch = 1
 ENT.FlinchChance = 1
+ENT.HasDeathAnimation = true
+ENT.HasDeathRagdoll = false
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.Weapon_NoSpawnMenu = true
 ENT.DisableWeaponFiringGesture = true
 ENT.MoveRandomlyWhenShooting = false
@@ -111,7 +114,18 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 			self.Backpack.AmmoType = "Q1Cells"
 		end
 	end
+	if self:Health() <= -35 then
+		return
+	else
+		self:Fire("BecomeRagdoll","",0)
+	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self:SetBodygroup(0,1)
+	self:Fire("BecomeRagdoll","",0.71)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

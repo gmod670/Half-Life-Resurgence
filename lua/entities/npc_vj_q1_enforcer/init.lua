@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = "models/quake1/enforcer.mdl"
 ENT.StartHealth = GetConVarNumber("vj_q1_enforcer_h")
 ENT.AnimTbl_Flinch = {"vjseq_paina","vjseq_painb","vjseq_painc","vjseq_paind"}
+//ENT.DeathAnimationTime = 0.3
 ENT.IsEnforcer = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

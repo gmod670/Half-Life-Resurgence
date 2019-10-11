@@ -8,8 +8,8 @@ include("shared.lua")
 ENT.Model = {"models/quake1/laser.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 10 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_ENERGYBEAM -- Damage type
-ENT.DecalTbl_DeathDecals = {"fadingscorch"}
+ENT.DirectDamageType = DMG_SHOCK -- Damage type
+ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"}
 ENT.SoundTbl_OnCollide = {"q1/enforcer/enfstop.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

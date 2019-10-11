@@ -31,6 +31,9 @@ ENT.MeleeAttackExtraTimers = {0.5}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanFlinch = 1
 ENT.FlinchChance = 1
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationTime = 0.8
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.HasExtraMeleeAttackSounds = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_smash","vjseq_swing"}
 ENT.AnimTbl_Flinch = {"vjseq_pain","vjseq_painb","vjseq_painc","vjseq_paind","vjseq_paine"}

@@ -15,6 +15,9 @@ ENT.LeapToMeleeDistance = 200
 ENT.LeapAttackDamageDistance = 100
 ENT.LeapAttackVelocityForward = 100
 ENT.LeapAttackVelocityUp = 150
+ENT.HasDeathAnimation = true
+ENT.UsesDamageForceOnDeath = false
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.SoundTbl_Alert = {"q1/dog/dsight.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"q1/dog/dattack1.wav"}
 ENT.SoundTbl_MeleeAttack = {"q1/demon/dhit.wav"}
@@ -67,6 +70,11 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 		PrintMessage( HUD_PRINTCONSOLE, " " )
 		PrintMessage( HUD_PRINTCONSOLE, ""..name.." was mauled by a Rottweiler" )
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self.HasDeathRagdoll = false
+	self:Fire("BecomeRagdoll","",0.53)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
