@@ -18,7 +18,7 @@ if VJExists == true then
 
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt_hd",vCat)
-		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hsergeant_hd",vCat)
+		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg_hd",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt_hd",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med_hd",vCat)
@@ -39,7 +39,7 @@ if VJExists == true then
 		VJ.AddNPC("Gargantua","npc_vj_hlr1_garg_hd",vCat)
 		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye_hd",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle_hd",vCat)
-		VJ.AddNPC("Alien Slave","npc_vj_hlr1_vortigaunt_hd",vCat)
+		VJ.AddNPC("Alien Slave","npc_vj_hlr1_alienslave_hd",vCat)
 			-- Headcrab
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab_hd",vCat)
 			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie_hd",vCat)
