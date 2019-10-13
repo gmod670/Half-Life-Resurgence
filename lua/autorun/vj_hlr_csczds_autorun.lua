@@ -8,7 +8,7 @@
 local PublicAddonName = "Half-Life Resurgence Condition Zero Deleted Scenes"
 local AddonName = "Half-Life Resurgence Condition Zero Deleted Scenes"
 local AddonType = "SNPC"
-local AutorunFile = "autorun/vj_hlr_hd_autorun.lua"
+local AutorunFile = "autorun/vj_hlr_csczds_autorun.lua"
 -------------------------------------------------------
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
@@ -20,6 +20,7 @@ if VJExists == true then
 		VJ.AddNPC("GIGN","npc_vj_csczds_gign",vCat)
 		-- Terrorist factions
 		VJ.AddNPC("Arctic Avengers","npc_vj_csczds_arctic",vCat)
+		VJ.AddNPC("Phoenix Connexion","npc_vj_csczds_terror",vCat)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
