@@ -14,6 +14,9 @@ ENT.StartHealth = 90
 
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,4))
+	if self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
+		self:SetSkin(math.random(0,3))
+	end
 	local randwep = math.random(1,5)
 	if randwep == 1 then
 		self:SetBodygroup(2,0)

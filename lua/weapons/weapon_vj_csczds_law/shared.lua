@@ -32,7 +32,7 @@ SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/law/law_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/law/law_fire-distant.wav"}
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/arctic.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/terror.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
