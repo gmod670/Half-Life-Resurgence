@@ -13,7 +13,7 @@ SWEP.NPC_CustomSpread	 		= 2.5 -- This is added on top of the custom spread that
 SWEP.NPC_ReloadSound			= {"vj_hlr/czeror_weapon/xm1014/reload_shotgun.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= false -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/czeror/weapons/w_xm1014.mdl"
 SWEP.HoldType 					= "shotgun"
 SWEP.Spawnable					= false
@@ -25,7 +25,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0,15.2,0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0,11.3,-0.6)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 6 -- Damage
+SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.NumberOfShots		= 7 -- How many shots per attack?
 SWEP.Primary.ClipSize			= 7 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "shotgun" -- Ammo type

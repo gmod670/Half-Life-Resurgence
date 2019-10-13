@@ -7,17 +7,24 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/czeror/arctic.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_T_RUSSIA"}
+ENT.GrenadeAttackModel = "models/vj_hlr/czeror/weapons/w_hegrenade.mdl"
 ENT.GrenadeAttackAttachment = "1" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.8 -- Time until the grenade is released
 ENT.StartHealth = 90
 
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,4))
-	local randwep = math.random(1,2)
+	local randwep = math.random(1,5)
 	if randwep == 1 then
 		self:SetBodygroup(2,0)
 	elseif randwep == 2 then
 		self:SetBodygroup(2,1)
+	elseif randwep == 3 then
+		self:SetBodygroup(2,2)
+	elseif randwep == 4 then
+		self:SetBodygroup(2,3)
+	elseif randwep == 5 then
+		self:SetBodygroup(2,4)
 	end
 	
 	self.SoundTbl_FootStep = {"vj_hlr/czeror_fx/npc_step1.wav","vj_hlr/czeror_fx/npc_step2.wav","vj_hlr/czeror_fx/npc_step3.wav","vj_hlr/czeror_fx/npc_step4.wav"}
