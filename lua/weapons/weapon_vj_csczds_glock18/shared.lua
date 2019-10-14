@@ -1,7 +1,7 @@
 if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "MP5"
+SWEP.PrintName					= "Glock-18"
 SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for Players and NPCs"
@@ -9,29 +9,29 @@ SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
-SWEP.NPC_ReloadSound			= {"vj_hlr/czeror_weapon/mp5/mp5-reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_ReloadSound			= {"vj_hlr/czeror_weapon/glock18/glock18_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_hlr/czeror/weapons/w_mp5.mdl"
-SWEP.HoldType 					= "smg"
+SWEP.WorldModel					= "models/vj_hlr/czeror/weapons/w_glock18.mdl"
+SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(0,17,0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,2,0.5)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0,-8.5,-0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
-SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/mp5/mp5-1.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/mp5/mp5-distant.wav"}
+SWEP.Primary.Damage				= 4 -- Damage
+SWEP.Primary.ClipSize			= 20 -- Max amount of bullets per clip
+SWEP.Primary.Ammo				= "Pistol" -- Ammo type
+SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/glock18/glock18-2.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/glock18/glock18-distant.wav"}
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/arctic.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/terror.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke

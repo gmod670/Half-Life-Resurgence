@@ -11,25 +11,10 @@ ENT.GrenadeAttackModel = "models/vj_hlr/czeror/weapons/w_hegrenade.mdl"
 ENT.GrenadeAttackAttachment = "1" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.8 -- Time until the grenade is released
 ENT.StartHealth = 90
+ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
+ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
 function ENT:HECU_CustomOnInitialize()
-	self:SetBodygroup(1,math.random(0,4))
-	if self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
-		self:SetSkin(math.random(0,3))
-	end
-	local randwep = math.random(1,5)
-	if randwep == 1 then
-		self:SetBodygroup(2,0)
-	elseif randwep == 2 then
-		self:SetBodygroup(2,1)
-	elseif randwep == 3 then
-		self:SetBodygroup(2,2)
-	elseif randwep == 4 then
-		self:SetBodygroup(2,3)
-	elseif randwep == 5 then
-		self:SetBodygroup(2,4)
-	end
-	
 	self.SoundTbl_FootStep = {"vj_hlr/czeror_fx/npc_step1.wav","vj_hlr/czeror_fx/npc_step2.wav","vj_hlr/czeror_fx/npc_step3.wav","vj_hlr/czeror_fx/npc_step4.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/czeror_npc/t/t_beonlook_ru.wav","vj_hlr/czeror_npc/t/t_couldshow_ru.wav","vj_hlr/czeror_npc/t/t_damnrats_ru.wav","vj_hlr/czeror_npc/t/t_idle1_am.wav","vj_hlr/czeror_npc/t/t_idle2_am.wav","vj_hlr/czeror_npc/t/t_idle3_am.wav","vj_hlr/czeror_npc/t/t_idle4_am.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/czeror_npc/t/t_whatstat_ru.wav","vj_hlr/czeror_npc/t/t_repin_ru.wav","vj_hlr/czeror_npc/t/t_anysign_ru.wav","vj_hlr/czeror_npc/t/t_echeckin_ru.wav","vj_hlr/czeror_npc/t/t_makesno_ru.wav"}
@@ -44,6 +29,38 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_AllyDeath = {"vj_hlr/czeror_npc/t/t_whathapp_ru.wav",}
 	self.SoundTbl_Pain = {"vj_hlr/czeror_npc/t/t_pain1_ru.wav","vj_hlr/czeror_npc/t/t_pain2_ru.wav","vj_hlr/czeror_npc/t/t_pain3_ru.wav","vj_hlr/czeror_npc/t/t_pain4_ru.wav","vj_hlr/czeror_npc/t/t_pain3_ru.wav"}
 	self.SoundTbl_Death = {"vj_hlr/czeror_npc/t/t_death1_ru.wav","vj_hlr/czeror_npc/t/t_death2_ru.wav","vj_hlr/czeror_npc/t/t_death3_ru.wav","vj_hlr/czeror_npc/t/t_death4_ru.wav"}
+	
+	self:SetBodygroup(1,math.random(0,4))
+	if self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
+		self:SetSkin(math.random(0,3))
+	end
+	local randwep = math.random(1,8)
+	if randwep == 1 then
+		self:SetBodygroup(2,0)
+	elseif randwep == 2 then
+		self:SetBodygroup(2,1)
+	elseif randwep == 3 then
+		self:SetBodygroup(2,2)
+	elseif randwep == 4 then
+		self:SetBodygroup(2,3)
+	elseif randwep == 5 then
+		self:SetBodygroup(2,4)
+	elseif randwep == 6 then
+		self:SetBodygroup(2,5)
+	elseif randwep == 70 then
+		self:SetBodygroup(2,6)
+		self.SoundTbl_MeleeAttack = {"vj_hlr/czeror_weapon/machete/machete_hit1.wav","vj_hlr/czeror_weapon/machete/machete_hit2.wav","vj_hlr/czeror_weapon/machete/machete_hit3.wav","vj_hlr/czeror_weapon/machete/machete_hit4.wav",}
+		self.SoundTbl_MeleeAttackMiss = {"vj_hlr/czeror_weapon/machete/melee_whoosh1.wav","vj_hlr/czeror_weapon/machete/melee_whoosh2.wav"}
+		self.SoundTbl_Alert = {"vj_hlr/czeror_npc/t/t_melee1_ru.wav","vj_hlr/czeror_npc/t/t_melee2_ru.wav","vj_hlr/czeror_npc/t/t_melee3_ru.wav"}
+		self.AnimTbl_IdleStand = {ACT_HL2MP_IDLE_MELEE}
+		self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_SLAM}
+		self.AnimTbl_Walk = {ACT_MP_WALK_MELEE}
+		self.AnimTbl_Run = {ACT_HL2MP_RUN_MELEE}
+	elseif randwep == 7 then
+		self:SetBodygroup(2,7)
+	elseif randwep == 8 then
+		self:SetBodygroup(2,8)
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
