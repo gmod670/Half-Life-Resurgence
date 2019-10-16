@@ -29,7 +29,8 @@ SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/tmp/tmp-1.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/tmp/tmp-distant.wav"}
-
+SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.PrimaryEffects_SpawnDynamicLight = false
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/terror.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

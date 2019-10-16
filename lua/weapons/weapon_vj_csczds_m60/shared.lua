@@ -29,6 +29,7 @@ SWEP.Primary.ClipSize			= 100 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/m60/m60-1.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/m60/m60-distant.wav"}
+SWEP.NPC_AnimationTbl_Custom     = {ACT_GESTURE_RANGE_ATTACK_HMG1}
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/gign.mdl","models/vj_hlr/czeror/terror.mdl"}
