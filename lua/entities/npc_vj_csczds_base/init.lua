@@ -19,10 +19,10 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
-ENT.GrenadeAttackModel = "models/vj_hlr/weapons/w_grenade.mdl" -- The model for the grenade entity
+ENT.GrenadeAttackModel = "models/vj_hlr/czeror/weapons/w_hegrenade.mdl"
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
-ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
-ENT.TimeUntilGrenadeIsReleased = 1.3 -- Time until the grenade is released
+ENT.GrenadeAttackAttachment = "1" -- The attachment that the grenade will spawn at
+ENT.TimeUntilGrenadeIsReleased = 1.8 -- Time until the grenade is released
 ENT.NextThrowGrenadeTime1 = 10 -- Time until it runs the throw grenade code again | The first # in math.random
 ENT.NextThrowGrenadeTime2 = 12 -- Time until it runs the throw grenade code again | The second # in math.random
 ENT.ThrowGrenadeChance = 3 -- Chance that it will throw the grenade | Set to 1 to throw all the time
@@ -46,13 +46,15 @@ ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
-ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
-ENT.WeaponAttackSecondaryTimeUntilFire = 0.9 -- The weapon uses this integer to set the time until the firing code is ran
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
+ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
+ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_FootStep = {"vj_hlr/czeror_fx/npc_step1.wav","vj_hlr/czeror_fx/npc_step2.wav","vj_hlr/czeror_fx/npc_step3.wav","vj_hlr/czeror_fx/npc_step4.wav"}
 	-- ====== Controller Variables ====== --
 ENT.Controller_FirstPersonBone = "Bip01 Head"
 ENT.Controller_FirstPersonOffset = Vector(4,0,5)
@@ -70,12 +72,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+	self.Faction_WepBG = 2
 	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
 		self.Faction_Type = 0
-		self.Faction_WepBG = 2
 	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" then
 		self.Faction_Type = 1
-		self.Faction_WepBG = 2
 	end
 	
 	self.Faction_NextMouthMove = CurTime()
@@ -193,6 +194,33 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
 				self.Weapon_StartingAmmoAmount = 30
 			end
+		elseif self.Faction_Type == 1 then
+			if bgroup == 0 then -- MP5
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_mp5")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 1 then -- XM1014
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_xm1014")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			elseif bgroup == 2 then -- M72 LAW
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_law")
+				self.AnimTbl_WeaponReload = {ACT_HL2MP_GESTURE_RELOAD_RPG}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK2}
+				self.AnimTbl_IdleStand = {ACT_IDLE_RPG}
+				self.AnimTbl_Walk = {ACT_IDLE_RPG}
+				self.AnimTbl_Run = {ACT_RUN_RPG}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
+				self.Weapon_StartingAmmoAmount = 1
+			end
 		end
 	end
 end
@@ -308,14 +336,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	-- Regular Human Grunt head gib
-	if self.Faction_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+	if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
 		//self:SetBodygroup(1,4)
 		self.GibOnDeathDamagesTable = {"All"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	self:SetBodygroup(self.Faction_WepBG,9)
+	if self.Faction_Type == 0 then
+		self:SetBodygroup(self.Faction_WepBG,9)
+	else
+		self:SetBodygroup(self.Faction_WepBG,8)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)

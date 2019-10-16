@@ -17,60 +17,48 @@ ENT.ShakeWorldOnDeathAmplitude = 16 -- How much the screen will shake | From 1 t
 ENT.ShakeWorldOnDeathRadius = 3000 -- How far the screen shake goes, in world units
 ENT.ShakeWorldOnDeathtDuration = 1 -- How long the screen shake will last, in seconds
 ENT.ShakeWorldOnDeathFrequency = 200 -- The frequency
+ENT.DelayedRemove = 3
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/czeror_weapon/law/law_travel.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/czeror_weapon/explode2.wav","vj_hlr/czeror_weapon/explode3.wav","vj_hlr/czeror_weapon/explode4.wav","vj_hlr/czeror_weapon/explode5.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	//util.SpriteTrail(self, 0, Color(90,90,90,255), false, 10, 1, 3, 1/(15+1)*0.5, "trails/smoke.vmt")
-	ParticleEffectAttach("vj_rpg1_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	ParticleEffectAttach("vj_rpg2_smoke2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	//ParticleEffectAttach("rocket_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	//ParticleEffectAttach("smoke_burning_engine_01", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	
-	/*self.StartLight1 = ents.Create("light_dynamic")
-	self.StartLight1:SetKeyValue("brightness", "1")
-	self.StartLight1:SetKeyValue("distance", "200")
-	self.StartLight1:SetLocalPos(self:GetPos())
-	self.StartLight1:SetLocalAngles( self:GetAngles() )
-	self.StartLight1:Fire("Color", "255 150 0")
-	self.StartLight1:SetParent(self)
-	self.StartLight1:Spawn()
-	self.StartLight1:Activate()
-	self.StartLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.StartLight1)*/
+	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","15.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","4")
-		spr:SetPos(self:GetPos() + Vector(0,0,90))
-		spr:Spawn()
-		spr:Fire("Kill","",0.9)
-		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
-		
-		light = ents.Create("light_dynamic")
-		light:SetKeyValue("brightness", "4")
-		light:SetKeyValue("distance", "300")
-		light:SetLocalPos(self:GetPos())
-		light:SetLocalAngles(self:GetAngles())
-		light:Fire("Color", "255 150 0")
-		light:SetParent(self)
-		light:Spawn()
-		light:Activate()
-		light:Fire("TurnOn", "", 0)
-		VJ_EmitSound(self,"vj_hlr/czeror_weapon/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+	VJ_EmitSound(self,"vj_hlr/czeror_weapon/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","4")
+	spr:SetPos(self:GetPos() + Vector(0,0,80))
+	spr:Spawn()
+	spr:Fire("Kill","",0.9)
+	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+	
+	explight = ents.Create("light_dynamic")
+	explight:SetKeyValue("brightness", "4")
+	explight:SetKeyValue("distance", "300")
+	explight:SetLocalPos(data.HitPos)
+	explight:SetLocalAngles(self:GetAngles())
+	explight:Fire("Color", "255 150 0")
+	explight:SetParent(self)
+	explight:Spawn()
+	explight:Activate()
+	explight:Fire("TurnOn", "", 0)
+	explight:Fire("Kill", "", 0.1)
+	self:DeleteOnRemove(explight)
+	
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
