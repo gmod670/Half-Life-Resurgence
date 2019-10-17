@@ -7,6 +7,8 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/czeror/gign.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
+ENT.BecomeEnemyToPlayer = true
 -- unused
 //vj_hlr/czeror_npc/ct/ct_atcheck4_fr.wav
 //vj_hlr/czeror_npc/ct/ct_blinded_fr.wav
@@ -26,7 +28,7 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 //vj_hlr/czeror_npc/ct/ct_cantgof_fr.wav
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faction_CustomOnInitialize()
-	self.SoundTbl_Idle = {"vj_hlr/czeror_npc/ct/ct_maintalert_fr.wav","vj_hlr/czeror_npc/ct/ct_keepitdown_fr.wav","vj_hlr/czeror_npc/ct/ct_alltsound_fr.wav"}
+	self.SoundTbl_Idle = {"vj_hlr/czeror_npc/t/t_idle1_am.wav","vj_hlr/czeror_npc/t/t_idle2_am.wav","vj_hlr/czeror_npc/t/t_idle3_am.wav","vj_hlr/czeror_npc/t/t_idle4_am.wav","vj_hlr/czeror_npc/ct/ct_maintalert_fr.wav","vj_hlr/czeror_npc/ct/ct_keepitdown_fr.wav","vj_hlr/czeror_npc/ct/ct_alltsound_fr.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/czeror_npc/ct/ct_scanperi_fr.wav","vj_hlr/czeror_npc/ct/ct_repinteam_fr.wav","vj_hlr/czeror_npc/ct/ct_pointsec_fr.wav","vj_hlr/czeror_npc/ct/ct_nomovesec_fr.wav","vj_hlr/czeror_npc/ct/ct_checksights_fr.wav","vj_hlr/czeror_npc/ct/ct_checkforclr_fr.wav","vj_hlr/czeror_npc/ct/ct_allposch_fr.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/czeror_npc/ct/ct_readytor_fr.wav","vj_hlr/czeror_npc/ct/ct_clear3_fr.wav","vj_hlr/czeror_npc/ct/ct_allq_fr.wav","vj_hlr/czeror_npc/ct/ct_allclear_fr.wav","vj_hlr/czeror_npc/ct/ct_allclear2_fr.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/czeror_npc/ct/ct_movein_fr.wav","vj_hlr/czeror_npc/ct/ct_letsmove_fr.wav","vj_hlr/czeror_npc/ct/ct_letsmove2_fr.wav","vj_hlr/czeror_npc/ct/ct_gogogo_fr.wav","vj_hlr/czeror_npc/ct/ct_engaging4_fr.wav","vj_hlr/czeror_npc/ct/ct_engagtarg_fr.wav","vj_hlr/czeror_npc/ct/ct_entereng_fr.wav"}
