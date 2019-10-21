@@ -183,12 +183,19 @@ function ENT:LeapDamageCode()
 			if (v:IsNPC() || (v:IsPlayer() && v:Alive())) && (self:Disposition(v) != D_LI) && (v != self) && (v:GetClass() != self:GetClass()) or VJ_IsProp(v) == true or v:GetClass() == "func_breakable_surf" or v:GetClass() == "func_breakable" then
 				self:CustomOnLeapAttack_AfterChecks(v)
 				local leapdmg = DamageInfo()
-				leapdmg:SetDamage(v:Health() -1)
+				leapdmg:SetDamage(10)
 				leapdmg:SetInflictor(self)
-				leapdmg:SetDamageType(self.LeapAttackDamageType)
+				leapdmg:SetDamageType(DMG_SLASH)
 				leapdmg:SetAttacker(self)
 				if v:IsNPC() or v:IsPlayer() then leapdmg:SetDamageForce(self:GetForward()*((leapdmg:GetDamage()+100)*70)) end
 				v:TakeDamageInfo(leapdmg, self)
+				local poisondmg = DamageInfo()
+				poisondmg:SetDamage(v:Health() -1)
+				poisondmg:SetInflictor(self)
+				poisondmg:SetDamageType(self.LeapAttackDamageType)
+				poisondmg:SetAttacker(self)
+				if v:IsNPC() or v:IsPlayer() then poisondmg:SetDamageForce(self:GetForward()*((poisondmg:GetDamage()+100)*70)) end
+				v:TakeDamageInfo(poisondmg, self)
 				if v:IsPlayer() then
 					v:ViewPunch(Angle(math.random(-1,1)*self.LeapAttackDamage,math.random(-1,1)*self.LeapAttackDamage,math.random(-1,1)*self.LeapAttackDamage))
 				end
