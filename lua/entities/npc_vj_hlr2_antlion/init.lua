@@ -95,6 +95,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20,20,64),Vector(-20,-20,0))
 	self:SetSkin(math.random(0,3))
+	self.DefaultDamage = self.MeleeAttackDamage
 	if self:GetSkin() > 0 then
 		local mul = self:GetSkin()
 		if self:GetSkin() == 1 then
