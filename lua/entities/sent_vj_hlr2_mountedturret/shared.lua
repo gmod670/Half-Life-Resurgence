@@ -31,7 +31,8 @@ if (SERVER) then
 		self.Emplacement:Spawn()
 		self.Emplacement:SetParent(self)
 		self.Emplacement:SetMoveType(MOVETYPE_NONE)
-		self.Emplacement:SetSolid(SOLID_BBOX)
+		-- self.Emplacement:SetSolid(SOLID_BBOX)
+		self.Emplacement:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 		self:DeleteOnRemove(self.Emplacement)
 		self.Emplacement:ResetSequence(self.IdleAnimation)
 

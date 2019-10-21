@@ -45,7 +45,7 @@ if VJExists == true then
 		-- Xen Creatures
 			-- Headcrab
 			VJ.AddNPC("Zombie","npc_vj_hlr2_zombie",vCat)
-			VJ.AddNPC("Zombie Assassin","npc_vj_hlr2_zombie_assassin",vCat)
+			VJ.AddNPC("Zombie Assassin","npc_vj_hlr2b_zombie_assassin",vCat)
 			VJ.AddNPC("Fast Zombie","npc_vj_hlr2_zombie_fast",vCat)
 			VJ.AddNPC("Poison Zombie","npc_vj_hlr2_zombie_poison",vCat)
 			VJ.AddNPC("Zombine","npc_vj_hlr2_zombine",vCat)

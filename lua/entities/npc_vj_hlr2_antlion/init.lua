@@ -96,7 +96,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20,20,64),Vector(-20,-20,0))
 	self:SetSkin(math.random(0,3))
 	self.DefaultDamage = self.MeleeAttackDamage
-	if self:GetSkin() > 0 then
+	if self:GetSkin() > 0 && !self.HasDeathAnimation then
 		local mul = self:GetSkin()
 		if self:GetSkin() == 1 then
 			mul = 2
@@ -111,6 +111,9 @@ function ENT:CustomOnInitialize()
 	self.FlyLoop:SetSoundLevel(80)
 	self.IsDigging = false
 	self:Dig()
+	if self.HasDeathAnimation then
+		self.HasDeathRagdoll = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -134,34 +137,43 @@ end
 function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	local key = ev
 	-- print(key)
-	if key == 76 then
+	if key == 76 || key == 58 then
 		self.MeleeAttackDamage = self.DefaultDamage
 		self:MeleeAttackCode()
 	end
-	if key == 78 then
+	if key == 78 || key == 61 then
 		self.MeleeAttackDamage = self.DefaultDamage *1.5
 		self:MeleeAttackCode()
 	end
-	if key == 75 then
+	if key == 75 || key == 56 then
 		self:FootStepSoundCode()
 	end
-	if key == 83 then
+	if key == 94 then
+		VJ_EmitSound(self,"npc/antlion/antlion_preburst_scream" .. math.random(1,2) .. ".wav",75,100)
+	end
+	if key == 95 then
+		VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
+	end
+	if key == 97 then
+		self:RangeAttackCode()
+	end
+	if key == 83 || key == 67 then
 		self:EmitSound("physics/concrete/concrete_break2.wav",80,100)
 		VJ_EmitSound(self,"npc/antlion/digup1.wav",75,100)
 		ParticleEffect("advisor_plat_break",self:GetPos(),self:GetAngles(),self)
 		ParticleEffect("strider_impale_ground",self:GetPos(),self:GetAngles(),self)
 	end
-	if key == 79 || key == 80 then
+	if key == 79 || key == 80 || key == 55 then
 		VJ_EmitSound(self,"npc/antlion/shell_impact" .. math.random(1,4) .. ".wav",75,100)
 	end
 	if key == 78 then
 		VJ_EmitSound(self,"npc/antlion/attack_double" .. math.random(1,3) .. ".wav",75,100)
 	end
-	if key == 85 then
+	if key == 85 || key == 62 then
 		self:SetBodygroup(1,1)
 		self.FlyLoop:Play()
 	end
-	if key == 86 then
+	if key == 86 || key == 63 then
 		self:SetBodygroup(1,0)
 		self.FlyLoop:Stop()
 		VJ_EmitSound(self,"npc/antlion/land1.wav",75,100)

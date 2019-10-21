@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_creature_base"
+ENT.Base 			= "npc_vj_hlr2_antlion"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Antlion Worker"
 ENT.Author 			= "DrVrej"

@@ -11,7 +11,7 @@ ENT.HullType = HULL_TINY
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"blood_impact_green_01"}
+ENT.CustomBlood_Particle = {"blood_impact_yellow_01"}
 ENT.HasMeleeAttack = false
 ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
 ENT.AnimTbl_LeapAttack = {ACT_RANGE_ATTACK1} -- Melee Attack Animations
@@ -30,6 +30,18 @@ ENT.FootStepTimeRun = 0.5 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.GeneralSoundPitch1 = 100
+ENT.AnimTbl_IdleStand = {ACT_IDLE,"IdleSumo","IdleSniff"}
+
+ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.AnimTbl_RangeAttack = {"vjseq_Spitattack"} -- Range Attack Animations
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr2_antlionspit" -- The entity that is spawned when range attacking
+ENT.TimeUntilRangeAttackProjectileRelease = 0.725
+ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
+ENT.RangeDistance = 800 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 400 -- How close does it have to be until it uses melee?
+ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachment?
+ENT.RangeAttackPos_Up = 15
+ENT.RangeAttackPos_Forward = 10
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -38,16 +50,35 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 ENT.SoundTbl_FootStep = {"npc/headcrab_poison/ph_step1.wav","npc/headcrab_poison/ph_step2.wav","npc/headcrab_poison/ph_step3.wav","npc/headcrab_poison/ph_step4.wav"}
 ENT.SoundTbl_AlertAnim = {"npc/headcrab_poison/ph_warning1.wav","npc/headcrab_poison/ph_warning2.wav","npc/headcrab_poison/ph_warning3.wav"}
 ENT.SoundTbl_CombatIdle = {"npc/headcrab_poison/ph_hiss1.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"npc/headcrab_poison/ph_scream1.wav","npc/headcrab_poison/ph_scream2.wav","npc/headcrab_poison/ph_scream3.wav"}
 ENT.SoundTbl_BeforeLeapAttack = {"npc/headcrab_poison/ph_scream1.wav","npc/headcrab_poison/ph_scream2.wav","npc/headcrab_poison/ph_scream3.wav"}
 ENT.SoundTbl_LeapAttackDamage = {"npc/headcrab_poison/ph_poisonbite1.wav","npc/headcrab_poison/ph_poisonbite2.wav","npc/headcrab_poison/ph_poisonbite3.wav"}
 ENT.SoundTbl_LeapAttackJump = {"npc/headcrab_poison/ph_jump1.wav","npc/headcrab_poison/ph_jump2.wav","npc/headcrab_poison/ph_jump3.wav"}
 ENT.SoundTbl_Pain = {"npc/headcrab_poison/ph_pain1.wav","npc/headcrab_poison/ph_pain2.wav","npc/headcrab_poison/ph_pain3.wav","npc/headcrab_poison/ph_wallpain1.wav","npc/headcrab_poison/ph_wallpain2.wav","npc/headcrab_poison/ph_wallpain3.wav"}
 ENT.SoundTbl_Death = {"npc/headcrab_poison/ph_rattle1.wav","npc/headcrab_poison/ph_rattle2.wav","npc/headcrab_poison/ph_rattle3.wav"}
+ENT.SoundTbl_Idle = {
+	"npc/headcrab_poison/ph_idle1.wav",
+	"npc/headcrab_poison/ph_idle2.wav",
+	"npc/headcrab_poison/ph_idle3.wav",
+}
+ENT.SoundTbl_IdleDialogue = {
+	"npc/headcrab_poison/ph_talk1.wav",
+	"npc/headcrab_poison/ph_talk2.wav",
+	"npc/headcrab_poison/ph_talk3.wav",
+}
+ENT.SoundTbl_IdleDialogueAnswer = {
+	"npc/headcrab_poison/ph_talk1.wav",
+	"npc/headcrab_poison/ph_talk2.wav",
+	"npc/headcrab_poison/ph_talk3.wav",
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(14,14,15), Vector(-14,-14,0))
 	self.CustomRunActivites = {self:VJ_LookupAnimationString("Scurry")}
-	//sequence = Spitattack
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+	return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
@@ -59,21 +90,6 @@ function ENT:CustomOnAlert()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	local changedtbl = true
-	for _,v in ipairs(ents.FindInSphere(self:GetPos(),1500)) do
-		if v:IsNPC() && v != self && v:GetClass() == self:GetClass() then
-			changedtbl = true
-		else
-			changedtbl = false
-		end
-	end
-	if changedtbl == true then
-		self.NextSoundTime_Idle2 = 11
-		self.SoundTbl_Idle = {"npc/headcrab_poison/ph_idle1.wav","npc/headcrab_poison/ph_idle2.wav","npc/headcrab_poison/ph_idle3.wav"}
-	else
-		self.NextSoundTime_Idle2 = 4
-		self.SoundTbl_Idle = {"npc/headcrab_poison/ph_talk1.wav","npc/headcrab_poison/ph_talk2.wav","npc/headcrab_poison/ph_talk3.wav"}
-	end
 	if self.VJ_IsBeingControlled == false then
 		self.AnimTbl_Run = {ACT_RUN}
 		self.AnimTbl_Walk = {ACT_RUN}

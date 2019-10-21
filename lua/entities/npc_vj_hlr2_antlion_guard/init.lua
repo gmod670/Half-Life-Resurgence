@@ -224,7 +224,11 @@ function ENT:CustomOnAlert()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CreateAntlion(pos)
-	local antlion = ents.Create("npc_vj_hlr2_antlion")
+	local class = "npc_vj_hlr2_antlion"
+	if math.random(1,3) == 1 then
+		class = "npc_vj_hlr2_antlion_worker"
+	end
+	local antlion = ents.Create(class)
 	antlion:SetPos(self:GetPos() +pos +Vector(0,0,10))
 	antlion:SetAngles(self:GetAngles())
 	antlion:Spawn()
