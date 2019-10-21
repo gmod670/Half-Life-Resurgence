@@ -14,6 +14,12 @@ local AutorunFile = "autorun/vj_hlr2_autorun.lua"
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
+
+	VJ.AddCeilingNPC = function(nName,nClass,vCat)
+		local NPC = {Name = nName, Class = nClass, Category = vCat, OnCeiling = true}
+		list.Set( "NPC", NPC.Class, NPC ) //NPC //VJBASE_SPAWNABLE_NPC
+		list.Set( "VJBASE_SPAWNABLE_NPC", NPC.Class, NPC )
+	end
 	
 	-- Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL2"
@@ -28,6 +34,7 @@ if VJExists == true then
 
 		-- Combine
 		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Sniper","npc_vj_hlr2_com_sniper",{"weapon_vj_hl2_csniper"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hlr2_com_shotgunner",{"weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hlr2_com_elite",{"weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
@@ -35,12 +42,16 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Combine Assassin","npc_vj_hlr2_com_assassin",vCat)
+		VJ.AddNPC("Floor Turret","npc_vj_hlr2_com_turret",vCat)
+		VJ.AddCeilingNPC("Ceiling Turret","npc_vj_hlr2_com_ceilingturret",vCat)
+		VJ.AddNPC("Ion Cannon Turret","npc_vj_hlr2_com_ionturret",vCat)
 
 		-- Resistance
 		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
 		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
+		VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
 
 		-- Xen Creatures
 			-- Headcrab
