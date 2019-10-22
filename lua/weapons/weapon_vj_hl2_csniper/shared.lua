@@ -50,17 +50,31 @@ function SWEP:CustomOnInitialize()
 	self.Owner.Weapon_FiringDistanceFar = 18000
 end
 
+function SWEP:CustomOnThink()
+	self.Owner:SetNWEntity("enemy",self.Owner:GetEnemy())
+end
+
 if (CLIENT) then
 	local LaserMaterial = Material("sprites/rollermine_shock")
 	local SpriteMaterial = Material("particle/particle_glow_02")
+	local useEnt = true
 	function SWEP:CustomOnDrawWorldModel()
 		if self:GetOwner():IsValid() then
+			local var = GetConVarNumber("vj_hlr2_csniper")
 			attach = self:GetAttachment(self:LookupAttachment("laser"))
 			local ud,lr = -180, 700
-			-- local ud,lr = 600, 700 -- Fixes the laser to actually be forward
+			local endPos = attach.Pos +attach.Ang:Forward() *10000 +attach.Ang:Up() *ud +attach.Ang:Right() *lr
+			local ent = self:GetOwner():GetNWEntity("enemy")
+			if var == 1 then
+				endPos = attach.Pos +attach.Ang:Forward() *10000 +attach.Ang:Up() *ud +attach.Ang:Right() *lr
+			else
+				if IsValid(ent) then
+					endPos = ent:GetPos() +ent:OBBCenter()
+				end
+			end
 			local tr = util.TraceLine({
 				start = attach.Pos,
-				endpos = attach.Pos +attach.Ang:Forward() *10000 +attach.Ang:Up() *ud +attach.Ang:Right() *lr,
+				endpos = endPos,
 				filter = self,
 			})
 			render.SetMaterial(LaserMaterial)

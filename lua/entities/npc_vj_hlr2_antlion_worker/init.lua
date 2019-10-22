@@ -31,15 +31,19 @@ ENT.NoChaseAfterCertainRange_Type = "OnlyRange"
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {"explode"}
 ENT.GibOnDeathDamagesTable = {"All"}
+ENT.SoundTbl_Death = {
+	"npc/antlion/antlion_preburst_scream1.wav",
+	"npc/antlion/antlion_preburst_scream2.wav",
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 	return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
-	self.HasDeathSounds = false
 	timer.Simple(0.89999995708466,function()
 		if IsValid(self) then
+			VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
 			ParticleEffect("antlion_gib_02",self:GetPos(),Angle(0,0,0),nil)
 			ParticleEffect("antlion_gib_02",self:GetPos(),Angle(0,0,0),nil)
 			local find = ents.FindInSphere(self:GetPos(),200)

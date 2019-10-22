@@ -136,7 +136,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	local key = ev
-	-- print(key)
+	print(key)
 	if key == 76 || key == 58 then
 		self.MeleeAttackDamage = self.DefaultDamage
 		self:MeleeAttackCode()
@@ -148,13 +148,13 @@ function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	if key == 75 || key == 56 then
 		self:FootStepSoundCode()
 	end
-	if key == 94 then
-		VJ_EmitSound(self,"npc/antlion/antlion_preburst_scream" .. math.random(1,2) .. ".wav",75,100)
-	end
-	if key == 95 then
-		VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
-	end
-	if key == 97 then
+	-- if key == 94 then
+		-- VJ_EmitSound(self,"npc/antlion/antlion_preburst_scream" .. math.random(1,2) .. ".wav",75,100)
+	-- end
+	-- if key == 95 then
+		-- VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
+	-- end
+	if key == 97 || key == 71 then
 		self:RangeAttackCode()
 	end
 	if key == 83 || key == 67 then

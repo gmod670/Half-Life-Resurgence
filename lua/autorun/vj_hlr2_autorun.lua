@@ -21,6 +21,8 @@ if VJExists == true then
 		list.Set( "VJBASE_SPAWNABLE_NPC", NPC.Class, NPC )
 	end
 	
+	VJ.AddClientConVar("vj_hlr2_csniper",1,"Use strict laser pointer")
+	
 	-- Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL2"
 		-- Misc.
@@ -78,6 +80,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
 		VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
 		-- VJ.AddNPC("Vortigaunt","npc_vj_hlr2_vort",vCat)
+		VJ.AddNPC("Lamarr","npc_vj_hlr2_lamarr",vCat)
 
 		-- Xen Creatures
 			-- Headcrab

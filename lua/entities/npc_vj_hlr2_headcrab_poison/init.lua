@@ -73,6 +73,16 @@ ENT.SoundTbl_IdleDialogueAnswer = {
 	"npc/headcrab_poison/ph_talk2.wav",
 	"npc/headcrab_poison/ph_talk3.wav",
 }
+ENT.SoundTbl_FollowPlayer = {
+	"npc/headcrab_poison/ph_idle1.wav",
+	"npc/headcrab_poison/ph_idle2.wav",
+	"npc/headcrab_poison/ph_idle3.wav",
+}
+ENT.SoundTbl_UnFollowPlayer = {
+	"npc/headcrab_poison/ph_talk1.wav",
+	"npc/headcrab_poison/ph_talk2.wav",
+	"npc/headcrab_poison/ph_talk3.wav",
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(14,14,15), Vector(-14,-14,0))
@@ -92,14 +102,22 @@ function ENT:CustomOnAlert()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	local follow = self.FollowingPlayer
 	if self.VJ_IsBeingControlled == false then
-		self.AnimTbl_Run = {ACT_RUN}
-		self.AnimTbl_Walk = {ACT_RUN}
-		self.FootStepTimeRun = 0.5
-		self.FootStepTimeWalk = 0.5
-		if self:Health() <= 10 then
+		if !follow then
+			self.AnimTbl_Run = {ACT_RUN}
+			self.AnimTbl_Walk = {ACT_RUN}
+			self.FootStepTimeRun = 0.5
+			self.FootStepTimeWalk = 0.5
+			if self:Health() <= 10 then
+				self.AnimTbl_Run = {self:VJ_LookupAnimationString("Scurry")}
+				self.FootStepTimeRun = 0.09
+			end
+		else
 			self.AnimTbl_Run = {self:VJ_LookupAnimationString("Scurry")}
+			self.AnimTbl_Walk = {self:VJ_LookupAnimationString("Scurry")}
 			self.FootStepTimeRun = 0.09
+			self.FootStepTimeWalk = 0.09
 		end
 	else
 		self.AnimTbl_Run = {self:VJ_LookupAnimationString("Scurry")}
