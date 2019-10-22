@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/hl_resurgence/hl2b/houndeye/houndside2"
+	"$bumpmap" "models/hl_resurgence/hl2b/houndeye/houndside2_normal"
+	"$model" 1
+}

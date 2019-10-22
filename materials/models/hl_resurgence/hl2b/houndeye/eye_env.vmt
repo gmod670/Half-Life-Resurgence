@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/hl_resurgence/hl2b/houndeye/eye"
+	"$envmap" "models/hl_resurgence/hl2b/houndeye/eye_env"
+	"$envmapcontrast" 0.6
+	"$envmapsphere" 1
+	"$multipass" 1
+	"$model" "1"
+}
