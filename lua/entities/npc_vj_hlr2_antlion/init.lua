@@ -136,7 +136,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	local key = ev
-	print(key)
+	-- print(key)
 	if key == 76 || key == 58 then
 		self.MeleeAttackDamage = self.DefaultDamage
 		self:MeleeAttackCode()

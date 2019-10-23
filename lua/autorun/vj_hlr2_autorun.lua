@@ -104,7 +104,7 @@ if VJExists == true then
 		-- Wild Life
 		VJ.AddNPC("Hydra","npc_vj_hlr2b_hydra",vCat)
 		VJ.AddNPC("Bullsquid","npc_vj_hlr2b_bullsquid",vCat)
-		-- VJ.AddNPC("Houndeye","npc_vj_hlr2b_houndeye",vCat)
+		VJ.AddNPC("Houndeye","npc_vj_hlr2b_houndeye",vCat)
 		-- VJ.AddCeilingNPC("Barnacle","npc_vj_hlr2_barnacle",vCat)
 		-- VJ.AddNPC("Sand Barnacle","npc_vj_hlr2b_barnacle_sand",vCat)
 		

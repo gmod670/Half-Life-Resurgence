@@ -14,9 +14,17 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be all
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(8,10,15), Vector(-8,-10,0))
 	self.NextSleepAnimT = CurTime()
-	self.NextSleepT = CurTime() +2
+	self.NextSleepT = CurTime() +math.random(20,30)
 	self.WakeUpT = 0
 	self.IsSleeping = false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+	if self.IsSleeping then
+		self.WakeUpT = 0
+	else
+		self.NextSleepT = CurTime() +math.random(20,30)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -36,12 +44,15 @@ function ENT:CustomOnThink()
 	else
 		if self.IsSleeping then
 			self.IsSleeping = false
-			self:StartEngineTask(GetTaskList("TASK_RESET_ACTIVITY"), 0)
+			self:StartEngineTask(GetTaskList("TASK_RESET_ACTIVITY"),0)
 			self.WakeUpT = 0
 			self.NextSleepT = CurTime() +math.random(20,30)
 		end
 	end
 	if self.IsSleeping then
+		self:StopMoving()
+		self:StopMoving()
+		self:ClearSchedule()
 		self.HasSounds = false
 		self.SightDistance = 200
 		self.DisableWandering = true
