@@ -71,7 +71,7 @@ ENT.FootStepPitch2 = 115
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(17,17,40),Vector(-17,-17,0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

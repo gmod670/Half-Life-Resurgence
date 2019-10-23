@@ -38,7 +38,7 @@ if VJExists == true then
 		VJ.AddNPC("Antlion Guardian","npc_vj_hlr2_antlion_guardian",vCat)
 
 		-- Combine
-		-- VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_hl2b_oicw"},vCat)
 		-- VJ.AddNPC_HUMAN("Overwatch Elite (Beta)","npc_vj_hlr2b_com_elite",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		-- VJ.AddNPC_HUMAN("Civil Protection (Beta)","npc_vj_hlr2b_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Overwatch Guard","npc_vj_hlr2b_com_guard",vCat)
@@ -111,6 +111,7 @@ if VJExists == true then
 		-- Weapons
 		VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
 		VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hl2_alyxgun",false,vCat)
+		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
