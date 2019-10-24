@@ -22,7 +22,7 @@ SWEP.AdminSpawnable				= false
 SWEP.MadeForNPCsOnly 			= true
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 8 -- Damage
-SWEP.Primary.ClipSize			= 150 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Sound				= {
 	"vj_hlr/hl2_weapon/oicw/ar2_fire1.wav",
 	"vj_hlr/hl2_weapon/oicw/ar2_fire2.wav",
