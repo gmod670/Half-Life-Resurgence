@@ -190,8 +190,8 @@ function ENT:CustomOnThink()
 				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_tmp")
 				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.AnimTbl_WeaponAttack = {ACT_MP_ATTACK_STAND_PRIMARYFIRE}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_MP_ATTACK_CROUCH_PRIMARYFIRE}
 				self.Weapon_StartingAmmoAmount = 30
 			end
 		elseif self.Faction_Type == 1 then
@@ -220,6 +220,43 @@ function ENT:CustomOnThink()
 				self.AnimTbl_Run = {ACT_RUN_RPG}
 				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
 				self.Weapon_StartingAmmoAmount = 1
+			elseif bgroup == 3 then -- Scout
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_scout")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_AR2}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 10
+			elseif bgroup == 4 then -- M4A1
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_m4a1")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 5 then -- USP
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_usp")
+				self.AnimTbl_IdleStand = {ACT_IDLE_PISTOL}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_PISTOL}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 12
+			elseif bgroup == 6 then -- M60
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_m60")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.Weapon_StartingAmmoAmount = 100
+			elseif bgroup == 7 then -- MAC-10
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_mac10")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_MP_ATTACK_STAND_PRIMARYFIRE}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_MP_ATTACK_CROUCH_PRIMARYFIRE}
+				self.Weapon_StartingAmmoAmount = 30
 			end
 		end
 	end

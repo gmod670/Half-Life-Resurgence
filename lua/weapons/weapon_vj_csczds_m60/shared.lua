@@ -21,7 +21,7 @@ SWEP.AdminSpawnable				= false
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(0,17,0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,2,0.5)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0,15,-0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
@@ -29,7 +29,6 @@ SWEP.Primary.ClipSize			= 100 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/m60/m60-1.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/m60/m60-distant.wav"}
-SWEP.NPC_AnimationTbl_Custom     = {ACT_GESTURE_RANGE_ATTACK_HMG1}
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/gign.mdl","models/vj_hlr/czeror/terror.mdl"}

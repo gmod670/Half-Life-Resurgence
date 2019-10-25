@@ -11,6 +11,8 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_CustomSpread	 		= 0.2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 SWEP.NPC_ReloadSound			= {"vj_hlr/czeror_weapon/awp/awp_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_ExtraFireSound			= {"vj_hlr/czeror_weapon/scout/scout_bolt.wav"} -- Plays an extra sound after it fires (Example: Bolt action sound)
+SWEP.NPC_ExtraFireSoundTime		= 0.5 -- How much time until it plays the sound (After Firing)?
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
@@ -25,9 +27,9 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0,17,0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0,21,0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 40 -- Damage
+SWEP.Primary.Damage				= 50 -- Damage
 SWEP.Primary.ClipSize			= 10 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Ammo				= "AR2" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/czeror_weapon/awp/awp1.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/czeror_weapon/awp/awp1_distant.wav"}
 
