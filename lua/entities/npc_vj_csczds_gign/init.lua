@@ -50,23 +50,24 @@ function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_Death = {"vj_hlr/czeror_npc/ct/ct_death1_fr.wav","vj_hlr/czeror_npc/ct/ct_death2_fr.wav","vj_hlr/czeror_npc/ct/ct_death3_fr.wav","vj_hlr/czeror_npc/ct/ct_death4_fr.wav"}
 	
 	self:SetBodygroup(1,math.random(0,3))
+	
 	local randwep = math.random(1,8)
-	if randwep == 1 then
-		self:SetBodygroup(2,0) --mp5
-	elseif randwep == 2 then
-		self:SetBodygroup(2,1) --xm1014
-	elseif randwep == 3 then
-		self:SetBodygroup(2,2) --law
-	elseif randwep == 4 then
-		self:SetBodygroup(2,3) --scout
-	elseif randwep == 5 then
-		self:SetBodygroup(2,4) --m4a1
-	elseif randwep == 6 then
-		self:SetBodygroup(2,5) --usp
-	elseif randwep == 7 then
-		self:SetBodygroup(2,6) --m60
-	elseif randwep == 8 then
-		self:SetBodygroup(2,7) --mac10
+		if randwep == 1 then
+			self:SetBodygroup(2,0) --mp5
+		elseif randwep == 2 then
+			self:SetBodygroup(2,1) --xm1014
+		elseif randwep == 3 then
+			self:SetBodygroup(2,2) --law
+		elseif randwep == 4 then
+			self:SetBodygroup(2,3) --scout
+		elseif randwep == 5 then
+			self:SetBodygroup(2,4) --m4a1
+		elseif randwep == 6 then
+			self:SetBodygroup(2,5) --usp
+		elseif randwep == 7 then
+			self:SetBodygroup(2,6) --m60
+		elseif randwep == 8 then
+			self:SetBodygroup(2,7) --mac10
 	end
 end
 /*-----------------------------------------------

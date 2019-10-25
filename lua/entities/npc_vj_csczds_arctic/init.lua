@@ -27,32 +27,26 @@ function ENT:Faction_CustomOnInitialize()
 	if self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
 		self:SetSkin(math.random(0,3))
 	end
+	
 	local randwep = math.random(1,8)
-	if randwep == 1 then
-		self:SetBodygroup(2,0)
-	elseif randwep == 2 then
-		self:SetBodygroup(2,1)
-	elseif randwep == 3 then
-		self:SetBodygroup(2,2)
-	elseif randwep == 4 then
-		self:SetBodygroup(2,3)
-	elseif randwep == 5 then
-		self:SetBodygroup(2,4)
-	elseif randwep == 6 then
-		self:SetBodygroup(2,5)
-	elseif randwep == 70 then
-		self:SetBodygroup(2,6)
-		self.SoundTbl_MeleeAttack = {"vj_hlr/czeror_weapon/machete/machete_hit1.wav","vj_hlr/czeror_weapon/machete/machete_hit2.wav","vj_hlr/czeror_weapon/machete/machete_hit3.wav","vj_hlr/czeror_weapon/machete/machete_hit4.wav",}
-		self.SoundTbl_MeleeAttackMiss = {"vj_hlr/czeror_weapon/machete/melee_whoosh1.wav","vj_hlr/czeror_weapon/machete/melee_whoosh2.wav"}
-		self.SoundTbl_Alert = {"vj_hlr/czeror_npc/t/t_melee1_ru.wav","vj_hlr/czeror_npc/t/t_melee2_ru.wav","vj_hlr/czeror_npc/t/t_melee3_ru.wav"}
-		self.AnimTbl_IdleStand = {ACT_HL2MP_IDLE_MELEE}
-		self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_SLAM}
-		self.AnimTbl_Walk = {ACT_MP_WALK_MELEE}
-		self.AnimTbl_Run = {ACT_HL2MP_RUN_MELEE}
-	elseif randwep == 7 then
-		self:SetBodygroup(2,7)
-	elseif randwep == 8 then
-		self:SetBodygroup(2,8)
+		if randwep == 1 then
+			self:SetBodygroup(2,0)
+		elseif randwep == 2 then
+			self:SetBodygroup(2,1)
+		elseif randwep == 3 then
+			self:SetBodygroup(2,2)
+		elseif randwep == 4 then
+			self:SetBodygroup(2,3)
+		elseif randwep == 5 then
+			self:SetBodygroup(2,4)
+		elseif randwep == 6 then
+			self:SetBodygroup(2,5)
+		elseif randwep == 70 then
+			self:SetBodygroup(2,6) --machete (non-functional yet)
+		elseif randwep == 7 then
+			self:SetBodygroup(2,7)
+		elseif randwep == 8 then
+			self:SetBodygroup(2,8)
 	end
 end
 /*-----------------------------------------------

@@ -73,7 +73,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
 	self.Faction_WepBG = 2
-	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
+	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian_punk.mdl" then
 		self.Faction_Type = 0
 	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" then
 		self.Faction_Type = 1

@@ -20,6 +20,8 @@ if VJExists == true then
 		VJ.AddNPC("GIGN","npc_vj_csczds_gign",vCat)
 		-- Terrorist factions
 		VJ.AddNPC("Arctic Avengers","npc_vj_csczds_arctic",vCat)
+		VJ.AddNPC("Akunin","npc_vj_csczds_akunin",vCat)
+		VJ.AddNPC("Akunin Leader","npc_vj_csczds_akunin_leader",vCat)
 		VJ.AddNPC("Phoenix Connexion","npc_vj_csczds_terror",vCat)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
