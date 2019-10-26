@@ -373,8 +373,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	-- Regular Human Grunt head gib
-	if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
-		//self:SetBodygroup(1,4)
+	if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 1 then
 		self.GibOnDeathDamagesTable = {"All"}
 	end
 end
