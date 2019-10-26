@@ -33,7 +33,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_SpawnDynamicLight = false
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/asian.mdl","models/vj_hlr/czeror/asian_punk.mdl","models/vj_hlr/czeror/terror.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/czeror/arctic.mdl","models/vj_hlr/czeror/asian.mdl","models/vj_hlr/czeror/leet.mdl","models/vj_hlr/czeror/asian_punk.mdl","models/vj_hlr/czeror/terror.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke

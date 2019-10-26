@@ -23,6 +23,7 @@ if VJExists == true then
 		VJ.AddNPC("Akunin","npc_vj_csczds_akunin",vCat)
 		VJ.AddNPC("Akunin Leader","npc_vj_csczds_akunin_leader",vCat)
 		VJ.AddNPC("Phoenix Connexion","npc_vj_csczds_terror",vCat)
+		VJ.AddNPC("Elite Crew","npc_vj_csczds_leet",vCat)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

@@ -24,7 +24,7 @@ function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_Death = {"vj_hlr/czeror_npc/t/t_death1_ja.wav","vj_hlr/czeror_npc/t/t_death2_ja.wav","vj_hlr/czeror_npc/t/t_death3_ja.wav","vj_hlr/czeror_npc/t/t_death4_ja.wav"}
 	self:SetSkin(math.random(0,3))
 	self:SetBodygroup(1,math.random(0,4))
-	local randwep = math.random(1,8)
+	local randwep = math.random(1,15)
 		if randwep == 1 then
 			self:SetBodygroup(2,0)
 		elseif randwep == 2 then
@@ -42,6 +42,20 @@ function ENT:Faction_CustomOnInitialize()
 		elseif randwep == 7 then
 			self:SetBodygroup(2,7)
 		elseif randwep == 8 then
+			self:SetBodygroup(2,8)
+		elseif randwep == 9 then
+			self:SetBodygroup(2,0)
+		elseif randwep == 10 then
+			self:SetBodygroup(2,1)
+		elseif randwep == 11 then
+			self:SetBodygroup(2,3)
+		elseif randwep == 12 then
+			self:SetBodygroup(2,4)
+		elseif randwep == 13 then
+			self:SetBodygroup(2,5)
+		elseif randwep == 14 then
+			self:SetBodygroup(2,7)
+		elseif randwep == 15 then
 			self:SetBodygroup(2,8)
 		end
 end

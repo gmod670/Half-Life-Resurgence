@@ -51,7 +51,7 @@ function ENT:Faction_CustomOnInitialize()
 	
 	self:SetBodygroup(1,math.random(0,3))
 	
-	local randwep = math.random(1,8)
+	local randwep = math.random(1,15)
 		if randwep == 1 then
 			self:SetBodygroup(2,0) --mp5
 		elseif randwep == 2 then
@@ -67,6 +67,20 @@ function ENT:Faction_CustomOnInitialize()
 		elseif randwep == 7 then
 			self:SetBodygroup(2,6) --m60
 		elseif randwep == 8 then
+			self:SetBodygroup(2,7) --mac10
+		elseif randwep == 9 then
+			self:SetBodygroup(2,0) --mp5
+		elseif randwep == 10 then
+			self:SetBodygroup(2,1) --xm1014
+		elseif randwep == 11 then
+			self:SetBodygroup(2,3) --scout
+		elseif randwep == 12 then
+			self:SetBodygroup(2,4) --m4a1
+		elseif randwep == 13 then
+			self:SetBodygroup(2,5) --usp
+		elseif randwep == 14 then
+			self:SetBodygroup(2,6) --m60
+		elseif randwep == 15 then
 			self:SetBodygroup(2,7) --mac10
 	end
 end
