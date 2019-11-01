@@ -184,6 +184,17 @@ ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/npc/male01/hi01.wav",
 	"vo/npc/male01/hi02.wav",
+	"vo/npc/male01/heydoc01.wav",
+	"vo/npc/male01/heydoc02.wav",
+	"vo/npc/male01/hellodrfm01.wav",
+	"vo/npc/male01/hellodrfm02.wav",
+	"vo/npc/male01/freeman.wav",
+	"vo/npc/male01/docfreeman01.wav",
+	"vo/npc/male01/docfreeman02.wav",
+	"vo/npc/male01/abouttime01.wav",
+	"vo/npc/male01/abouttime02.wav",
+	"vo/npc/male01/ahgordon01.wav",
+	"vo/npc/male01/ahgordon02.wav",
 	"vj_hlr/hl2_npc/citizen/male01/cit_greet_alyx02.wav",
 	"vj_hlr/hl2_npc/citizen/male01/cit_greet_alyx04.wav"
 }
