@@ -10,6 +10,7 @@ ENT.VJ_NPC_Class = {"CLASS_CS_TERRORIST"}
 ENT.StartHealth = 400
 ENT.TimeUntilGrenadeIsReleased = 0.9
 ENT.MoveRandomlyWhenShooting = true
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_Idle = {}

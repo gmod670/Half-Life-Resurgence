@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/czeror/gign.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.FriendsWithAllPlayerAllies = true
+ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = true
 -- unused
 //vj_hlr/czeror_npc/ct/ct_blinded_fr.wav
