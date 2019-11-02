@@ -38,7 +38,7 @@ function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_UnFollowPlayer = {"vj_hlr/czeror_npc/ct/ct_rightstay_ge.wav","vj_hlr/czeror_npc/ct/ct_endofline_ge.wav"}
 	self.SoundTbl_OnPlayerSight = {"vj_hlr/czeror_npc/ct/ct_hellosir2_ge.wav","vj_hlr/czeror_npc/ct/ct_gootos_ge.wav","vj_hlr/czeror_npc/ct/ct_goodtosee2_ge.wav","vj_hlr/czeror_npc/ct/ct_dogoodsir_ge.wav"}
 	self.SoundTbl_Investigate = {"vj_hlr/czeror_npc/ct/ct_holditsaw_ge.wav","vj_hlr/czeror_npc/ct/ct_gorpoth_ge.wav"}
-	self.SoundTbl_LostEnemy = {"vj_hlr/czeror_npc/ct/ct_scanperi_ge.wav"}
+	//self.SoundTbl_LostEnemy = {"vj_hlr/czeror_npc/ct/ct_scanperi_ge.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/czeror_npc/ct/ct_openfire_ge.wav","vj_hlr/czeror_npc/ct/ct_intspotted_ge.wav","vj_hlr/czeror_npc/ct/ct_incoming_ge.wav","vj_hlr/czeror_npc/ct/ct_hosspot_ge.wav","vj_hlr/czeror_npc/ct/ct_heascomp_ge.wav","vj_hlr/czeror_npc/ct/ct_gothos_ge.wav","vj_hlr/czeror_npc/ct/ct_fire_ge.wav","vj_hlr/czeror_npc/ct/ct_enemhead_ge.wav","vj_hlr/czeror_npc/ct/ct_enespot4_ge.wav","vj_hlr/czeror_npc/ct/ct_enespot_ge.wav"}
 	self.SoundTbl_CallForHelp = {"vj_hlr/czeror_npc/ct/ct_needbackp_ge.wav","vj_hlr/czeror_npc/ct/ct_needgunsup_ge.wav","vj_hlr/czeror_npc/ct/ct_needsupp_ge.wav"}
 	self.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/czeror_npc/ct/ct_okthatis_ge.wav","vj_hlr/czeror_npc/ct/ct_gottrait_ge.wav","vj_hlr/czeror_npc/ct/ct_gonero_ge.wav"}
