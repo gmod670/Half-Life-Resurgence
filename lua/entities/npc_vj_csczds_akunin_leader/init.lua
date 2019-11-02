@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/czeror/asian_punk.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_CS_TERRORIST"}
-ENT.StartHealth = 200
+ENT.StartHealth = 180
 
 ENT.GeneralSoundPitch1 = 80
 ENT.GeneralSoundPitch2 = 80
@@ -29,14 +29,14 @@ function ENT:Faction_CustomOnInitialize()
 	self.Faction_WepBG = 1
 	local randwep = math.random(1,4)
 		if randwep == 1 then
-			self:SetBodygroup(2,0) --mp5
+			self:SetBodygroup(1,0) --mp5
 		elseif randwep == 2 then
-			self:SetBodygroup(2,1) --shotgun
+			self:SetBodygroup(1,1) --shotgun
 		elseif randwep == 3 then
-			self:SetBodygroup(2,4) --ak47
+			self:SetBodygroup(1,4) --ak47
 		elseif randwep == 4 then
-			self:SetBodygroup(2,7) --m60
-end
+			self:SetBodygroup(1,7) --m60
+		end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
