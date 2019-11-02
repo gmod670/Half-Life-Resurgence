@@ -64,6 +64,7 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ENT.Faction_Type = 0
 	-- 0 = CS:CZDS Terrorists
 	-- 1 = CS:CZDS Counter-Terrorists
+	-- 2 = Moses Sepulveda
 ENT.Faction_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.Faction_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -71,12 +72,49 @@ function ENT:Faction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self.SoundTbl_Idle = {}
+	self.SoundTbl_IdleDialogue = {}
+	self.SoundTbl_IdleDialogueAnswer = {}
+	self.SoundTbl_CombatIdle = {}
+	self.SoundTbl_OnReceiveOrder = {}
+	self.SoundTbl_FollowPlayer = {}
+	self.SoundTbl_UnFollowPlayer = {}
+	self.SoundTbl_MoveOutOfPlayersWay = {}
+	self.SoundTbl_MedicBeforeHeal = {}
+	self.SoundTbl_MedicAfterHeal = {}
+	self.SoundTbl_MedicReceiveHeal = {}
+	self.SoundTbl_OnPlayerSight = {}
+	self.SoundTbl_Investigate = {}
+	self.SoundTbl_LostEnemy = {}
+	self.SoundTbl_Alert = {}
+	self.SoundTbl_CallForHelp = {}
+	self.SoundTbl_BecomeEnemyToPlayer = {}
+	self.SoundTbl_BeforeMeleeAttack = {}
+	self.SoundTbl_MeleeAttack = {}
+	self.SoundTbl_MeleeAttackExtra = {}
+	self.SoundTbl_MeleeAttackMiss = {}
+	self.SoundTbl_BeforeRangeAttack = {}
+	self.SoundTbl_RangeAttack = {}
+	self.SoundTbl_BeforeLeapAttack = {}
+	self.SoundTbl_LeapAttackJump = {}
+	self.SoundTbl_LeapAttackDamage = {}
+	self.SoundTbl_LeapAttackDamageMiss = {}
+	self.SoundTbl_OnKilledEnemy = {}
+	self.SoundTbl_AllyDeath = {}
+	self.SoundTbl_Pain = {}
+	self.SoundTbl_Impact = {}
+	self.SoundTbl_DamageByPlayer = {}
+	self.SoundTbl_Death = {}
+	
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
 	self.Faction_WepBG = 2
 	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian_punk.mdl" then
 		self.Faction_Type = 0
-	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" then
+	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" or self:GetModel() == "models/vj_hlr/czeror/gsg9.mdl" then
 		self.Faction_Type = 1
+	elseif self:GetModel() == "models/vj_hlr/czeror/drug_lord.mdl" then
+		self.Faction_WepBG = 1
+		self.Faction_Type = 2
 	end
 	
 	self.Faction_NextMouthMove = CurTime()
@@ -259,6 +297,16 @@ function ENT:CustomOnThink()
 				self.Weapon_StartingAmmoAmount = 30
 			end
 		end
+		if self.Faction_Type == 2 then
+			if bgroup == 0 then -- M60
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_m60")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.Weapon_StartingAmmoAmount = 100
+			end
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -381,6 +429,8 @@ end
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	if self.Faction_Type == 0 then
 		self:SetBodygroup(self.Faction_WepBG,9)
+	elseif self.Faction_Type == 2 then
+		self:SetBodygroup(self.Faction_WepBG,1)
 	else
 		self:SetBodygroup(self.Faction_WepBG,8)
 	end

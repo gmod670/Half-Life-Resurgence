@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/czeror/asian_punk.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_CS_TERRORIST"}
-ENT.StartHealth = 180
+ENT.StartHealth = 200
 
 ENT.GeneralSoundPitch1 = 80
 ENT.GeneralSoundPitch2 = 80
@@ -27,40 +27,16 @@ function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_Pain = {"vj_hlr/czeror_npc/t/t_pain1_ja.wav","vj_hlr/czeror_npc/t/t_pain2_ja.wav","vj_hlr/czeror_npc/t/t_pain3_ja.wav","vj_hlr/czeror_npc/t/t_pain4_ja.wav","vj_hlr/czeror_npc/t/t_pain3_ja.wav"}
 	self.SoundTbl_Death = {"vj_hlr/czeror_npc/t/t_death1_ja.wav","vj_hlr/czeror_npc/t/t_death2_ja.wav","vj_hlr/czeror_npc/t/t_death3_ja.wav","vj_hlr/czeror_npc/t/t_death4_ja.wav"}
 	self.Faction_WepBG = 1
-	local randwep = math.random(1,15)
+	local randwep = math.random(1,4)
 		if randwep == 1 then
-			self:SetBodygroup(2,0)
+			self:SetBodygroup(2,0) --mp5
 		elseif randwep == 2 then
-			self:SetBodygroup(2,1)
+			self:SetBodygroup(2,1) --shotgun
 		elseif randwep == 3 then
-			self:SetBodygroup(2,2)
+			self:SetBodygroup(2,4) --ak47
 		elseif randwep == 4 then
-			self:SetBodygroup(2,3)
-		elseif randwep == 5 then
-			self:SetBodygroup(2,4)
-		elseif randwep == 6 then
-			self:SetBodygroup(2,5)
-		elseif randwep == 70 then
-			self:SetBodygroup(2,6) --machete (non-functional yet)
-		elseif randwep == 7 then
-			self:SetBodygroup(2,7)
-		elseif randwep == 8 then
-			self:SetBodygroup(2,8)
-		elseif randwep == 9 then
-			self:SetBodygroup(2,0)
-		elseif randwep == 10 then
-			self:SetBodygroup(2,1)
-		elseif randwep == 11 then
-			self:SetBodygroup(2,3)
-		elseif randwep == 12 then
-			self:SetBodygroup(2,4)
-		elseif randwep == 13 then
-			self:SetBodygroup(2,5)
-		elseif randwep == 14 then
-			self:SetBodygroup(2,7)
-		elseif randwep == 15 then
-			self:SetBodygroup(2,8)
-		end
+			self:SetBodygroup(2,7) --m60
+end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

@@ -26,37 +26,37 @@ function ENT:Faction_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,4))
 	local randwep = math.random(1,15)
 		if randwep == 1 then
-			self:SetBodygroup(2,0)
+			self:SetBodygroup(2,0) --mp5
 		elseif randwep == 2 then
-			self:SetBodygroup(2,1)
+			self:SetBodygroup(2,1) --xm
 		elseif randwep == 3 then
-			self:SetBodygroup(2,2)
+			self:SetBodygroup(2,2) --law
 		elseif randwep == 4 then
-			self:SetBodygroup(2,3)
+			self:SetBodygroup(2,3) --awm
 		elseif randwep == 5 then
-			self:SetBodygroup(2,4)
+			self:SetBodygroup(2,4) --ak47
 		elseif randwep == 6 then
-			self:SetBodygroup(2,5)
+			self:SetBodygroup(2,5) --glock
 		elseif randwep == 70 then
 			self:SetBodygroup(2,6) --machete (non-functional yet)
 		elseif randwep == 7 then
-			self:SetBodygroup(2,7)
+			self:SetBodygroup(2,7) --m60
 		elseif randwep == 8 then
-			self:SetBodygroup(2,8)
+			self:SetBodygroup(2,8) --tmp
 		elseif randwep == 9 then
-			self:SetBodygroup(2,0)
+			self:SetBodygroup(2,0) --mp5
 		elseif randwep == 10 then
-			self:SetBodygroup(2,1)
+			self:SetBodygroup(2,1) --xm
 		elseif randwep == 11 then
-			self:SetBodygroup(2,3)
+			self:SetBodygroup(2,3) --awm
 		elseif randwep == 12 then
-			self:SetBodygroup(2,4)
+			self:SetBodygroup(2,4) --ak47
 		elseif randwep == 13 then
-			self:SetBodygroup(2,5)
+			self:SetBodygroup(2,5) --glock
 		elseif randwep == 14 then
-			self:SetBodygroup(2,7)
+			self:SetBodygroup(2,7) --m60
 		elseif randwep == 15 then
-			self:SetBodygroup(2,8)
+			self:SetBodygroup(2,8) --tmp
 		end
 end
 /*-----------------------------------------------
