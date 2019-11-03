@@ -97,7 +97,7 @@ function ENT:CustomOnAlert()
 	if self.CanAlertCrab != true then return end
 	VJ_STOPSOUND(self.CurrentIdleSound)
 	self.NextIdleSoundT = self.NextIdleSoundT + 2
-	self.CurrentAlertSound = VJ_CreateSound(self,VJ_PICKRANDOMTABLE(self.SoundTbl_AlertAnim),self.AlertSoundLevel,self:VJ_DecideSoundPitch(self.AlertSoundPitch1,self.AlertSoundPitch2))
+	self.CurrentAlertSound = VJ_CreateSound(self,VJ_PICK(self.SoundTbl_AlertAnim),self.AlertSoundLevel,self:VJ_DecideSoundPitch(self.AlertSoundPitch1,self.AlertSoundPitch2))
 	self:VJ_ACT_PLAYACTIVITY("Threatdisplay",true,VJ_GetSequenceDuration(self,"Threatdisplay"),false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ function ENT:FootStepSoundCode(CustomTbl)
 			self:CustomOnFootStepSound()
 			local soundtbl = self.SoundTbl_FootStep
 			if CustomTbl != nil && #CustomTbl != 0 then soundtbl = CustomTbl end
-			if VJ_PICKRANDOMTABLE(soundtbl) != false then
+			if VJ_PICK(soundtbl) != false then
 				VJ_EmitSound(self,soundtbl,self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 			end
 		end
@@ -171,7 +171,7 @@ function ENT:FootStepSoundCode(CustomTbl)
 			self:CustomOnFootStepSound()
 			local soundtbl = self.SoundTbl_FootStep
 			if CustomTbl != nil && #CustomTbl != 0 then soundtbl = CustomTbl end
-			if VJ_PICKRANDOMTABLE(soundtbl) != false then
+			if VJ_PICK(soundtbl) != false then
 				//VJ_EmitSound(self,soundtbl,self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 				if self.DisableFootStepOnRun == false && (table.HasValue(self.CustomRunActivites,self:GetMovementActivity())) then
 					self:CustomOnFootStepSound_Run()

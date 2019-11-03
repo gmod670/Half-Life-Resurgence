@@ -129,7 +129,7 @@ end
 function ENT:CustomOnAlert()
 	if self.IsDiging == true then return end
 	if math.random(1,6) == 1 then
-		local tbl = VJ_PICKRANDOMTABLE({"distract","roar"})
+		local tbl = VJ_PICK({"distract","roar"})
 		self:VJ_ACT_PLAYACTIVITY(tbl,true,VJ_GetSequenceDuration(self,tbl),false)
 	end
 end

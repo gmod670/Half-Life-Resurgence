@@ -190,7 +190,7 @@ end
 function ENT:CustomOnAlert()
 	if self.IsDiging == true then return end
 	if math.random(1,3) == 1 then
-		local tbl = VJ_PICKRANDOMTABLE({"bark","roar"})
+		local tbl = VJ_PICK({"bark","roar"})
 		self:VJ_ACT_PLAYACTIVITY(tbl,true,VJ_GetSequenceDuration(self,tbl),false)
 		if tbl == "bark" && self.IsGuardian then
 			timer.Simple(0.5,function()
