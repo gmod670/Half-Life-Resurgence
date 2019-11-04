@@ -64,7 +64,7 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ENT.Faction_Type = 0
 	-- 0 = CS:CZDS Terrorists
 	-- 1 = CS:CZDS Counter-Terrorists
-	-- 2 = Moses Sepulveda
+	-- 2 = Special/Boss
 ENT.Faction_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.Faction_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,11 +106,11 @@ function ENT:CustomOnInitialize()
 	
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
 	self.Faction_WepBG = 2
-	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian_punk.mdl" then
+	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" or self:GetModel() == "models/vj_hlr/czeror/guerilla.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian_punk.mdl" then
 		self.Faction_Type = 0
 	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" or self:GetModel() == "models/vj_hlr/czeror/gsg9.mdl" then
 		self.Faction_Type = 1
-	elseif self:GetModel() == "models/vj_hlr/czeror/drug_lord.mdl" then
+	elseif self:GetModel() == "models/vj_hlr/czeror/drug_lord.mdl" or self:GetModel() == "models/vj_hlr/czeror/italian_vip.mdl" then
 		self.Faction_WepBG = 1
 		self.Faction_Type = 2
 	end
@@ -296,13 +296,79 @@ function ENT:CustomOnThink()
 			end
 		end
 		if self.Faction_Type == 2 then
-			if bgroup == 0 then -- M60
+			if bgroup == 0 and self:GetModel() == "models/vj_hlr/czeror/drug_lord.mdl" then -- M60
 				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_m60")
 				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
 				self.AnimTbl_WeaponAttack = {ACT_GESTURE_RANGE_ATTACK_HMG1}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_GESTURE_RANGE_ATTACK_HMG1}
 				self.Weapon_StartingAmmoAmount = 100
+			elseif bgroup == 0 then -- MP5
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_mp5")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 1 then -- XM1014
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_xm1014")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			elseif bgroup == 2 then -- M72 LAW
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_law")
+				self.AnimTbl_WeaponReload = {ACT_HL2MP_GESTURE_RELOAD_RPG}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK2}
+				self.AnimTbl_IdleStand = {ACT_IDLE_RPG}
+				self.AnimTbl_Walk = {ACT_IDLE_RPG}
+				self.AnimTbl_Run = {ACT_RUN_RPG}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
+				self.Weapon_StartingAmmoAmount = 1
+			elseif bgroup == 3 then -- AWM
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_awm")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+				self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_AR2}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 10
+			elseif bgroup == 4 then -- AK-47
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_ak47")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 5 then -- Glock-18
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_glock18")
+				self.AnimTbl_IdleStand = {ACT_IDLE_PISTOL}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_PISTOL}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 20
+			elseif bgroup == 6 then -- Machete (WIP, not sure how to implement this properly)
+				self.NoWeapon_UseScaredBehavior = false
+				self.MeleeAttackDamage = 35
+				self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK_SWING}
+			elseif bgroup == 7 then -- M60
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_m60")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_GESTURE_RANGE_ATTACK_HMG1}
+				self.Weapon_StartingAmmoAmount = 100
+			elseif bgroup == 8 then -- TMP
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_tmp")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_MP_ATTACK_STAND_PRIMARYFIRE}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_MP_ATTACK_CROUCH_PRIMARYFIRE}
+				self.Weapon_StartingAmmoAmount = 30
 			end
 		end
 	end
@@ -427,8 +493,10 @@ end
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	if self.Faction_Type == 0 then
 		self:SetBodygroup(self.Faction_WepBG,9)
-	elseif self.Faction_Type == 2 then
+	elseif self.Faction_Type == 2 and self:GetModel() == "models/vj_hlr/czeror/drug_lord.mdl" then
 		self:SetBodygroup(self.Faction_WepBG,1)
+	elseif self.Faction_Type == 2 and self:GetModel() == "models/vj_hlr/czeror/italian_vip.mdl" then
+		self:SetBodygroup(self.Faction_WepBG,9)
 	else
 		self:SetBodygroup(self.Faction_WepBG,8)
 	end

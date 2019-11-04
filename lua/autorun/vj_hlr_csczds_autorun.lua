@@ -27,6 +27,9 @@ if VJExists == true then
 		VJ.AddNPC("Kidotai","npc_vj_csczds_kidotai",vCat)
 		VJ.AddNPC("GSG-9","npc_vj_csczds_gsg9",vCat)
 		VJ.AddNPC("Moses Sepulveda","npc_vj_csczds_moses",vCat)
+		VJ.AddNPC("Guerilla Warfare","npc_vj_csczds_guerilla",vCat)
+		VJ.AddNPC("Hans Dietrich","npc_vj_csczds_italian",vCat)
+		VJ.AddNPC("Midwest Militia","npc_vj_csczds_militia",vCat)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
