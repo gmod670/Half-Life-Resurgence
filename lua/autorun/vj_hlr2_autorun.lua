@@ -72,12 +72,12 @@ if VJExists == true then
 
 		-- Resistance
 		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_hl2_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		-- VJ.AddNPC_HUMAN("Odessa Cubbage","npc_vj_hlr2_odesa",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
 		-- VJ.AddNPC_HUMAN("Citizen","npc_vj_hlr2_citizen",{},vCat)
 		-- VJ.AddNPC_HUMAN("Refugee","npc_vj_hlr2_refugee",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1"},vCat)
-		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
+		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_hl2_crossbow","weapon_vj_hl2_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
 		VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
 		-- VJ.AddNPC("Vortigaunt","npc_vj_hlr2_vort",vCat)
 		VJ.AddNPC("Lamarr","npc_vj_hlr2_lamarr",vCat)
@@ -112,6 +112,7 @@ if VJExists == true then
 		VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
 		VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hl2_alyxgun",false,vCat)
 		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
+		VJ.AddNPCWeapon("VJ_Crossbow","weapon_vj_hl2_crossbow",false,vCat)
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
