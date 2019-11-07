@@ -36,7 +36,7 @@ SWEP.PrimaryEffects_SpawnShells = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if (CLIENT) then return end
-	local SpawnBlaserRod = ents.Create("obj_vj_hlr2_crossbowbolt")
+	local SpawnBlaserRod = ents.Create("obj_vj_hl2r_crossbowbolt")
 	local OwnerPos = self:GetOwner():GetShootPos()
 	local OwnerAng = self:GetOwner():GetAimVector():Angle()
 	OwnerPos = OwnerPos + OwnerAng:Forward()*-20 + OwnerAng:Up()*-9 + OwnerAng:Right()*10
