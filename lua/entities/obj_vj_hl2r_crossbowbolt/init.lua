@@ -29,7 +29,7 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 		doactualdmg:SetInflictor(self)
 		doactualdmg:SetAttacker(self:GetOwner() || self)
 		if IsValid(data.HitEntity) then data.HitEntity:TakeDamageInfo(doactualdmg,self) end
-		if IsValid(data.HitEntity) && data.HitEntity:GetHullType() == HULL_TINY then data.HitEntity:Ignite(3) end
+		if IsValid(data.HitEntity) && data.HitEntity:IsNPC() && data.HitEntity:GetHullType() == HULL_TINY then data.HitEntity:Ignite(3) end
 	else
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/crossbow_bolt.mdl")
