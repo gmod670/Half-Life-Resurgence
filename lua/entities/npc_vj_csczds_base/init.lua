@@ -104,7 +104,7 @@ function ENT:CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {}
 	self.SoundTbl_Death = {}
 	
-	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+	self:SetCollisionBounds(Vector(15, 15, 68), Vector(-15, -15, 0))
 	self.Faction_WepBG = 2
 	if self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" or self:GetModel() == "models/vj_hlr/czeror/guerilla.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian.mdl" or self:GetModel() == "models/vj_hlr/czeror/asian_punk.mdl" then
 		self.Faction_Type = 0
