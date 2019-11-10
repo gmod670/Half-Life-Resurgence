@@ -12,6 +12,11 @@ ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
 ENT.SoundTbl_OnCollide = {"weapons/crossbow/hit1.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitializeBeforePhys()
+	self:PhysicsInitSphere(1, "metal_bouncy")
+	//construct.SetPhysProp(self:GetOwner(), self, 0, self:GetPhysicsObject(), {GravityToggle = false, Material = "metal_bouncy"})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetMass(1)
 	phys:EnableGravity(false)
