@@ -17,7 +17,7 @@ function ENT:Faction_CustomOnInitialize()
 	self.SoundTbl_LostEnemy = {"vj_hlr/czeror_npc/t/t_whereare_sp.wav","vj_hlr/czeror_npc/t/t_mustbewind_sp.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/czeror_npc/t/t_theretheya_sp.wav","vj_hlr/czeror_npc/t/t_shootthem_sp.wav","vj_hlr/czeror_npc/t/t_attack_sp.wav","vj_hlr/czeror_npc/t/t_diepig_sp.wav","vj_hlr/czeror_npc/t/t_gethim_sp.wav","vj_hlr/czeror_npc/t/t_intrudov_sp.wav","vj_hlr/czeror_npc/t/t_kilhim_sp.wav","vj_hlr/czeror_npc/t/t_killthemall_sp.wav"}
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/czeror_npc/t/t_grenade_sp.wav"}
-	self.SoundTbl_OnGrenadeSight = {"vj_hlr/czeror_npc/t/t_lookout_sp.wav","vj_hlr/czeror_npc/t/t_spn_sp.wav","vj_hlr/czeror_npc/t/t_takecov_sp.wav"}
+	self.SoundTbl_OnGrenadeSight = {"vj_hlr/czeror_npc/t/t_lookout_sp.wav","vj_hlr/czeror_npc/t/t_run_sp.wav","vj_hlr/czeror_npc/t/t_takecov_sp.wav"}
 	self.SoundTbl_OnKilledEnemy = {"vj_hlr/czeror_npc/t/t_gonnag_sp.wav","vj_hlr/czeror_npc/t/t_thatall_sp.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/czeror_npc/t/t_whathapp_sp.wav",}
 	self.SoundTbl_Pain = {"vj_hlr/czeror_npc/t/t_pain1_sp.wav","vj_hlr/czeror_npc/t/t_pain2_sp.wav","vj_hlr/czeror_npc/t/t_pain3_sp.wav","vj_hlr/czeror_npc/t/t_pain4_sp.wav","vj_hlr/czeror_npc/t/t_pain3_sp.wav"}
