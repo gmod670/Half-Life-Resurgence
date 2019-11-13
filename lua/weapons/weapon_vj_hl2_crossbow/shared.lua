@@ -62,7 +62,3 @@ function SWEP:NPC_ReloadWeapon()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
-	return true
-end
