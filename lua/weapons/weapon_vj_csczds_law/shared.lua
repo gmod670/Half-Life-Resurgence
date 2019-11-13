@@ -86,6 +86,7 @@ function SWEP:CustomOnPrimaryAttackEffects()
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomBulletSpawnPosition()
