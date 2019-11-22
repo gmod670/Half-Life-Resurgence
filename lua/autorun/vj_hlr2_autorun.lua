@@ -42,7 +42,7 @@ if VJExists == true then
 		-- VJ.AddNPC_HUMAN("Overwatch Elite (Beta)","npc_vj_hlr2b_com_elite",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		-- VJ.AddNPC_HUMAN("Civil Protection (Beta)","npc_vj_hlr2b_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Overwatch Guard","npc_vj_hlr2b_com_guard",vCat)
-		-- VJ.AddNPC("Overwatch Stalker (Beta)","npc_vj_hlr2b_com_stalker",vCat)
+		VJ.AddNPC("Overwatch Stalker (Beta)","npc_vj_hlr2b_com_stalker",vCat)
 		-- VJ.AddNPC("Overwatch Alien Assassin","npc_vj_hlr2b_com_alienassassin",vCat)
 		-- VJ.AddNPC("Overwatch Combot","npc_vj_hlr2b_com_combot",vCat)
 		-- VJ.AddNPC("Overwatch Shield Scanner (Beta)","npc_vj_hlr2b_com_scanner_shield",vCat)
@@ -64,8 +64,8 @@ if VJExists == true then
 		-- VJ.AddNPC("Overwatch Hunter Synth","npc_vj_hlr2_com_hunter",vCat)
 		-- VJ.AddNPC("Overwatch Strider Synth","npc_vj_hlr2_com_strider",vCat)
 		-- VJ.AddNPC("Overwatch Advisor","npc_vj_hlr2_com_advisor",vCat)
-		-- VJ.AddNPC("Overwatch Mortar Synth","npc_vj_hlr2_com_mortar",vCat)
-		-- VJ.AddNPC("Overwatch Crab Synth","npc_vj_hlr2_com_crab",vCat)
+		VJ.AddNPC("Overwatch Mortar Synth","npc_vj_hlr2_com_mortar",vCat)
+		VJ.AddNPC("Overwatch Crab Synth","npc_vj_hlr2_com_crab",vCat)
 		VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
 		VJ.AddCeilingNPC("Overwatch Ceiling Turret","npc_vj_hlr2_com_ceilingturret",vCat)
 		VJ.AddNPC("Overwatch Ion Cannon Turret","npc_vj_hlr2_com_ionturret",vCat)
@@ -102,6 +102,7 @@ if VJExists == true then
 			-- VJ.AddNPC("Poison Headcrab (Beta)","npc_vj_hlr2b_headcrab_poison",vCat)
 		
 		-- Wild Life
+		VJ.AddNPC("Leech","npc_vj_hlr2_leech",vCat)
 		VJ.AddNPC("Hydra","npc_vj_hlr2b_hydra",vCat)
 		VJ.AddNPC("Bullsquid","npc_vj_hlr2b_bullsquid",vCat)
 		VJ.AddNPC("Houndeye","npc_vj_hlr2b_houndeye",vCat)
@@ -126,6 +127,8 @@ if VJExists == true then
 	
 	VJ.AddConVar("vj_hl2r_rebel_h",50)
 	VJ.AddConVar("vj_hl2r_rebel_d",10)
+	
+	VJ.AddParticle("particles/aurora.pcf",{})
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

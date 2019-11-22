@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/Antlion.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/hl2/antlion_soldier.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 30
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,6 +81,10 @@ function ENT:Dig(forceRemove)
 		self.IsDigging = true
 		timer.Simple(0.02,function()
 			if IsValid(self) then
+				self:EmitSound("physics/concrete/concrete_break2.wav",80,100)
+				VJ_EmitSound(self,"npc/antlion/digup1.wav",75,100)
+				ParticleEffect("advisor_plat_break",self:GetPos(),self:GetAngles(),self)
+				ParticleEffect("strider_impale_ground",self:GetPos(),self:GetAngles(),self)
 				self:VJ_ACT_PLAYACTIVITY("digout",true,VJ_GetSequenceDuration(self,"digout"),false)
 				self.HasMeleeAttack = false
 				timer.Simple(0.15,function() if IsValid(self) then self:SetNoDraw(false) end end)
@@ -134,46 +138,38 @@ function ENT:CustomOnAlert()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
-	local key = ev
-	-- print(key)
-	if key == 76 || key == 58 then
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "melee" then
 		self.MeleeAttackDamage = self.DefaultDamage
 		self:MeleeAttackCode()
 	end
-	if key == 78 || key == 61 then
+	if key == "melee_pounce" then
 		self.MeleeAttackDamage = self.DefaultDamage *1.5
 		self:MeleeAttackCode()
 	end
-	if key == 75 || key == 56 then
+	if key == "step" || key == "step_light" then
 		self:FootStepSoundCode()
 	end
-	-- if key == 94 then
-		-- VJ_EmitSound(self,"npc/antlion/antlion_preburst_scream" .. math.random(1,2) .. ".wav",75,100)
-	-- end
-	-- if key == 95 then
-		-- VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
-	-- end
-	if key == 97 || key == 71 then
+	if key == "scream" then
+		VJ_EmitSound(self,"npc/antlion/antlion_preburst_scream" .. math.random(1,2) .. ".wav",75,100)
+	end
+	if key == "explode" then
+		VJ_EmitSound(self,"npc/antlion/antlion_burst" .. math.random(1,2) .. ".wav",75,100)
+	end
+	if key == "range" then
 		self:RangeAttackCode()
 	end
-	if key == 83 || key == 67 then
-		self:EmitSound("physics/concrete/concrete_break2.wav",80,100)
-		VJ_EmitSound(self,"npc/antlion/digup1.wav",75,100)
-		ParticleEffect("advisor_plat_break",self:GetPos(),self:GetAngles(),self)
-		ParticleEffect("strider_impale_ground",self:GetPos(),self:GetAngles(),self)
-	end
-	if key == 79 || key == 80 || key == 55 then
+	if key == "step_heavy" then
 		VJ_EmitSound(self,"npc/antlion/shell_impact" .. math.random(1,4) .. ".wav",75,100)
 	end
 	if key == 78 then
 		VJ_EmitSound(self,"npc/antlion/attack_double" .. math.random(1,3) .. ".wav",75,100)
 	end
-	if key == 85 || key == 62 then
+	if key == "on" then
 		self:SetBodygroup(1,1)
 		self.FlyLoop:Play()
 	end
-	if key == 86 || key == 63 then
+	if key == "off" then
 		self:SetBodygroup(1,0)
 		self.FlyLoop:Stop()
 		VJ_EmitSound(self,"npc/antlion/land1.wav",75,100)
