@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/Zombie/Fast.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/hl2/zombie_fast.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +52,60 @@ function ENT:CustomOnInitialize()
 	self:SetSkin(0)
 	self:SetBodygroup(1,1)
 	self:SetCollisionBounds(Vector(13,13,50), Vector(-13,-13,0))
+	self.IsSlumped = false
+	self.SlumpAnimation = VJ_PICK({"slump_a","slump_b"})
+	self.SlumpRise = (self.SlumpAnimation == "slump_a" && VJ_PICK({"slumprise_a","slumprise_c"})) or "slumprise_b"
+	if self.Slump then
+		self.IsSlumped = true
+		self.VJ_NoTarget = true
+		self.SoundTbl_Breath = {}
+		self.AnimTbl_IdleStand = {self.SlumpAnimation}
+		self.SightDistance = 140
+		self.SightAngle = 180
+		self.MovementType = VJ_MOVETYPE_STATIONARY
+		self.CanTurnWhileStationary = false
+		self.HasMeleeAttack = false
+		self.HasRangeAttack = false
+		self.HasLeapAttack = false
+		self.CanFlinch = 0
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:UnSlump()
+	self.IsSlumped = false
+	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self:VJ_ACT_PLAYACTIVITY("vjseq_" .. self.SlumpRise,true,false,false)
+	local animtime = self:SequenceDuration(self:LookupSequence(self.SlumpRise))
+	self.VJ_NoTarget = false
+	self:SetArrivalActivity(ACT_IDLE)
+	self.SoundTbl_Breath = {"npc/fast_zombie/breathe_loop1.wav"}
+	timer.Simple(animtime,function()
+		if IsValid(self) then
+			self:ResetSlump()
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if self.IsSlumped then
+		self:UnSlump()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+	if self.IsSlumped then
+		self:UnSlump()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:ResetSlump()
+	self.CanFlinch = 1
+	self.SightDistance = 10000
+	self.SightAngle = 80
+	self.MovementType = VJ_MOVETYPE_GROUND
+	self.HasMeleeAttack = true
+	self.HasRangeAttack = false
+	self.HasLeapAttack = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttackVelocityCode() self:SetGroundEntity(NULL) end

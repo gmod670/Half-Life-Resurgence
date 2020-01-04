@@ -47,6 +47,12 @@ function ENT:CustomOnInitialize()
 	self:Give("weapon_vj_hl2_csniper")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnPlayCreateSound(SoundData,SoundFile)
+	if VJ_HasValue(self.SoundTbl_Pain,SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,SoundFile) then return end
+	VJ_EmitSound(self,"npc/combine_soldier/vo/on"..math.random(1,2)..".wav")
+	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/combine_soldier/vo/off"..math.random(1,3)..".wav") end end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
 	if (dmginfo:IsBulletDamage()) then
 		local attacker = dmginfo:GetAttacker()

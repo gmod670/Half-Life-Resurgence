@@ -51,18 +51,7 @@ ENT.SoundTbl_Death = {
 	"npc/antlion/pain2.wav",
 }
 
-ENT.MaxJumpHeight = 1000
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:IsJumpLegal(startPos,apex,endPos)
-	local result = self:CustomOnIsJumpLegal(startPos,apex,endPos)
-	if result != nil then if result == true then self.JumpLegalLandingTime = CurTime() + (endPos:Distance(startPos) / 190) end return result end
-	local dist_apex = startPos:Distance(apex)
-	local dist_end = startPos:Distance(apex)
-	if dist_apex > self.MaxJumpHeight then return nil end
-	if dist_end > self.MaxJumpHeight then return nil end
-	self.JumpLegalLandingTime = CurTime() + (endPos:Distance(startPos) / 190)
-	return true
-end
+ENT.MaxJumpLegalDistance = VJ_Set(1000,1500)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:IsDirt(pos)
 	local tr = util.TraceLine({

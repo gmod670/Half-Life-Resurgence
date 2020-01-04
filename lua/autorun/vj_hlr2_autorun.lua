@@ -94,6 +94,11 @@ if VJExists == true then
 			VJ.AddNPC("Fast Headcrab","npc_vj_hlr2_headcrab_fast",vCat)
 			VJ.AddNPC("Poison Headcrab","npc_vj_hlr2_headcrab_poison",vCat)
 
+			VJ.AddNPC("Zombie (Slump)","npc_vj_hlr2_zombie_slump",vCat)
+			VJ.AddNPC("Fast Zombie (Slump)","npc_vj_hlr2_zombie_fast_slump",vCat)
+			VJ.AddNPC("Poison Zombie (Slump)","npc_vj_hlr2_zombie_poison_slump",vCat)
+			VJ.AddNPC("Zombine (Slump)","npc_vj_hlr2_zombine_slump",vCat)
+
 			-- VJ.AddNPC("Zombie (Beta)","npc_vj_hlr2b_zombie",vCat)
 			-- VJ.AddNPC("Zombie (E3)","npc_vj_hlr2b_zombie_fat",vCat)
 			-- VJ.AddNPC("Fast Zombie (Beta)","npc_vj_hlr2b_zombie_fast",vCat)

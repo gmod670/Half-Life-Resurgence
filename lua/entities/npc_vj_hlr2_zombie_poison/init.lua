@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/zombie/Poison.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/hl2/zombie_poison.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 250
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,10 +47,66 @@ function ENT:CustomOnInitialize()
 	self.BlackHeadcrabs = 3
 	self.NextThrowT = 0
 	self.CustomRunActivites = {self:VJ_LookupAnimationString("FireWalk")}
+	self.IsSlumped = false
+	self.SlumpAnimation = "slump_a"
+	self.SlumpRise = "slumprise_a"
+	if self.Slump then
+		self.IsSlumped = true
+		self.VJ_NoTarget = true
+		self.SoundTbl_Breath = {}
+		self.SoundTbl_Idle = {}
+		self.AnimTbl_IdleStand = {self.SlumpAnimation}
+		self.SightDistance = 140
+		self.SightAngle = 180
+		self.MovementType = VJ_MOVETYPE_STATIONARY
+		self.CanTurnWhileStationary = false
+		self.HasMeleeAttack = false
+		self.HasRangeAttack = false
+		self.HasLeapAttack = false
+		self.CanFlinch = 0
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:UnSlump()
+	self.IsSlumped = false
+	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self:VJ_ACT_PLAYACTIVITY("vjseq_" .. self.SlumpRise,true,false,false)
+	local animtime = self:SequenceDuration(self:LookupSequence(self.SlumpRise))
+	self.VJ_NoTarget = false
+	self:SetArrivalActivity(ACT_IDLE)
+	self.SoundTbl_Breath = {"npc/zombie_poison/pz_breathe_loop1.wav","npc/zombie_poison/pz_breathe_loop2.wav"}
+	self.SoundTbl_Idle = {"npc/zombie_poison/pz_idle2.wav","npc/zombie_poison/pz_idle3.wav","npc/zombie_poison/pz_idle4.wav"}
+	timer.Simple(animtime,function()
+		if IsValid(self) then
+			self:ResetSlump()
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if self.IsSlumped then
+		self:UnSlump()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+	if self.IsSlumped then
+		self:UnSlump()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:ResetSlump()
+	self.CanFlinch = 1
+	self.SightDistance = 10000
+	self.SightAngle = 80
+	self.MovementType = VJ_MOVETYPE_GROUND
+	self.HasMeleeAttack = true
+	self.HasRangeAttack = false
+	self.HasLeapAttack = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	self.CurrentBreathSound:Stop()
+	if self.CurrentBreathSound then self.CurrentBreathSound:Stop() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetHeadcrabCount()
@@ -105,6 +161,7 @@ function ENT:PoisonHeadcrabAttack(type)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.IsSlumped then return end
 	if self:GetHeadcrabCount() < 3 && self:GetHeadcrabCount() > 1 then
 		self:SetBodygroup(4,0)
 	elseif self:GetHeadcrabCount() < 2 && self:GetHeadcrabCount() > 0 then
