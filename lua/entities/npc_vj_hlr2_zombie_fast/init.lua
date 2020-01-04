@@ -105,7 +105,7 @@ function ENT:ResetSlump()
 	self.MovementType = VJ_MOVETYPE_GROUND
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false
-	self.HasLeapAttack = false
+	self.HasLeapAttack = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttackVelocityCode() self:SetGroundEntity(NULL) end
