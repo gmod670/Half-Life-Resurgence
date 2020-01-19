@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hlze/hgrunt.mdl"} -- The game will pick a random mod
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
@@ -56,6 +56,8 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav","vj_hlr/hl1_npc/hgrunt
 ENT.HECU_Type = 1
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
+ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
+ENT.WeaponAttackSecondaryTimeUntilFire = 1 -- The weapon uses this integer to set the time until the firing code is ran
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
@@ -80,10 +82,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
-	self.Run = false
-	if math.random(1,20) == 1 then
-		self.Run = true
-	end
+	-- self.Run = false
+	-- if math.random(1,20) == 1 then
+		-- self.Run = true
+	-- end
 	self.HECU_NextStrafeT = CurTime()
 	self.HECU_NextMouthMove = CurTime()
 	self:HECU_CustomOnInitialize()
@@ -120,7 +122,7 @@ function ENT:CustomOnThink()
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
 		self:SetSkin(2)
 	else
-		if self.Run then
+		if self:GetBodygroup(2) != 2 then
 			self.AnimTbl_Run = {ACT_SPRINT}
 			self.AnimTbl_ShootWhileMovingRun = {ACT_SPRINT}
 		else
@@ -210,11 +212,18 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if hitgroup == 3 then
+		dmginfo:ScaleDamage(0.5)
+		VJ_EmitSound(self,"vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",88,100)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(2,3)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

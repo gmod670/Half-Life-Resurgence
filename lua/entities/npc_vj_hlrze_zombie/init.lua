@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hlze/zombie.mdl"} -- The game will pick a random mod
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
@@ -21,7 +21,7 @@ ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-ENT.AnimTbl_Run = {ACT_WALK} -- Set the running animations | Put multiple to let the base pick a random animation when it moves
+-- ENT.AnimTbl_Run = {ACT_WALK} -- Set the running animations | Put multiple to let the base pick a random animation when it moves
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 //ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 	-- ====== Flinching Variables ====== --
@@ -50,29 +50,78 @@ ENT.BodyGroups = {
 	[0] = 0,
 	[1] = 0,
 }
+ENT.Crippled = false
+ENT.LegHealth = ENT.StartHealth /2
+ENT.NextRegenT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetBodygroup(0,self.BodyGroups[0])
 	self:SetBodygroup(1,self.BodyGroups[1])
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Cripple(crip)
+	self.Crippled = crip
+	if crip then
+		self:VJ_ACT_PLAYACTIVITY(ACT_DIESIMPLE,true,false,false)
+		self:SetHullType(HULL_WIDE_SHORT)
+		self:SetCollisionBounds(Vector(14,14,20),Vector(-14,-14,0))
+		self.AnimTbl_IdleStand = {ACT_COMBAT_IDLE}
+		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"limp_leg_walk")}
+		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"limp_leg_run")}
+		self.CanFlinch = 0
+		self.MaxJumpLegalDistance = VJ_Set(0,0)
+	else
+		self.LegHealth = 20
+		self:VJ_ACT_PLAYACTIVITY(ACT_ROLL_LEFT,true,false,false)
+		self:SetHullType(HULL_HUMAN)
+		self:SetCollisionBounds(Vector(18,18,66),Vector(-18,-18,0))
+		self.AnimTbl_IdleStand = {ACT_IDLE}
+		self.AnimTbl_Walk = {ACT_WALK}
+		self.AnimTbl_Run = {ACT_RUN}
+		self.CanFlinch = 1
+		self.MaxJumpLegalDistance = VJ_Set(400,550)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.Crippled && CurTime() > self.NextRegenT then
+		self:SetHealth(math.Clamp(self:Health() +5,1,self:GetMaxHealth()))
+		self.NextRegenT = CurTime() +10
+	end
+	if self.Crippled && self:Health() > self:GetMaxHealth() *0.65 then
+		self:Cripple(false)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()
 	end
 	if key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack both" then
 		self:MeleeAttackCode()
 	end
+	if key == "mattack right" or key == "mattack left" or key == "mattack both" then
+		self:MeleeAttackCode()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	if math.random(1,2) == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-		self.MeleeAttackDamage = 20
+	if self.Crippled then
+		if math.random(1,2) == 1 then
+			self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK2}
+			self.MeleeAttackDamage = 10
+		else
+			self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK2}
+			self.MeleeAttackDamage = 20
+		end
 	else
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-		self.MeleeAttackDamage = 40
+		if math.random(1,2) == 1 then
+			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+			self.MeleeAttackDamage = 20
+		else
+			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+			self.MeleeAttackDamage = 40
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,14 +171,24 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self.Crippled then return end
 	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
-		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE}
+		self.AnimTbl_Death = {ACT_DIEBACKWARD}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+	if hitgroup == 6 || hitgroup == 7 then
+		self.LegHealth = self.LegHealth -dmginfo:GetDamage()
+		if self.LegHealth <= 0 then
+			self:Cripple(true)
+		end
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

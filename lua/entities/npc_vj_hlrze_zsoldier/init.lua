@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -27,6 +27,9 @@ function ENT:CustomOnInitialize()
 	self:SetBodygroup(0,self.BodyGroups[0])
 	self:SetBodygroup(1,math.random(2,3))
 	self.GrenadePulled = false
+	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
+	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Explode()
@@ -46,6 +49,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GrenadeCode()
 	if self.GrenadePulled == true then return end
+	self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
+	self.AnimTbl_Run = {ACT_RUN_AGITATED}
+	self.AnimTbl_Walk = {ACT_RUN_AGITATED}
 	self.GrenadePulled = true
 	self.HasMeleeAttack = false
 	self:VJ_ACT_PLAYACTIVITY("arm_grenade",true,VJ_GetSequenceDuration(self,self:VJ_LookupAnimationString("arm_grenade")))
@@ -60,29 +66,7 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if hitgroup == 3 then
 		dmginfo:ScaleDamage(0.5)
-		VJ_EmitSound(self,"vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",85,100)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	-- if self.VJ_IsBeingControlled == false then
-		-- if self:Health() < 40 && IsValid(self:GetEnemy()) && math.random(1,10) == 1 && self:GetEnemy():GetPos():Distance(self:GetPos()) < 500 then
-			-- self:GrenadeCode()
-		-- end
-	-- else
-		-- if self:Health() < 40 && self.VJ_TheController:KeyDown(IN_ATTACK2) then
-			-- self.AnimTbl_IdleStand = {"Idle_Grenade"}
-			-- self:GrenadeCode()
-		-- end
-	-- end
-	if self.GrenadePulled == true then
-		self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
-		self.AnimTbl_Run = {ACT_RUN_AGITATED}
-		self.AnimTbl_Walk = {ACT_RUN_AGITATED}
-	else
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
-		self.AnimTbl_Run = {ACT_WALK_STIMULATED}
+		VJ_EmitSound(self,"vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",88,100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,7 +83,7 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
