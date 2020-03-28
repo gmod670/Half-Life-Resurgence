@@ -17,7 +17,7 @@ ENT.GibOnDeathDamagesTable = {"All"}
 ENT.CanFlinch = 1
 ENT.FlinchChance = 1
 ENT.HasDeathAnimation = true
-ENT.HasDeathRagdoll = false
+ENT.DeathAnimationTime = 0.58
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.Weapon_NoSpawnMenu = true
 ENT.DisableWeaponFiringGesture = true
@@ -121,10 +121,6 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self:SetBodygroup(0,1)
-	self:Fire("BecomeRagdoll","",0.71)
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

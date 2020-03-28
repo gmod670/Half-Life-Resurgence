@@ -16,6 +16,7 @@ ENT.LeapAttackDamageDistance = 100
 ENT.LeapAttackVelocityForward = 100
 ENT.LeapAttackVelocityUp = 150
 ENT.HasDeathAnimation = true
+ENT.DeathAnimationTime = 0.65
 ENT.UsesDamageForceOnDeath = false
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.SoundTbl_Alert = {"q1/dog/dsight.wav"}
@@ -72,10 +73,6 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self.HasDeathRagdoll = false
-	self:Fire("BecomeRagdoll","",0.53)
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
