@@ -137,6 +137,7 @@ function ENT:CreateGrenade()
 	grenent:Spawn()
 	grenent:Activate()
 	grenent:Input("SetTimer",self:GetOwner(),self:GetOwner(),3.5)
+	self.GrenadeTime = CurTime() +3.5
 	-- grenent.VJHumanTossingAway = true // Soldiers kept stealing their grenades xD
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +230,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 		end)
 	end
 
-	if self.GrenadePulled == true then
+	if self.GrenadePulled == true && CurTime() < self.GrenadeTime then
 		local grenent = ents.Create("npc_grenade_frag")
 		grenent:SetModel("models/Items/grenadeAmmo.mdl")
 		grenent:SetPos(self:GetAttachment(self:LookupAttachment("grenade_attachment")).Pos)

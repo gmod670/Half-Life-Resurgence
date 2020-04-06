@@ -87,6 +87,8 @@ ENT.SoundTbl_UnFollowPlayer = {
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(14,14,15), Vector(-14,-14,0))
 	self.CustomRunActivites = {self:VJ_LookupAnimationString("Scurry")}
+	self.PThrown = false
+	self.HasRunPThrownDMGCode = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
@@ -132,6 +134,7 @@ function ENT:OnThrown(enemy,owner)
 	timer.Simple(0.05,function()
 		if self:IsValid() then
 			self.CanAlertCrab = false
+			self.PThrown = true
 		end
 	end)
 	if owner.VJ_IsBeingControlled == false then
@@ -150,6 +153,40 @@ function ENT:OnThrown(enemy,owner)
 			self.CanAlertCrab = true
 		end
 	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTouch(v)
+	if self.PThrown && !self.HasRunPThrownDMGCode then
+		if (v:IsNPC() || (v:IsPlayer() && v:Alive())) && (self:Disposition(v) != D_LI) && (v != self) && (v:GetClass() != self:GetClass()) then
+			self.HasRunPThrownDMGCode = true
+			local leapdmg = DamageInfo()
+			leapdmg:SetDamage(10)
+			leapdmg:SetInflictor(self)
+			leapdmg:SetDamageType(DMG_SLASH)
+			leapdmg:SetAttacker(self)
+			if v:IsNPC() or v:IsPlayer() then leapdmg:SetDamageForce(self:GetForward()*((leapdmg:GetDamage()+100)*70)) end
+			v:TakeDamageInfo(leapdmg, self)
+			local poisondmg = DamageInfo()
+			poisondmg:SetDamage(v:Health() -1)
+			poisondmg:SetInflictor(self)
+			poisondmg:SetDamageType(self.LeapAttackDamageType)
+			poisondmg:SetAttacker(self)
+			if v:IsNPC() or v:IsPlayer() then poisondmg:SetDamageForce(self:GetForward()*((poisondmg:GetDamage()+100)*70)) end
+			v:TakeDamageInfo(poisondmg, self)
+			if v:IsPlayer() then
+				v:ViewPunch(Angle(math.random(-1,1)*self.LeapAttackDamage,math.random(-1,1)*self.LeapAttackDamage,math.random(-1,1)*self.LeapAttackDamage))
+			end
+			VJ_EmitSound(self,self.SoundTbl_LeapAttackDamage,75)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.PThrown && !self.HasRunPThrownDMGCode then
+		if self:IsOnGround() then
+			self.PThrown = false
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttackVelocityCode()
