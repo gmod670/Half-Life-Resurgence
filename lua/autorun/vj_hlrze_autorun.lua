@@ -16,6 +16,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 
 	local vCat = "Half-Life Resurgence: HLZE"
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hlze.png"})
 
 	VJ.AddNPC("Human Grunt","npc_vj_hlrze_hgrunt",vCat)
 	VJ.AddNPC("Barney","npc_vj_hlrze_barney",vCat)
