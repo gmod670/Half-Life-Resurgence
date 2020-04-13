@@ -15,7 +15,8 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
 	local vCat = "Half-Life Resurgence: HD"
-
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
+		
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt_hd",vCat)
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg_hd",vCat)
