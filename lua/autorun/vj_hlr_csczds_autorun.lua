@@ -15,7 +15,8 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
 	local vCat = "Half-Life Resurgence: CS:CZDS"
-
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/csczds.png"})
+		
 		-- Counter-Terrorist factions
 		VJ.AddNPC("GIGN","npc_vj_csczds_gign",vCat)
 		-- Terrorist factions
