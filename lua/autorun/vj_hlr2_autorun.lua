@@ -25,6 +25,8 @@ if VJExists == true then
 	
 	-- Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL2"
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl2.png"})
+		
 		-- Misc.
 		VJ.AddNPC("Mounted Turret","sent_vj_hlr2_mountedturret",vCat)
 		-- VJ.AddNPC("Suppression Device","sent_vj_hlr2_mortarturret",vCat)
