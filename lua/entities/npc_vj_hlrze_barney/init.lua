@@ -151,7 +151,7 @@ function ENT:Security_CustomOnInitialize()
 		"weapon_vj_hlze_spas12",
 		"weapon_vj_hlze_m16",
 	}
-	self:Give(VJ_PICKRANDOMTABLE(tbl))
+	self:Give(VJ_PICK(tbl))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
