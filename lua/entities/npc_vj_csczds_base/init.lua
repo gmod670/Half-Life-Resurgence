@@ -491,6 +491,12 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	if self.Faction_Type == 0 then
 		self:SetBodygroup(self.Faction_WepBG,9)
