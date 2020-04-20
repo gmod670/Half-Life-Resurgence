@@ -260,9 +260,9 @@ function ENT:LeapDamageCode()
 	end
  	if hitentity == false then
 		self:CustomOnLeapAttack_Miss()
-		self:LeapAttackDamageMissSoundCode()
+		self:PlaySound("LeapAttackDamageMiss", nil, VJ_EmitSound)
 	else
-		self:LeapAttackDamageSoundCode()
+		self:PlaySound("LeapAttackDamage")
 		if self.StopLeapAttackAfterFirstHit == true then self.AlreadyDoneLeapAttackFirstHit = true /*self:SetLocalVelocity(Vector(0,0,0))*/ end
 	end
 	if self.AlreadyDoneFirstLeapAttack == false && self.TimeUntilLeapAttackDamage != false then
