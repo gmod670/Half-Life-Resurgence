@@ -15,15 +15,15 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
 	local vCat = "Half-Life Resurgence: HD"
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1_hd.png"})
 		
 		-- HECU
-		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt_hd",vCat)
+		-- VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt_hd",vCat) // Not really needed since we have OpFor
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg_hd",vCat)
 			-- Opposing Force
-			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt_hd",vCat)
-			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med_hd",vCat)
-			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng_hd",vCat)
+			VJ.AddNPC("Human Grunt","npc_vj_hlrof_hgrunt_hd",vCat)
+			VJ.AddNPC("Human Grunt Medic","npc_vj_hlrof_hgrunt_med_hd",vCat)
+			VJ.AddNPC("Human Grunt Engineer","npc_vj_hlrof_hgrunt_eng_hd",vCat)
 		
 		-- Black Ops
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male_hd",vCat)
