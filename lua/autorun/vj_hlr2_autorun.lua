@@ -57,7 +57,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hlr2_com_prospekt_sg",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_hl2_stunstick","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Overwatch Assassin","npc_vj_hlr2b_com_assassin",vCat)
 		-- VJ.AddNPC("Overwatch Stalker","npc_vj_hlr2_com_stalker",vCat)
@@ -124,6 +124,7 @@ if VJExists == true then
 		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
 		VJ.AddNPCWeapon("VJ_Crossbow","weapon_vj_hl2_crossbow",false,vCat)
 		VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager",false,vCat)
+		VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hl2_stunstick",false,vCat)
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
