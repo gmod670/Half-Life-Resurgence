@@ -109,7 +109,7 @@ end
 
 function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity) 
 	local victim = TheHitEntity
-	if (victim:GetClass() == "npc_vj_hlrze_scientist" || "npc_vj_hlrze_barney" || "npc_vj_hlrze_hgrunt") && victim:Health() > 0 && victim:IsNPC() then
+	if (victim:GetClass() == "npc_vj_hlrze_scientist" || victim:GetClass() == "npc_vj_hlrze_barney" || victim:GetClass() == "npc_vj_hlrze_hgrunt") && victim:Health() > 0 && victim:IsNPC() then
 		victim.DeathAnimationTime = 60
 		victim.AnimTbl_Death = {"zombify_begin"}
 		victim.TurningSpeed = 0
