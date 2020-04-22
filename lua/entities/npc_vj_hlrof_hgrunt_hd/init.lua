@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/opfor_hd/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 
@@ -199,6 +199,8 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/death5.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/death6.wav"
 }
+ENT.HECU_Type = 1
+ENT.HECU_WepBG = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	if self.HECU_Type == 1 then
@@ -213,6 +215,10 @@ function ENT:HECU_CustomOnInitialize()
 			self:SetBodygroup(3,2)
 		end
 		
+		if self:GetBodygroup(1) == 2 then
+			self:SetBodygroup(3,1)
+		end
+		
 		-- Marminen hamar
 		if self:GetBodygroup(3) == 0 then
 			self:SetBodygroup(2,0) -- Barz zenk
@@ -220,6 +226,114 @@ function ENT:HECU_CustomOnInitialize()
 			self:SetBodygroup(2,3) -- bonebakshen
 		elseif self:GetBodygroup(3) == 2 then
 			self:SetBodygroup(2,1) -- Medz reshesh
+		end
+	end
+	self.AnimTbl_Run = {ACT_SPRINT}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	self:HECU_CustomOnThink()
+	-- Veravorvadz kalel
+	if self:Health() <= (self:GetMaxHealth() / 2.2) && self.HECU_Type != 6 && self.HECU_Type != 7 then
+		self.AnimTbl_Walk = {ACT_WALK_HURT}
+		self.AnimTbl_Run = {ACT_RUN_HURT}
+		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
+		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+	else
+		self.AnimTbl_Walk = {ACT_WALK}
+		self.AnimTbl_Run = {ACT_SPRINT}
+		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
+		self.AnimTbl_ShootWhileMovingRun = {ACT_SPRINT}
+	end
+	
+	local bgroup = self:GetBodygroup(self.HECU_WepBG)
+	if self.HGrunt_LastBodyGroup != bgroup then
+		self.HGrunt_LastBodyGroup = bgroup
+		if self.HECU_Type == 0 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 8
+			end
+		elseif self.HECU_Type == 1 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 8
+			elseif bgroup == 2 then -- SAW
+				self:DoChangeWeapon("weapon_vj_hlrof_m249")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			end
+		elseif self.HECU_Type == 2 then
+			if bgroup == 0 then -- Desert Eagle
+				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			elseif bgroup == 1 then -- Glock 17
+				self:DoChangeWeapon("weapon_vj_hlr1_glock17")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 17
+			end
+		elseif self.HECU_Type == 3 then
+			if bgroup == 0 then -- Desert Eagle
+				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			end
+		elseif self.HECU_Type == 4 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- M-40A1
+				self:DoChangeWeapon("weapon_vj_hlr1_m40a1")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 5
+			end
+		elseif self.HECU_Type == 5 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 5
+			end
+		elseif self.HECU_Type == 6 then
+			if bgroup == 0 then -- Colt Carbine
+				self:DoChangeWeapon("weapon_vj_hlr1a_coltcarbine")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1}
+				self.Weapon_StartingAmmoAmount = 50
+			end
+		elseif self.HECU_Type == 7 then
+			if bgroup == 0 then -- 20mm Cannon
+				self:DoChangeWeapon("weapon_vj_hlr1_20mm")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
+			end
 		end
 	end
 end
