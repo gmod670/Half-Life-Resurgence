@@ -6,15 +6,17 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.StartHealth = 90
+ENT.CanUseGrenade = false
+
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/zombie/zo_idle1.wav","vj_hlr/hl1_npc/zombie/zo_idle2.wav","vj_hlr/hl1_npc/zombie/zo_idle3.wav","vj_hlr/hl1_npc/zombie/zo_idle4.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav","vj_hlr/hl1_npc/zombie/zo_alert20.wav","vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/zombie/zo_attack1.wav","vj_hlr/hl1_npc/zombie/zo_attack2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav","vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav","vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav","vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
@@ -25,19 +27,21 @@ ENT.BodyGroups = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetBodygroup(0,self.BodyGroups[0])
-	self:SetBodygroup(1,math.random(2,3))
+	if self.CanUseGrenade then
+		self:SetBodygroup(1,3)
+	else self:SetBodygroup(1,2) end
 	self.GrenadePulled = false
-	self.AnimTbl_IdleStand = {ACT_IDLE}
-	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
-	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
+--	self.AnimTbl_IdleStand = {ACT_IDLE}
+--	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
+--	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Explode()
 	self.GrenadePulled = false
 	local grenent = ents.Create("obj_vj_grenade")
 	grenent:SetPos(self:GetPos() +self:OBBCenter())
-	grenent:SetOwner(self)
-	grenent:SetParent(self)
+	--grenent:SetOwner(self)
+	--grenent:SetParent(self)
 	grenent.FussTime = 0
 	grenent:Spawn()
 	grenent:Activate()
@@ -49,6 +53,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GrenadeCode()
 	if self.GrenadePulled == true then return end
+	if self.Crippled then return end
 	self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
 	self.AnimTbl_Run = {ACT_RUN_AGITATED}
 	self.AnimTbl_Walk = {ACT_RUN_AGITATED}
@@ -72,15 +77,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo,hitgroup)
 	if self.GrenadePulled == true then
+		self:SetBodygroup(2,0)
 		local grenent = ents.Create("obj_vj_grenade")
 		grenent:SetPos(self:GetPos() +self:OBBCenter())
-		grenent:SetOwner(self)
-		grenent:SetParent(self)
+		--grenent:SetOwner(self)
+		--grenent:SetParent(self)
 		grenent.FussTime = 1.5
 		grenent:Spawn()
 		grenent:Activate()
 		grenent.FussTime = 1.5
 	end
+end
+function ENT:CustomRangeAttackCode() 
+self:GrenadeCode()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

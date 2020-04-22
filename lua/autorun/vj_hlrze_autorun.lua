@@ -24,8 +24,10 @@ if VJExists == true then
 	VJ.AddNPC("Zombie","npc_vj_hlrze_zombie",vCat)
 	VJ.AddNPC("Zombie Barney","npc_vj_hlrze_zombie_barney",vCat)
 	VJ.AddNPC("Zombie Soldier","npc_vj_hlrze_zsoldier",vCat)
+	VJ.AddNPC("Zombie Soldier (Grenade)","npc_vj_hlrze_zsoldier_grenade",vCat)
 	VJ.AddNPC("Zombie Male Assasin","npc_vj_hlrze_zmassassin",vCat)
 	VJ.AddNPC("Zombie Female Assassin","npc_vj_hlrze_zfassassin",vCat)
+	VJ.AddNPC("Zombie Gordon","npc_vj_hlrze_zombie_hev",vCat)
 	VJ.AddNPC("Zombie Crasher","npc_vj_hlrze_zcrasher",vCat)
 	VJ.AddNPC("Headcrab","npc_vj_hlrze_headcrab",vCat)
 	

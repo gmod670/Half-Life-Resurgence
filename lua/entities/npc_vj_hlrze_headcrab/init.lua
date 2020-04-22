@@ -102,6 +102,51 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
 end
+
+function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor) 
+--print(argent)
+end
+
+function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity) 
+	local victim = TheHitEntity
+	if (victim:GetClass() == "npc_vj_hlrze_scientist" || "npc_vj_hlrze_barney" || "npc_vj_hlrze_hgrunt") && victim:Health() > 0 && victim:IsNPC() then
+		victim.DeathAnimationTime = 60
+		victim.AnimTbl_Death = {"zombify_begin"}
+		victim.TurningSpeed = 0
+		victim:EmitSound("vj_hlr/hl1_npc/headcrab/hc_headbite.wav")
+		self:Remove()
+		local newzombietype = ""
+		local zombiespawnoffset = 50
+		local zombifycontinuetime = 3.01
+		victim:TakeDamage(1000,self,self)
+		victim.VJ_NPC_Class = {"CLASS_NONE"}
+		victim.BringFriendsOnDeath = false
+		local fakedamage = DamageInfo()
+		fakedamage:SetDamage(0)
+		fakedamage:SetAttacker(victim)
+		fakedamage:SetDamageType(DMG_GENERIC) 
+		
+		if victim:GetClass() == "npc_vj_hlrze_barney" then victim:SetSkin(1) victim:CreateGibEntity("prop_physics","models/vj_hlr/hlze/barney_helmet.mdl",{Pos=victim:GetPos() + victim:GetUp() * 50}) victim:GetActiveWeapon():SetClip1(victim:GetActiveWeapon().Primary.ClipSize) victim:DropWeaponOnDeathCode(fakedamage,1) else victim:SetSkin(2) end
+		if victim:GetClass() == "npc_vj_hlrze_scientist" then victim:SetBodygroup(1,4) victim.IsMedicSNPC = false newzombietype = "npc_vj_hlrze_zombie" end
+		if victim:GetClass() == "npc_vj_hlrze_barney" then victim:SetBodygroup(2,2) victim:SetBodygroup(1,2) newzombietype = "npc_vj_hlrze_zombie_barney" end
+		if victim:GetClass() == "npc_vj_hlrze_hgrunt" then victim:SetBodygroup(2,3) zombifycontinuetime = 1.61 zombiespawnoffset = 30
+			if victim:GetBodygroup(1) == 0 then victim:SetBodygroup(1,5) newzombietype = "npc_vj_hlrze_zsoldier_grenade" else victim:SetBodygroup(1,4) newzombietype = "npc_vj_hlrze_zsoldier" end end
+		--timer.Simple(3,function() if victim:IsValid() then victim:VJ_ACT_PLAYACTIVITY("zombify_continues",true,29.5,false) end end)
+		timer.Simple(1,function() if victim:IsValid() then victim.MovementType = VJ_MOVETYPE_STATIONARY victim.CanTurnWhileStationary = false end end)
+		timer.Simple(zombifycontinuetime,function() if victim:IsValid() then victim:VJ_ACT_PLAYACTIVITY("zombify_continues",true,29.5,false) end end)
+		timer.Simple(29.5,function() if victim:IsValid() then
+			newzombie = ents.Create(newzombietype)
+			newzombie:SetPos(victim:GetPos() + victim:GetForward() * zombiespawnoffset)
+			newzombie:SetAngles(victim:GetAngles())
+			newzombie:SetColor(victim:GetColor())
+			newzombie:SetMaterial(victim:GetMaterial())
+			newzombie:Spawn()
+			newzombie:VJ_ACT_PLAYACTIVITY("getup",true,1,false)
+			victim:Remove()
+		end end)
+	end
+end
+
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

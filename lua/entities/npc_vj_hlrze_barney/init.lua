@@ -14,11 +14,12 @@ ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all ot
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
 ENT.HasCallForHelpAnimation = false -- if true, it will play the call for help animation
+ENT.HasShootWhileMoving = false -- Can it shoot while moving?
 ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shooting while running | NOTE: Weapon may translate the animation that they see fit!
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
@@ -146,12 +147,13 @@ function ENT:Security_CustomOnInitialize()
 	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
 	
 	local tbl = {
-		"weapon_vj_hlze_beretta",
-		"weapon_vj_hlze_beretta",
-		"weapon_vj_hlze_spas12",
-		"weapon_vj_hlze_m16",
+		"weapon_vj_hlrze_beretta",
+		"weapon_vj_hlrze_beretta",
+		"weapon_vj_hlrze_spas12",
+		"weapon_vj_hlrze_m16",
 	}
-	self:Give(VJ_PICK(tbl))
+--	self:Give(VJ_PICK(tbl))
+	self:Give("weapon_vj_hlrze_beretta")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -204,14 +206,14 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 then
 		if self.Security_Type == 0 then
 			if argent:GetClass() == "npc_vj_hlr1_bullsquid" then
-				self:PlaySound("Alert", {"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
+				self:AlertSoundCode({"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			elseif argent.IsVJBaseSNPC_Creature == true then
-				self:PlaySound("Alert", {"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
+				self:AlertSoundCode({"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			end
 		elseif self.Security_Type == 1 && argent.IsVJBaseSNPC_Creature == true then
-			self:PlaySound("Alert", {"vj_hlr/hl1_npc/otis/aliens.wav"})
+			self:AlertSoundCode({"vj_hlr/hl1_npc/otis/aliens.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
 	end
@@ -242,7 +244,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if self.Security_GunHolstered == true && IsValid(self:GetEnemy()) then
 		self:Security_UnHolsterGun()
-	elseif self.Security_GunHolstered == false && !IsValid(self:GetEnemy()) && self.TimeSinceLastSeenEnemy > 5 && self.IsReloadingWeapon == false then
+	elseif self.Security_GunHolstered == false && !IsValid(self:GetEnemy()) && self.TimeSinceLastSeenEnemy > 5 && self.IsReloadingWeapon == false && self:Health() > 0 then
 		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM,true,false,true)
 		self.Security_GunHolstered = true
 		timer.Simple(1.5,function() if IsValid(self) then self:SetBodygroup(1,0) end end)
@@ -301,12 +303,6 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		-- timer.Simple(0.01,function() if IsValid(self) then self.Bleeds = true end end)
 		VJ_EmitSound(self,"vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",88,100)
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
-	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)

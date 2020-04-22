@@ -53,6 +53,7 @@ ENT.BodyGroups = {
 ENT.Crippled = false
 ENT.LegHealth = ENT.StartHealth /2
 ENT.NextRegenT = CurTime()
+ENT.IsHEVZombie = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetBodygroup(0,self.BodyGroups[0])
@@ -175,18 +176,51 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
-		self.AnimTbl_Death = {ACT_DIEBACKWARD}
+		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIESIMPLE}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-	if hitgroup == 6 || hitgroup == 7 then
+	if !self.Crippled then
+		if hitgroup == 6 then
+			self.AnimTbl_Walk = {ACT_STRAFE_LEFT}
+			self.AnimTbl_Run = {ACT_STRAFE_LEFT}
+		end
+		if hitgroup == 7 then
+			self.AnimTbl_Walk = {ACT_STRAFE_RIGHT}
+			self.AnimTbl_Run = {ACT_STRAFE_RIGHT}
+		end
+		if self:Health() < 10 && self:Health() > 0 && hitgroup != 1 then
+			local headcrabdropchance = math.random(0,4)
+			if headcrabdropchance == 3 then
+				self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+				self:Dropheadcrab()
+				self:TakeDamage(100,self,self)
+			end
+		end
+	end
+	if (hitgroup == 6 || hitgroup == 7) && !self.Crippled then
 		self.LegHealth = self.LegHealth -dmginfo:GetDamage()
 		if self.LegHealth <= 0 then
 			self:Cripple(true)
 		end
 	end
 end
+
+function ENT:Dropheadcrab()
+local headcrab = ents.Create("npc_vj_hlrze_headcrab")
+headcrab:SetPos(self:GetPos() + Vector(0,0,60))
+headcrab:SetAngles(self:GetAngles()) 
+headcrab:Spawn()
+if self.CanUseGrenade == true then self:SetBodygroup(0,3) end
+
+if self.IsHEVZombie == true then 
+	self:SetBodygroup(1,1)
+else self:SetBodygroup(1,4)
+end
+
+end
+
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

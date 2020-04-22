@@ -176,7 +176,7 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/scientist/youinsane.wav","vj_hlr/hl1_npc/scientist/whatyoudoing.wav","vj_hlr/hl1_npc/scientist/please.wav","vj_hlr/hl1_npc/scientist/c3a2_sci_fool.wav","vj_hlr/hl1_npc/scientist/c1a3_sci_team.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stayback.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/scientist/scream5.wav","vj_hlr/hl1_npc/scientist/scream21.wav","vj_hlr/hl1_npc/scientist/sci_die1.wav","vj_hlr/hl1_npc/scientist/sci_die2.wav","vj_hlr/hl1_npc/scientist/sci_die3.wav","vj_hlr/hl1_npc/scientist/sci_die4.wav","vj_hlr/hl1_npc/scientist/sci_dragoff.wav"}
 	
-	local randbg = math.random(0,4)
+	local randbg = math.random(0,3)
 	self:SetBodygroup(1,randbg)
 	if randbg == 2 && self.SCI_Type == 0 then
 		self:SetSkin(1)
@@ -221,7 +221,7 @@ function ENT:CustomOnAlert(argent)
 	if self.SCI_Type != 2 && self.SCI_Type != 3 then
 		if math.random(1,2) == 1 then
 			if argent:GetClass() == "npc_vj_hlr1_headcrab" or argent:GetClass() == "npc_vj_hlr1_headcrab_baby" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
-				self:PlaySound("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
+				self:AlertSoundCode({"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			end
 		end

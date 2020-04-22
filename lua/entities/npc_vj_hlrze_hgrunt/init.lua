@@ -72,12 +72,16 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert1.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover1.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
 
-	self:SetSkin(math.random(0,1))
-	local randhead = math.random(0,3)
-	self:SetBodygroup(1,randhead)
-	if randhead == 1 then self:SetSkin(0) end
-	if randhead == 3 then self:SetSkin(1) end
-	self:SetBodygroup(2,math.random(0,2))
+	local randomskin = (math.random(0,3))
+	if randomskin < 3 then self:SetSkin(0) else self:SetSkin(1) end
+	local randhead = math.random(0,5)
+	if randhead == 4 then self:SetBodygroup(1,1) self:SetSkin(0) end --commander
+	if randhead == 5 then self:SetBodygroup(1,3) self:SetSkin(1) end --grenader
+	local randweapon = math.random(0,5)
+	if randweapon == 4 then self:SetBodygroup(2,1) if randhead != 4 then self:SetBodygroup(1,2) end end --shotgunner
+	if randweapon == 5 && randhead < 5 then self:SetBodygroup(2,2) end --SAW gunner
+	
+	--self:SetBodygroup(2,math.random(0,2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
