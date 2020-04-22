@@ -29,8 +29,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/mp5/mp5_distant_fuckme2.wav"}
+SWEP.Primary.Sound				= {"vj_hlr/hl1hd_weapon/m16/hks1.wav","vj_hlr/hl1hd_weapon/m16/hks2.wav","vj_hlr/hl1hd_weapon/m16/hks3.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/hl1hd_weapon/m16/hks_distant.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 SWEP.PrimaryEffects_SpawnShells = false
