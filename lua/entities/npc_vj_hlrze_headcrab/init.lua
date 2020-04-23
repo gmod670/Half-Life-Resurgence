@@ -118,6 +118,7 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 		local newzombietype = ""
 		local zombiespawnoffset = 50
 		local zombifycontinuetime = 3.01
+		local zombiespawnlocation = victim:GetPos()
 		victim:TakeDamage(1000,self,self)
 		victim.VJ_NPC_Class = {"CLASS_NONE"}
 		victim.BringFriendsOnDeath = false
@@ -134,16 +135,37 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 		--timer.Simple(3,function() if victim:IsValid() then victim:VJ_ACT_PLAYACTIVITY("zombify_continues",true,29.5,false) end end)
 		timer.Simple(1,function() if victim:IsValid() then victim.MovementType = VJ_MOVETYPE_STATIONARY victim.CanTurnWhileStationary = false end end)
 		timer.Simple(zombifycontinuetime,function() if victim:IsValid() then victim:VJ_ACT_PLAYACTIVITY("zombify_continues",true,29.5,false) end end)
-		timer.Simple(29.5,function() if victim:IsValid() then
+		timer.Simple(29.3,function() if victim:IsValid() then
+			local tr = util.TraceHull{ -- make a trace
+				start = victim:GetPos() + victim:GetUp() * 5,
+				endpos = victim:GetPos() + victim:GetUp() * 5 + victim:GetForward() * zombiespawnoffset,
+				mins = victim:GetCollisionBounds().mins,
+				maxs = victim:GetCollisionBounds().maxs,
+				ignoreworld = false, -- scan the world
+				filter = {victim} -- dont detect the victim
+			}
+			
+			if tr.Hit then
+				zombiespawnlocation = tr.HitPos + victim:GetForward() * -14
+			else zombiespawnlocation = victim:GetPos() + victim:GetForward() * zombiespawnoffset
+			end
+			
 			newzombie = ents.Create(newzombietype)
-			newzombie:SetPos(victim:GetPos() + victim:GetForward() * zombiespawnoffset)
+			newzombie:SetPos(zombiespawnlocation)
 			newzombie:SetAngles(victim:GetAngles())
 			newzombie:SetColor(victim:GetColor())
 			newzombie:SetMaterial(victim:GetMaterial())
 			newzombie:Spawn()
 			newzombie:VJ_ACT_PLAYACTIVITY("getup",true,1,false)
-			victim:Remove()
+			newzombie:AddEffects( 32 )
+			
 		end end)
+		timer.Simple(29.5,function()
+			newzombie:SetPos(zombiespawnlocation)
+			newzombie:VJ_ACT_PLAYACTIVITY("getup",true,1,false)
+			newzombie:RemoveEffects( 32 )
+			if victim:IsValid() then victim:Remove() end
+		end)
 	end
 end
 
