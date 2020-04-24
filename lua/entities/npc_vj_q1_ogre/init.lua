@@ -17,16 +17,16 @@ ENT.GibOnDeathDamagesTable = {"All"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.RangeAttackEntityToSpawn = "obj_vj_q1_grenade"
 ENT.HasRangeAttack = true
-ENT.RangeDistance = 800
+ENT.RangeDistance = 900
 ENT.RangeToMeleeDistance = 200
-ENT.RangeAttackPos_Up = 60
+ENT.RangeAttackPos_Up = 75
 ENT.RangeAttackAnimationDelay = 0.01
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.DisableFootStepOnRun = true
 ENT.NextAnyAttackTime_Melee = 1.29
 ENT.MeleeAttackDamage = 15
-ENT.RangeAttackPos_Right = -35
+ENT.RangeAttackPos_Right = -5
 ENT.MeleeAttackExtraTimers = {0.5}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanFlinch = 1
