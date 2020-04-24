@@ -15,6 +15,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 
 	local vCat = "Quake 1" -- Category
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/quake.png"})
 	
 	VJ.AddNPC("Fiend","npc_vj_q1_demon",vCat)
 	VJ.AddNPC("Rottweiler","npc_vj_q1_dog",vCat)

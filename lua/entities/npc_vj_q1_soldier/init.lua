@@ -10,6 +10,7 @@ ENT.Model = "models/quake1/soldier.mdl"
 ENT.HullType = HULL_HUMAN
 ENT.StartHealth = GetConVarNumber("vj_q1_grunt_h")
 ENT.BloodColor = "Red"
+ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
@@ -99,8 +100,10 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	self:SetBodygroup(0,1)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 	if self.Backpack_SpawnEnt == true then
 		self.Backpack = ents.Create("q1_backpack")
 		self.Backpack:SetPos(self:GetPos() + self:GetUp()*30)
@@ -113,11 +116,6 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		else
 			self.Backpack.AmmoType = "Q1Cells"
 		end
-	end
-	if self:Health() <= -35 then
-		return
-	else
-		self:Fire("BecomeRagdoll","",0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

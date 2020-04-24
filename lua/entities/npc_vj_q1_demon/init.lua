@@ -12,6 +12,7 @@ ENT.HullType = HULL_MEDIUM
 ENT.UsesBoneAngle = true
 ENT.StartHealth = GetConVarNumber("vj_q1_demon_h")
 ENT.BloodColor = "Red"
+ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false
 --ENT.RangeAttackAngleRadius = 60

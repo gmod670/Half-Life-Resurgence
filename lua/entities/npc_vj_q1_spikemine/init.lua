@@ -10,12 +10,14 @@ ENT.StartHealth = GetConVarNumber("vj_q1_spikemine_h")
 ENT.VJ_NPC_Class = {"CLASS_QUAKE1"}
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.BloodColor = "Red"
+ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
 ENT.Aerial_FlyingSpeed_Calm = 80
 ENT.Aerial_FlyingSpeed_Alerted = 350
+ENT.MeleeAttackDistance = 1
 ENT.SoundTbl_Breath = {"q1/spikemine/spikmine.wav"}
 ENT.CallForHelp = false
-ENT.HasBreathSound = false
+ENT.HasBreathSound = true
 ENT.BreathSoundLevel = 65
 ENT.DisableWandering = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,10 +39,9 @@ function ENT:CustomOnThink_AIEnabled()
 		if !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60))) && dist > 5 then
 			// Rush the player if not looking
 			self.Aerial_FlyingSpeed_Alerted = 800
-			self.HasBreathSound = true
 		else
 			self.Aerial_FlyingSpeed_Alerted = 350
-			self.HasBreathSound = true
+
 		end
 	else
 		self.Aerial_FlyingSpeed_Alerted = 350
