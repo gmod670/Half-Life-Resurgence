@@ -51,6 +51,7 @@ ENT.SoundTbl_FootStep = { "q1/ogre/ogdrag.wav" }
 ENT.MeleeAttackDamageDistance = 120
 -- Custom
 ENT.Backpack_SpawnEnt = true
+ENT.SpawnGarbage = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	--self:SetModelScale( 1.35, 0.1 ) 
@@ -75,6 +76,18 @@ end
 --]]
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:SetBodygroup(0,1)
+	self:SpawnBackpack()
+	self:SpawnGarbageShit()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+	self:SetBodygroup(0,1)
+	self:SpawnBackpack()
+	self:SpawnGarbageShit()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SpawnBackpack()
 	if self.Backpack_SpawnEnt == true then
 		self.Backpack = ents.Create("q1_backpack")
 		self.Backpack:SetPos(self:GetPos() + self:GetUp()*30)
@@ -83,10 +96,16 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.Backpack:Activate()
 		self.Backpack.Amount = 2
 		self.Backpack.AmmoType = "Q1Rockets"
+		self.Backpack_SpawnEnt = false
 	end
-	self:SetBodygroup(0,1)
-	self:CreateGibEntity("obj_vj_gib","models/quake1/ogre_gl.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,35,30)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/quake1/ogre_chainsaw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,-30,30)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SpawnGarbageShit()
+	if self.SpawnGarbage == true then
+		self:CreateGibEntity("obj_vj_gib","models/quake1/ogre_gl.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,35,30)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/quake1/ogre_chainsaw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,-30,30)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self.SpawnGarbage = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

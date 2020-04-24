@@ -100,10 +100,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:SetBodygroup(0,1)
-	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+function ENT:SpawnBackpack()
 	if self.Backpack_SpawnEnt == true then
 		self.Backpack = ents.Create("q1_backpack")
 		self.Backpack:SetPos(self:GetPos() + self:GetUp()*30)
@@ -116,7 +113,20 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		else
 			self.Backpack.AmmoType = "Q1Cells"
 		end
+		self.Backpack_SpawnEnt = false
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+	self:SetBodygroup(0,1)
+	self:SpawnBackpack()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:SetBodygroup(0,1)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:SpawnBackpack()
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------
