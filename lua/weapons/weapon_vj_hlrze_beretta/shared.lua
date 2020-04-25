@@ -21,34 +21,43 @@ SWEP.AdminSpawnable				= false
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(0,180,-90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,-5.5,-1)
+SWEP.WorldModel_CustomPositionOrigin = Vector(3,-20,-4)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 17 -- Max amount of bullets per clip
+SWEP.Primary.Automatic			= false -- Is it automatic?
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/glock/glock_distant.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hlze/barney.mdl","models/vj_hlr/hlze/scientist.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
+
+
 function SWEP:CustomOnInitialize()
-	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self.Owner) then
-			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+	timer.Simple(0.1,function()
+		if IsValid(self) && IsValid(self:GetOwner()) then
+			
+			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
+			else
+				self.NPC_NextPrimaryFire = false
+				
 			end
 		end
 	end)
 end
+---------
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
-	if IsValid(self.Owner) then
+	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
 	else
@@ -76,4 +85,5 @@ function SWEP:CustomOnPrimaryAttackEffects()
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
+	return true
 end

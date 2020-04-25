@@ -171,7 +171,7 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 				victim:VJ_ACT_PLAYACTIVITY("zombify_continues",true,false,false)
 			end
 		end)
-		timer.Simple(VJ_GetSequenceDuration(victim,"zombify_continues"),function() -- 29.3
+		timer.Simple(30,function() -- Overridden to 30 seconds because Barney's infection animation loops instead of lasting a long time.
 			if IsValid(victim) then
 				local tr = util.TraceHull{
 					start = victim:GetPos() +victim:GetUp() *5,

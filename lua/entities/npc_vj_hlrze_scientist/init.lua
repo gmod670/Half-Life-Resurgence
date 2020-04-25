@@ -36,6 +36,12 @@ ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 
+ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
+ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
+ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
+--ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
+ENT.AnimTbl_LostWeaponSight = {ACT_IDLE} -- The animations that it will play if the variable above is set to true
+
 /*
 -- Can't move, unfollow
 "vj_hlr/hl1_npc/scientist/dangerous.wav"
@@ -155,6 +161,17 @@ function ENT:CustomOnInitialize()
 		self.SCI_Type = 3
 	end
 	self:SCI_CustomOnInitialize()
+	
+	--self:Give("weapon_vj_hlrze_beretta")
+	if IsValid(self:GetActiveWeapon()) then 
+		self.Behavior = VJ_BEHAVIOR_AGGRESSIVE
+		self.IsMedicSNPC = false
+		self.DisableWeapons = false
+		self:SetBodygroup(3,1)
+		ENT.AnimTbl_IdleStand = {"beretta_idle"}
+		ENT.AnimTbl_Walk = {"vjseq_beretta_walk"}
+		ENT.AnimTbl_Run = {"vjseq_beretta_run"}
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
@@ -199,18 +216,26 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "holster" then
 		self:SetBodygroup(2,0)
 	end
+	if key == "fire" then
+		local wep = self:GetActiveWeapon()
+		if IsValid(wep) then
+			wep:NPCShoot_Primary(ShootPos,ShootDir)
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal()
-	self:VJ_ACT_PLAYACTIVITY("pull_needle",true,VJ_GetSequenceDuration(self,"pull_needle") + 0.1,false,0,{},function(vsched)
-		vsched.RunCode_OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched)
-				vsched.RunCode_OnFinish = function()
-					self:VJ_ACT_PLAYACTIVITY("return_needle",true,false)
-				end
-			end)
-		end
-	end)
+	if self:Health() > 0 then
+		self:VJ_ACT_PLAYACTIVITY("pull_needle",true,VJ_GetSequenceDuration(self,"pull_needle") + 0.1,false,0,{},function(vsched)
+			vsched.RunCode_OnFinish = function()
+				if self:Health() > 0 then self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched)
+					vsched.RunCode_OnFinish = function()
+						if self:Health() > 0 then self:VJ_ACT_PLAYACTIVITY("return_needle",true,false)
+					end end
+				end) end
+			end
+		end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_OnReset()
@@ -232,7 +257,7 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetEnemy()) && self.SCI_Type != 3 then
+	if IsValid(self:GetEnemy()) && self.SCI_Type != 3 && self.Behavior == VJ_BEHAVIOR_PASSIVE then
 		self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
 		if self.SCI_Type != 2 then
@@ -267,6 +292,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	self:SetBodygroup(2,0)
+end
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+	self:SetBodygroup(3,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
