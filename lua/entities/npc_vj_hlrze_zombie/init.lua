@@ -52,7 +52,7 @@ ENT.BodyGroups = {
 	[1] = 0,
 }
 ENT.Crippled = false
-ENT.LegHealth = ENT.StartHealth /2
+ENT.LegHealth = ENT.StartHealth /6
 ENT.NextRegenT = CurTime()
 ENT.IsHEVZombie = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
