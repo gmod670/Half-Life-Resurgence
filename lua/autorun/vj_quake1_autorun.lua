@@ -25,7 +25,7 @@ if VJExists == true then
 	--VJ.AddNPC("Death Knight","npc_vj_q1_hknight",vCat)
 	VJ.AddNPC("Ogre","npc_vj_q1_ogre",vCat)
 	--VJ.AddNPC("Ogre Marksman","npc_vj_q1_ogrem",vCat)
-	--VJ.AddNPC("Knight","npc_vj_q1_knight",vCat)
+	VJ.AddNPC("Knight","npc_vj_q1_knight",vCat)
 	--VJ.AddNPC("Shub-Niggurath","npc_vj_q1_oldone",vCat)
 	--VJ.AddNPC("Vore","npc_vj_q1_shalrath",vCat)
 	--VJ.AddNPC("Shambler","npc_vj_q1_shambler",vCat)

@@ -41,7 +41,7 @@ ENT.RadiusDamageType = DMG_BLAST -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
 ENT.OnCollideSoundPitch1 = 100
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
-ENT.SoundTbl_OnCollide = {"q1/weapons/bounce.wav"}
+--ENT.SoundTbl_OnCollide = {"q1/weapons/bounce.wav"}
 
 -- Custom
 ENT.FussTime = 2.5
@@ -59,6 +59,8 @@ function ENT:CustomOnInitialize()
 	//timer.Simple(self:GetOwner().GrenadeAttackFussTime,function() if IsValid(self) then self:DeathEffects() end end) else
 	timer.Simple(self.FussTime,function() if IsValid(self) then self:DeathEffects() end end)
 	self:SetAngles(Angle(math.Rand(-180,180),math.Rand(-180,180),math.Rand(-180,180)))
+	local phys = self:GetPhysicsObject()
+	phys:AddAngleVelocity(Vector(500,500,500))
 	util.SpriteTrail( self, 0, Color( 100, 100, 100 ), true, 10, 8, 0.4, 1 / 128, "vj_hl/sprites/q1/qsmoke.vmt" )
 	//end
 end
@@ -78,8 +80,9 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 	//if velocityspeed > 500 then -- Or else it will go flying!
 		//phys:SetVelocity(getvelocity * 0.9)
 	//end
-		self:OnCollideSoundCode()
-	
+		--self:OnCollideSoundCode()
+	--phys:AddAngleVelocity(Vector(500,500,500))
+	self:EmitSound("q1/weapons/bounce.wav")
 	local ent = data.HitEntity
 	if IsValid(ent) then
 		if ent:IsNPC() or ent:IsPlayer() then
