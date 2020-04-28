@@ -149,7 +149,6 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 			victim:SetBodygroup(1,4)
 			victim.IsMedicSNPC = false
 		elseif victim:GetClass() == "npc_vj_hlrze_hgrunt" then
-			victim:SetBodygroup(1,4)
 			victim:SetBodygroup(2,3)
 			zAnimT = 1.61
 			zOffset = 30
@@ -157,6 +156,7 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 			if victim:GetBodygroup(1) == 0 then
 				victim:SetBodygroup(1,5)
 				zClass = "npc_vj_hlrze_zsoldier_grenade"
+			else victim:SetBodygroup(1,4) zClass = "npc_vj_hlrze_zsoldier"
 			end
 		end
 
