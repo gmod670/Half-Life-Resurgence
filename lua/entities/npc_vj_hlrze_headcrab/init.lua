@@ -136,7 +136,7 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 		fakedamage:SetDamage(0)
 		fakedamage:SetAttacker(victim)
 		fakedamage:SetDamageType(DMG_GENERIC) 
-
+		victim.AnimTbl_WeaponAttack = {"zombify_continues"} 
 		if victim:GetClass() == "npc_vj_hlrze_barney" then
 			victim:SetSkin(1)
 			victim:CreateGibEntity("prop_physics","models/vj_hlr/hlze/barney_helmet.mdl",{Pos=victim:GetPos() + victim:GetUp() * 50})
