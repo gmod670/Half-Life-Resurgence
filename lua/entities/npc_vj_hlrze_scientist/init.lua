@@ -36,6 +36,8 @@ ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 
+ENT.AnimTbl_WeaponAttack = {ACT_IDLE} -- Animation played when the SNPC does weapon attack
+ENT.AnimTbl_AlertFriendsOnDeath = {ACT_IDLE} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
