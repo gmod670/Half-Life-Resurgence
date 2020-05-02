@@ -16,7 +16,7 @@ SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (Af
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_shotgun.mdl"
+SWEP.WorldModel					= "models/vj_hlr/hlze/weapons/spas12.mdl"
 SWEP.HoldType 					= "shotgun"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false

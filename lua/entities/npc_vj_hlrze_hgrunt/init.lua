@@ -164,6 +164,11 @@ function ENT:CustomOnThink()
 			self.Weapon_StartingAmmoAmount = 50
 		end
 	end
+	
+	if self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyPressed(IN_DUCK) then
+		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
+		print(self.VJ_TheControllerEntity.LastPressedKey)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_MouthCode()
@@ -225,6 +230,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(2,3)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("CROUCH: Strafe")
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

@@ -123,6 +123,10 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 		victim.AnimTbl_Death = {"zombify_begin"}
 		victim.TurningSpeed = 0
 		VJ_EmitSound(victim,"vj_hlr/hl1_npc/headcrab/hc_headbite.wav")
+		--if self.VJ_IsBeingControlled == true then
+			--self.VJ_TheControllerEntity:SetControlledNPC(victim)
+			--self.VJ_TheControllerEntity:StartControlling()
+		--end
 		SafeRemoveEntity(self)
 
 		local zClass = "npc_vj_hlrze_zombie"

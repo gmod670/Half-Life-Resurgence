@@ -220,6 +220,30 @@ if self.IsHEVZombie == true then
 else self:SetBodygroup(1,4)
 end
 
+if self.VJ_IsBeingControlled == true then
+	self.VJ_TheControllerEntity:SetControlledNPC(headcrab)
+	self.VJ_TheControllerEntity:StartControlling()
+end
+		
+end
+
+function ENT:CustomAttackCheck_LeapAttack()
+	if self.VJ_IsBeingControlled == true then
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self:Dropheadcrab()
+		self:TakeDamage(100,self,self)
+	end
+	return false
+end
+
+function ENT:Controller_Initialize(ply) 
+	self.HasLeapAttack = true
+--self.DisableLeapAttackAnimation = true
+--self.LeapAttackUseCustomVelocity = true
+end
+
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("JUMP: Detach Headcrab")
 end
 
 /*-----------------------------------------------

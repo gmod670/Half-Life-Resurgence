@@ -19,3 +19,7 @@ ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hlze/zombie/zo_nade_attack1.wav","vj_h
 ENT.SoundTbl_Pain = {"vj_hlr/hlze/zombie/zo_nade_pain1.wav","vj_hlr/hlze/zombie/zo_nade_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hlze/zombie/zo_nade_pain1.wav","vj_hlr/hlze/zombie/zo_nade_pain2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hlze/zombie/zombie_nade_arm1.wav","vj_hlr/hlze/zombie/zombie_nade_arm2.wav","vj_hlr/hlze/zombie/zombie_nade_arm3.wav"}
+
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("JUMP: Detach Headcrab | MOUSE2: Arm Grenade")
+end
