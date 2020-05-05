@@ -67,7 +67,7 @@ if VJExists == true then
 		VJ.AddNPC("Overwatch Hunter Synth","npc_vj_hlr2_com_hunter",vCat)
 		-- VJ.AddNPC("Overwatch APC","npc_vj_hlr2_com_apc",vCat)
 		-- VJ.AddNPC("Overwatch Strider Synth","npc_vj_hlr2_com_strider",vCat)
-		-- VJ.AddNPC("Overwatch Advisor","npc_vj_hlr2_com_advisor",vCat)
+		VJ.AddNPC("Overwatch Advisor","npc_vj_hlr2_com_advisor",vCat)
 		VJ.AddNPC("Overwatch Mortar Synth","npc_vj_hlr2_com_mortar",vCat)
 		VJ.AddNPC("Overwatch Crab Synth","npc_vj_hlr2_com_crab",vCat)
 		VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
@@ -139,7 +139,13 @@ if VJExists == true then
 	VJ.AddConVar("vj_hl2r_rebel_h",50)
 	VJ.AddConVar("vj_hl2r_rebel_d",10)
 	
-	VJ.AddParticle("particles/aurora.pcf",{})
+	VJ.AddParticle("particles/advisor.pcf",{})
+	VJ.AddParticle("particles/advisor_fx.pcf",{})
+	VJ.AddParticle("particles/electrical_fx.pcf",{}) -- Reager
+	VJ.AddParticle("particles/hunter_flechette.pcf",{})
+	VJ.AddParticle("particles/hunter_projectile.pcf",{})
+	VJ.AddParticle("particles/hunter_shield_impact.pcf",{})
+	VJ.AddParticle("particles/warpshield.pcf",{})
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

@@ -106,6 +106,6 @@ function SWEP:CustomOnRemove()
 	if IsValid(self.Owner) && self.Owner:IsNPC() then
 		self.Owner.Weapon_FiringDistanceFar = self.OldFireDistance
 	end
-	self.Loop:Stop()
-	self.LoopB:Stop()
+	if self.Loop then self.Loop:Stop() end
+	if self.LoopB then self.LoopB:Stop() end
 end
