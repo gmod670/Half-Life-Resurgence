@@ -9,6 +9,7 @@ ENT.Model = {} -- The game will pick a random model from the table when the SNPC
 ENT.StartHealth = GetConVarNumber("vj_hl2r_rebel_h")
 ENT.HullType = HULL_HUMAN
 ENT.DisableWeapons = true -- ?
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
 ---------------------------------------------------------------------------------------------------------------------------------------------
