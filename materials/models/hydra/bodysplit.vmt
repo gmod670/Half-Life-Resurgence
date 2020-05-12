@@ -3,33 +3,36 @@
 	"$basetexture" "models/hydra/bodysplit"
 	"$additive" "1"
 	"$bumpmap" 	"models/hydra/bodysplit_n"
-	//$emissiveBlendEnabled 1
-    //$emissiveBlendTexture    "dev/null"
-    //$emissiveBlendBaseTexture    "models/hydra/bodysplit_g"
-    //$emissiveBlendFlowTexture    "dev/null"
-    //$emissiveBlendTint "[0 0.5 0.7]"
-    //$emissiveBlendStrength 1
-    //$emissiveBlendScrollVector "[0 0]"
+
+	"$emissiveBlendEnabled" "1"
+	"$emissiveBlendTexture" "models/hydra/detail"
+	"$emissiveBlendBaseTexture" "models/hydra/emissive"
+	"$emissiveBlendFlowTexture" "models/hydra/goo"
+	"$emissiveBlendTint" "[0 0.5 0.7]"
+	"$emissiveBlendStrength" "1"
+	"$emissiveBlendScrollVector" "[-0.15 -0.01]"
 
 	"$selfillum" 1
-	$selfillummask "models/hydra/bodysplit_g"
+	"$selfillummask" "models/hydra/bodysplit_g"
 
 	"Proxies"
 	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" "0.05"
+			"texturescrollangle" "-90"
+		}
 		"Sine"
 		{
 			"resultVar"	"$selfillumtint"
-			"sineperiod"	2
-			"sinemin"	0.1
-			"sinemax"	4
+			"sineperiod" "2"
+			"sinemin" "0.1"
+			"sinemax" "4"
 		}
 	}
 
 	"$nodecal" 1
-	"$phong"     "1"
-	"$phongexponent"   "20"
-	"$phongboost"   "6"
-	"$phongfresnelranges"   "[.1 1 1]"
 	"$rimlight" "1"
 	"$rimlightexponent" "5"
 	"$rimlightboost" "5"

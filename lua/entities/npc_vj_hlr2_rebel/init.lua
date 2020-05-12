@@ -386,11 +386,17 @@ ENT.SoundTbl_Death = {
 	"vo/npc/male01/pain08.wav",
 	"vo/npc/male01/pain09.wav"
 }
+
+ENT.HLR_HL2_MyTurret = NULL
+ENT.HLR_HL2_PlacingTurret = false
+ENT.HLR_HL2_NextTurretT = CurTime() +2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
+	self.IsEngineer = math.random(1,15) == 1
 	if math.random(1,5) == 1 then
 		self.Model = {"models/Humans/Group03m/Male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 		self.IsMedicSNPC = true
+		self.IsEngineer = false
 	else
 		self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_05.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl","models/Humans/Group03/male_08.mdl","models/Humans/Group03/male_09.mdl"}
 	end
@@ -398,6 +404,52 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if !self.IsEngineer then return end
+	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HLR_HL2_NextTurretT < CurTime() && self.HLR_HL2_PlacingTurret == false && !IsValid(self.HLR_HL2_MyTurret) && math.random(1,10) == 1 then
+		self.HLR_HL2_NextTurretT = CurTime() +30
+		self.HLR_HL2_PlacingTurret = true
+		self:VJ_ACT_PLAYACTIVITY("vjseq_ThrowItem",true,false,true) // gunrack
+		timer.Simple(1.2,function()
+			if IsValid(self) && !IsValid(self.HLR_HL2_MyTurret) then
+				self.HLR_HL2_MyTurret = ents.Create("npc_vj_hlr2_turret")
+				self.HLR_HL2_MyTurret:SetPos(self:GetPos() +self:GetForward() *50)
+				self.HLR_HL2_MyTurret:SetAngles(self:GetAngles())
+				self.HLR_HL2_MyTurret:Spawn()
+				self.HLR_HL2_MyTurret:Activate()
+				self.HLR_HL2_MyTurret.VJ_NPC_Class = table.Merge(self.HLR_HL2_MyTurret.VJ_NPC_Class,self.VJ_NPC_Class)
+				self.HLR_HL2_PlacingTurret = false
+				self.HLR_HL2_MyTurret.DisableFindEnemy = true
+				VJ_EmitSound(self.HLR_HL2_MyTurret,"npc/roller/blade_cut.wav",75,100)
+				local turret = self.HLR_HL2_MyTurret
+				undo.Create(self:GetName() .. "'s Turret")
+					undo.AddEntity(turret)
+					undo.SetPlayer(self:GetCreator() or Entity(1))
+				undo.Finish()
+				timer.Simple(1,function()
+					if IsValid(turret) then
+						turret.DisableFindEnemy = false
+						VJ_EmitSound(turret,"npc/roller/remote_yes.wav",80,100)
+
+						local glow = ents.Create("env_sprite")
+						glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+						glow:SetKeyValue("scale","0.125")
+						glow:SetKeyValue("rendermode","5")
+						glow:SetKeyValue("rendercolor","0 255 63")
+						glow:SetKeyValue("spawnflags","1") -- If animated
+						glow:SetParent(turret)
+						glow:Fire("SetParentAttachment",turret.Turret_AlarmAttachment,0)
+						glow:Spawn()
+						glow:Activate()
+						glow:Fire("Kill","",0.1)
+						turret:DeleteOnRemove(glow)
+					end
+				end)
+			end
+		end)
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

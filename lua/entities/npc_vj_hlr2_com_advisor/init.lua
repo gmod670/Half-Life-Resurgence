@@ -41,10 +41,13 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl2_npc/advisor/pain.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl2_npc/advisor/advisor_scream.wav"}
 
 ENT.BreathSoundLevel = 50
+
+util.AddNetworkString("VJ_HLR_AdvisorScreenFX")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(38,38,30), Vector(-38,-38,-30))
 	
+	self.NextScreenBlastT = CurTime() +math.Rand(3,8)
 	self.NextSearchForEntitiesT = 0
 	self.tbl_HeldEntities = {}
 	
@@ -88,6 +91,15 @@ function ENT:GrabEntity(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if CurTime() > self.NextScreenBlastT && math.random(1,20) == 1 then
+		for _,v in pairs(player.GetAll()) do
+			net.Start("VJ_HLR_AdvisorScreenFX")
+				net.WriteEntity(v)
+				net.WriteFloat(v:GetPos():Distance(self:GetPos()))
+			net.Send(v)
+		end
+		self.NextScreenBlastT = CurTime() +math.Rand(1,10)
+	end
 	-- if IsValid(self:GetEnemy()) then
 		if CurTime() > self.NextSearchForEntitiesT then
 			for _,v in ipairs(ents.FindInSphere(self:GetPos(),750)) do
@@ -112,7 +124,9 @@ end
 function ENT:CustomOnRemove()
 	if #self.tbl_HeldEntities > 0 then
 		for _,v in ipairs(self.tbl_HeldEntities) do
-			v:GetPhysicsObject():EnableGravity(true)
+			if IsValid(v) then
+				v:GetPhysicsObject():EnableGravity(true)
+			end
 		end
 	end
 end

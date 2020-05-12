@@ -12,6 +12,10 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all other player allies that are running on VJ Base?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
+ENT.HealthRegenerationAmount = 2 -- How much should the health increase after every delay?
+ENT.HealthRegenerationDelay = VJ_Set(1,1) -- How much time until the health increases
+ENT.HealthRegenerationResetOnDmg = false -- Should the delay reset when it receives damage?
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
@@ -110,24 +114,8 @@ ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_no02.wav",
 	"vo/npc/barney/ba_ohshit03.wav",
 }
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-	self.NextRegen = CurTime()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RegenerateHealth()
-	if CurTime() > self.NextRegen then
-		local setHealth = math.Clamp(self:Health() +1,0,self:GetMaxHealth())
-		if setHealth > self:Health() then
-			self:SetHealth(setHealth)
-			self.NextRegen = CurTime() +0.1
-		end
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	self:RegenerateHealth()
-end
+
+ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})

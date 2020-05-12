@@ -15,7 +15,8 @@ if (CLIENT) then
 	SWEP.UseHands					= true
 end
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 0.05 -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire 		= 0.95 -- Next time it can use primary fire
+SWEP.NPC_TimeUntilFireExtraTimers = {0.08,0.16,0.24,0.32,0.4}
 SWEP.NPC_CustomSpread	 		= 0.4 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -25,7 +26,7 @@ SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 7 -- Damage
+SWEP.Primary.Damage				= 6 -- Damage
 SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Delay				= 0.1 -- Time until it can shoot again
 SWEP.Primary.Ammo				= "Pistol" -- Ammo type

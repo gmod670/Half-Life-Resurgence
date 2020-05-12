@@ -75,7 +75,7 @@ if VJExists == true then
 		VJ.AddNPC("Overwatch Ion Cannon Turret","npc_vj_hlr2_com_ionturret",vCat)
 
 		-- Resistance
-		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hlr2_alyx",{"weapon_vj_hl2_alyxgun"},vCat)
 		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_hl2_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		-- VJ.AddNPC_HUMAN("Odessa Cubbage","npc_vj_hlr2_odesa",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
@@ -139,6 +139,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_hl2r_rebel_h",50)
 	VJ.AddConVar("vj_hl2r_rebel_d",10)
 	
+	VJ.AddParticle("particles/aurora.pcf",{})
 	VJ.AddParticle("particles/advisor.pcf",{})
 	VJ.AddParticle("particles/advisor_fx.pcf",{})
 	VJ.AddParticle("particles/electrical_fx.pcf",{}) -- Reager
