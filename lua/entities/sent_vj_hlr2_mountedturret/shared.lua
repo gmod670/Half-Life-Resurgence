@@ -164,7 +164,7 @@ if (SERVER) then
 		self.TargetPos = self:GetPos() +self:GetForward() *-50
 		self.HandlePos = self:GetPos() +self:GetForward() *-40 +self:GetUp() *-31
 		if !IsValid(self.Operator) then
-			self:WeaponAimPoseParameters(true)
+			self:DoPoseParameterLooking(true)
 			if !IsValid(self.PullingOperator) then
 				for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
 					if v:IsNPC() && v:Visible(self) && v.IsVJBaseSNPC then
@@ -203,7 +203,7 @@ if (SERVER) then
 					end
 				end
 			end
-			self:WeaponAimPoseParameters()
+			self:DoPoseParameterLooking()
 		end
 		self:NextThink(CurTime()+(0.069696968793869+FrameTime()))
 		return true
@@ -264,7 +264,7 @@ if (SERVER) then
 		end
 	end
 
-	function ENT:WeaponAimPoseParameters(ResetPoses)
+	function ENT:DoPoseParameterLooking(ResetPoses)
 		if !IsValid(self.Operator) then return end
 		ResetPoses = ResetPoses or false
 		//self:VJ_GetAllPoseParameters(true)
