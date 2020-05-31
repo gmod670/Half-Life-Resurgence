@@ -81,7 +81,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
 		VJ.AddNPC_HUMAN("Citizen","npc_vj_hlr2_citizen",{},vCat)
 		VJ.AddNPC_HUMAN("Refugee","npc_vj_hlr2_refugee",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1"},vCat)
-		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_crossbow","weapon_vj_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
+		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_ssg08","weapon_vj_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
 		VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
 		-- VJ.AddNPC("Vortigaunt","npc_vj_hlr2_vort",vCat)
 		VJ.AddNPC("Lamarr","npc_vj_hlr2_lamarr",vCat)

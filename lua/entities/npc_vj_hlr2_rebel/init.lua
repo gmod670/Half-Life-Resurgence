@@ -405,6 +405,7 @@ end
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
 end
+/* -- Disable for now
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if !self.IsEngineer then return end
@@ -450,7 +451,7 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 		end)
 	end
-end
+end*/
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

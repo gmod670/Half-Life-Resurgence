@@ -244,7 +244,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SpawnBloodParticles(dmginfo,hitgroup)
 	if hitgroup == HITGROUP_HEAD then
-		local p_name = VJ_PICK(self.CurrentChoosenBlood_Particle)
+		local p_name = VJ_PICK(self.CustomBlood_Particle)
 		if p_name == false then return end
 		
 		local dmg_pos = dmginfo:GetDamagePosition()
